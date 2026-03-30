@@ -23,7 +23,6 @@ export default function DashboardPage() {
   const [ingredientsInput, setIngredientsInput] = useState("");
   const [scanResult, setScanResult] = useState<any | null>(null);
   const [scanError, setScanError] = useState<string | null>(null);
-  const [testScore, setTestScore] = useState<any>(null);
   const [scoredProducts, setScoredProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const ingredientCategoryMap: Record<string, string> = {
@@ -40,6 +39,7 @@ export default function DashboardPage() {
   };
   const handleScanClick = async () => {
     setScanError(null);
+    setScoredProducts([]);
     if (!imageFile) {
       setScanError("Molimo učitajte sliku kože prije analize.");
       alert("Molimo učitajte sliku kože prije analize.");
@@ -96,7 +96,13 @@ export default function DashboardPage() {
       }));
 
       const productScores = normalizedProducts.map((product: any) => {
-        const normalizedIngredients = (product.ingredients || []).map((ingredient: string) => {
+        const rawIngredients = product.ingredients;
+        const safeIngredients = Array.isArray(rawIngredients)
+          ? rawIngredients
+          : typeof rawIngredients === "string"
+            ? rawIngredients.split(",").map((i: string) => i.trim()).filter(Boolean)
+            : [];
+        const normalizedIngredients = safeIngredients.map((ingredient: string) => {
           const normalizedIngredientName = ingredient.toLowerCase().trim();
           return {
             name: normalizedIngredientName,
@@ -104,7 +110,7 @@ export default function DashboardPage() {
             concerns: ingredientConcernMap[normalizedIngredientName] || [],
           };
         });
-        const scoreResult = scoreProduct(candidateIngredients, normalizedIngredients);
+        const scoreResult = scoreProduct(candidateIngredients, [normalizedIngredients]);
         const productIngredientNames = new Set(normalizedIngredients.map((ingredient: { name: string; category: string; concerns: string[] }) => ingredient.name));
         const matchedIngredients = candidateIngredients
           .filter((ingredient) => productIngredientNames.has(ingredient.name))
@@ -130,23 +136,13 @@ export default function DashboardPage() {
         "medical_disclaimer" in data
       ) {
         setScanResult(data);
-        const productsIngredientsForScoring = normalizedProducts.map((product: any) =>
-          (product.ingredients || []).map((ingredient: string) => {
-            const normalizedIngredientName = ingredient.toLowerCase().trim();
-            return {
-              name: normalizedIngredientName,
-              category: ingredientCategoryMap[normalizedIngredientName] || "unknown",
-              concerns: ingredientConcernMap[normalizedIngredientName] || [],
-            };
-          })
-        );
-        const testResult = scoreProduct(candidateIngredients, productsIngredientsForScoring);
-        setTestScore(testResult);
       } else {
         console.error("INVALID API RESPONSE SHAPE");
       }
     } catch (error) {
       setScanError("Došlo je do greške tijekom analize. Pokušajte ponovno.");
+      setScanResult(null);
+      setScoredProducts([]);
       console.error("SCAN ERROR:", error);
       alert("Something went wrong. Please try again.");
     } finally {
