@@ -285,9 +285,6 @@ export default function DashboardPage() {
               ) : null}
             </div>
           ) : null}
-          {testScore && !isLoading && (
-            <pre>{JSON.stringify(testScore, null, 2)}</pre>
-          )}
           <div>
             <h3>Scored Products</h3>
             {scoredProducts.length === 0 ? (
