@@ -140,7 +140,17 @@ Instruction:
         ].slice(0, 5);
       }
     }
-    return Response.json(parsedAiResponse);
+    const normalizedResponse = {
+      intro: typeof (parsedAiResponse as any).intro === "string" ? (parsedAiResponse as any).intro : "",
+      assessment: Array.isArray((parsedAiResponse as any).assessment) ? (parsedAiResponse as any).assessment : ["Analysis generated"],
+      top5: Array.isArray((parsedAiResponse as any).top5) ? (parsedAiResponse as any).top5 : [],
+      next_steps: Array.isArray((parsedAiResponse as any).next_steps) ? (parsedAiResponse as any).next_steps : ["Review results in dashboard"],
+      confidence: ["low", "medium", "high"].includes((parsedAiResponse as any).confidence) ? (parsedAiResponse as any).confidence : "low",
+      medical_disclaimer: typeof (parsedAiResponse as any).medical_disclaimer === "string"
+        ? (parsedAiResponse as any).medical_disclaimer
+        : "This is an educational cosmetic analysis, not a medical diagnosis."
+    };
+    return Response.json(normalizedResponse);
   } catch {}
   const aiIntro = aiText;
   const aiAssessment = ["Analysis generated"];
