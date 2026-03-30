@@ -113,6 +113,7 @@ Instruction:
     const userIngredients = typeof ingredients === "string"
       ? ingredients.split(",").map((i: string) => i.trim().toLowerCase()).filter(Boolean)
       : [];
+    let fallbackApplied = false;
     if (
       userIngredients.length >= 3 &&
       parsedAiResponse &&
@@ -127,6 +128,7 @@ Instruction:
       console.log("USER INGREDIENTS:", userIngredients);
       console.log("TOP5 TITLES:", (parsedAiResponse as any).top5?.map((item: any) => item.title));
       if (userIngredients.length >= 3 && matchCount < 3) {
+        fallbackApplied = true;
         const enforcedItems = userIngredients.slice(0, 3).map((ingredient: string) => ({
           title: `${ingredient} support`,
           why: `This recommendation is based directly on the ingredient you listed: ${ingredient}. It may be relevant to the cosmetic concerns described by the user.`,
@@ -157,7 +159,11 @@ Instruction:
         : [],
       top5_count: Array.isArray(normalizedResponse.top5)
         ? normalizedResponse.top5.length
-        : 0
+        : 0,
+      fallback_applied: fallbackApplied,
+      top5_titles_text: Array.isArray(normalizedResponse.top5)
+        ? normalizedResponse.top5.map((item: any) => item.title).join(" | ")
+        : ""
     };
     console.log("FINAL RESPONSE INTRO:", normalizedResponse.intro);
     console.log("FINAL RESPONSE TOP5 TITLES:", normalizedResponse.top5?.map((item: any) => item.title));
