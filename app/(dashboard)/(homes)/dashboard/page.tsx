@@ -88,25 +88,31 @@ export default function DashboardPage() {
         .split(",")
         .map((i) => i.trim().toLowerCase())
         .filter(Boolean);
-      const normalizedUserIngredients = userIngredients.map((i: string) =>
-        i.toLowerCase().trim()
-      );
+      const normalizedUserIngredients = userIngredients.map((i: string) => i.toLowerCase().trim());
+      const candidateIngredients = normalizedUserIngredients.map((name) => ({
+        name,
+        category: ingredientCategoryMap[name] || "unknown",
+        concerns: ingredientConcernMap[name] || [],
+      }));
 
       const productScores = normalizedProducts.map((product: any) => {
-        let score = 0;
-        const matchedIngredients: string[] = [];
-        const productIngredients = product.ingredients || [];
-        productIngredients.forEach((ingredient: string) => {
-          if (normalizedUserIngredients.includes(ingredient.toLowerCase().trim())) {
-            score += 2;
-            matchedIngredients.push(ingredient);
-          }
+        const normalizedIngredients = (product.ingredients || []).map((ingredient: string) => {
+          const normalizedIngredientName = ingredient.toLowerCase().trim();
+          return {
+            name: normalizedIngredientName,
+            category: ingredientCategoryMap[normalizedIngredientName] || "unknown",
+            concerns: ingredientConcernMap[normalizedIngredientName] || [],
+          };
         });
-        const uniqueMatchedIngredients = Array.from(new Set(matchedIngredients));
+        const scoreResult = scoreProduct(candidateIngredients, normalizedIngredients);
+        const productIngredientNames = new Set(normalizedIngredients.map((ingredient) => ingredient.name));
+        const matchedIngredients = candidateIngredients
+          .filter((ingredient) => productIngredientNames.has(ingredient.name))
+          .map((ingredient) => ingredient.name);
         return {
           ...product,
-          score,
-          matchedIngredients: uniqueMatchedIngredients,
+          score: scoreResult.totalOverlap,
+          matchedIngredients,
         };
       });
       const sortedScoredProducts = [...productScores].sort((a, b) => b.score - a.score);
@@ -124,15 +130,6 @@ export default function DashboardPage() {
         "medical_disclaimer" in data
       ) {
         setScanResult(data);
-        const parsedIngredients = ingredientsInput
-          .split(",")
-          .map((i) => i.trim().toLowerCase())
-          .filter((i) => i.length > 0);
-        const candidateIngredients = parsedIngredients.map((name) => ({
-          name,
-          category: ingredientCategoryMap[name] || "unknown",
-          concerns: ingredientConcernMap[name] || [],
-        }));
         const productsIngredientsForScoring = normalizedProducts.map((product: any) =>
           (product.ingredients || []).map((ingredient: string) => {
             const normalizedIngredientName = ingredient.toLowerCase().trim();
