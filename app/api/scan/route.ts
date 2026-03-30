@@ -6,17 +6,10 @@ export async function POST(request: Request) {
   const description = formData.get("description");
 
   return Response.json({
-    intro: "Test scan response",
-    assessment: ["Skin input received successfully"],
-    top5: [
-      {
-        title: "Test recommendation",
-        why: "Because matching logic is being tested",
-        how: "Use as a placeholder result",
-        watch_out: "This is not a final AI recommendation"
-      }
-    ],
-    next_steps: ["Continue testing the dashboard flow"],
+    intro: "Analysis complete",
+    assessment: ["Skin input received"],
+    top5: [],
+    next_steps: ["Review results in dashboard"],
     confidence: "low",
     medical_disclaimer: "This is an educational cosmetic analysis, not a medical diagnosis."
   });
