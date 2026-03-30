@@ -233,6 +233,24 @@ export default function DashboardPage() {
               {scanError}
             </p>
           ) : null}
+          <div>
+            <h3>Scored Products</h3>
+            {scoredProducts.length === 0 ? (
+              <div>No matching products found.</div>
+            ) : (
+              scoredProducts.map((p, i) => (
+                <div key={i}>
+                  {(p.product?.name || p.name || "Unnamed product")}
+                  {p.product?.brand ? ` (${p.product.brand})` : p.brand ? ` (${p.brand})` : ""} — score: {Math.round(p.score)}
+                  {Array.isArray(p.matchedIngredients) && p.matchedIngredients.length > 0 ? (
+                    <p className="text-xs text-neutral-600 dark:text-neutral-300">
+                      Matches: {p.matchedIngredients.join(", ")}
+                    </p>
+                  ) : null}
+                </div>
+              ))
+            )}
+          </div>
           {scanResult ? (
             <div className="rounded-md border border-gray-200 bg-white p-3 dark:border-neutral-700 dark:bg-neutral-900">
               <p className="mb-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
@@ -271,24 +289,6 @@ export default function DashboardPage() {
               ) : null}
             </div>
           ) : null}
-          <div>
-            <h3>Scored Products</h3>
-            {scoredProducts.length === 0 ? (
-              <div>No matching products found.</div>
-            ) : (
-              scoredProducts.map((p, i) => (
-                <div key={i}>
-                  {(p.product?.name || p.name || "Unnamed product")}
-                  {p.product?.brand ? ` (${p.product.brand})` : p.brand ? ` (${p.brand})` : ""} — score: {Math.round(p.score)}
-                  {Array.isArray(p.matchedIngredients) && p.matchedIngredients.length > 0 ? (
-                    <p className="text-xs text-neutral-600 dark:text-neutral-300">
-                      Matches: {p.matchedIngredients.join(", ")}
-                    </p>
-                  ) : null}
-                </div>
-              ))
-            )}
-          </div>
         </div>
       </div>
 
