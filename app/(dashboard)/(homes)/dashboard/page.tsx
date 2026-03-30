@@ -105,7 +105,7 @@ export default function DashboardPage() {
           };
         });
         const scoreResult = scoreProduct(candidateIngredients, normalizedIngredients);
-        const productIngredientNames = new Set(normalizedIngredients.map((ingredient) => ingredient.name));
+        const productIngredientNames = new Set(normalizedIngredients.map((ingredient: { name: string; category: string; concerns: string[] }) => ingredient.name));
         const matchedIngredients = candidateIngredients
           .filter((ingredient) => productIngredientNames.has(ingredient.name))
           .map((ingredient) => ingredient.name);
