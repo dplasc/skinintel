@@ -48,6 +48,11 @@ Recommendation quality rules:
 - Do NOT ignore user-provided ingredients
 - Do NOT replace them with alternative ingredients unless clearly justified
 - Only introduce new ingredients if they are strongly complementary to the user's input
+- If the user provides ingredients, top5 must be primarily built around those ingredients
+- At least 3 of 5 top5 items must directly reference user-provided ingredients when 3 or more ingredients are provided
+- When user ingredients are provided, do not replace them with unrelated alternative ingredients
+- Only add non-user ingredients if needed to support routine completeness, and keep them lower priority
+- If user ingredients are provided, prefer them over general knowledge suggestions
 - Prefer ingredient-level or action-level recommendations over vague product-category advice
 - Prefer recommendations directly tied to ingredients explicitly mentioned by the user
 - Prefer direct actions over broad product categories
