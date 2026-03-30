@@ -110,6 +110,33 @@ Instruction:
   const aiText = completion.choices[0].message.content || "";
   try {
     const parsedAiResponse = JSON.parse(aiText);
+    const userIngredients = typeof ingredients === "string"
+      ? ingredients.split(",").map((i: string) => i.trim()).filter(Boolean)
+      : [];
+    if (
+      userIngredients.length >= 3 &&
+      parsedAiResponse &&
+      typeof parsedAiResponse === "object" &&
+      Array.isArray((parsedAiResponse as any).top5)
+    ) {
+      const normalizedUserIngredients = userIngredients.map((ingredient: string) => ingredient.toLowerCase());
+      const ingredientMentionCount = (parsedAiResponse as any).top5.filter((item: any) => {
+        const title = typeof item?.title === "string" ? item.title.toLowerCase() : "";
+        const why = typeof item?.why === "string" ? item.why.toLowerCase() : "";
+        return normalizedUserIngredients.some((ingredient: string) =>
+          title.includes(ingredient) || why.includes(ingredient)
+        );
+      }).length;
+      if (ingredientMentionCount < 3) {
+        const enforcedItems = userIngredients.slice(0, 3).map((ingredient: string) => ({
+          title: `${ingredient} support`,
+          why: `This recommendation is based directly on the ingredient you listed: ${ingredient}. It may be relevant to the cosmetic concerns described by the user.`,
+          how: "Use this ingredient in a simple, fragrance-free cosmetic product and introduce it slowly into the routine.",
+          watch_out: "Avoid combining too many new active products at once, and stop if irritation increases.",
+        }));
+        (parsedAiResponse as any).top5 = [...enforcedItems, ...(parsedAiResponse as any).top5].slice(0, 5);
+      }
+    }
     return Response.json(parsedAiResponse);
   } catch {}
   const aiIntro = aiText;
