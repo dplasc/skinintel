@@ -150,6 +150,9 @@ Instruction:
         ? (parsedAiResponse as any).medical_disclaimer
         : "This is an educational cosmetic analysis, not a medical diagnosis."
     };
+    console.log("FINAL RESPONSE INTRO:", normalizedResponse.intro);
+    console.log("FINAL RESPONSE TOP5 TITLES:", normalizedResponse.top5?.map((item: any) => item.title));
+    console.log("FINAL RESPONSE TOP5 COUNT:", normalizedResponse.top5?.length);
     return Response.json(normalizedResponse);
   } catch {}
   const aiIntro = aiText;
