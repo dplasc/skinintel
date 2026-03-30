@@ -169,8 +169,6 @@ export default function DashboardPage() {
   const nextSteps = (scanResult as any)?.next_steps;
   const confidence = (scanResult as any)?.confidence;
   const medicalDisclaimer = (scanResult as any)?.medical_disclaimer;
-  const topScoredProducts = scoredProducts.filter((p) => p.score > 0).slice(0, 5);
-
   return (
     <>
       <DashboardBreadcrumb title="SkinIntel" text="SkinIntel" />
@@ -292,10 +290,10 @@ export default function DashboardPage() {
           )}
           <div>
             <h3>Scored Products</h3>
-            {topScoredProducts.length === 0 ? (
+            {scoredProducts.length === 0 ? (
               <div>No matching products found.</div>
             ) : (
-              topScoredProducts.map((p, i) => (
+              scoredProducts.map((p, i) => (
                 <div key={i}>
                   {p.name} — score: {Math.round(p.score)}
                   {Array.isArray(p.matchedIngredients) && p.matchedIngredients.length > 0 ? (
