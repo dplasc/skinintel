@@ -295,7 +295,8 @@ export default function DashboardPage() {
             ) : (
               scoredProducts.map((p, i) => (
                 <div key={i}>
-                  {p.name} — score: {Math.round(p.score)}
+                  {(p.product?.name || p.name || "Unnamed product")}
+                  {p.product?.brand ? ` (${p.product.brand})` : p.brand ? ` (${p.brand})` : ""} — score: {Math.round(p.score)}
                   {Array.isArray(p.matchedIngredients) && p.matchedIngredients.length > 0 ? (
                     <p className="text-xs text-neutral-600 dark:text-neutral-300">
                       Matches: {p.matchedIngredients.join(", ")}
