@@ -28,6 +28,11 @@ Core rules:
 
 Output rules:
 - Return valid JSON only
+- Return ONLY raw JSON
+- Do NOT wrap JSON in markdown
+- Do NOT use triple backticks
+- Do NOT add labels like json
+- Do NOT add any text before or after the JSON object
 - Follow the required JSON structure exactly
 - top5 must contain exactly 5 items
 
