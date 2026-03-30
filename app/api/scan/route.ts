@@ -39,6 +39,16 @@ For each top5 item:
 
 Recommendation quality rules:
 - Prefer ingredient-level or action-level recommendations over vague product-category advice
+- Prefer recommendations directly tied to ingredients explicitly mentioned by the user
+- Prefer direct actions over broad product categories
+- Do NOT include generic items like:
+  - cleanser
+  - toner
+  - moisturizer
+  - sunscreen
+  unless the user's input clearly justifies them and the explanation is specific
+- If a broad category is included, it must be highly specific in title and reasoning
+- Prioritize the most relevant 5 recommendations, not the safest generic 5
 - Avoid filler such as:
   - 'consider using'
   - 'may help'
