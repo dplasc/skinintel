@@ -38,6 +38,11 @@ For each top5 item:
 - watch_out: must include a realistic caution relevant to that recommendation
 
 Recommendation quality rules:
+- The user's listed ingredients are the highest priority signal
+- At least 3 out of 5 top5 recommendations MUST directly use or reference the user's listed ingredients
+- Do NOT ignore user-provided ingredients
+- Do NOT replace them with alternative ingredients unless clearly justified
+- Only introduce new ingredients if they are strongly complementary to the user's input
 - Prefer ingredient-level or action-level recommendations over vague product-category advice
 - Prefer recommendations directly tied to ingredients explicitly mentioned by the user
 - Prefer direct actions over broad product categories
