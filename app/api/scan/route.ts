@@ -111,7 +111,7 @@ Instruction:
   try {
     const parsedAiResponse = JSON.parse(aiText);
     const userIngredients = typeof ingredients === "string"
-      ? ingredients.split(",").map((i: string) => i.trim()).filter(Boolean)
+      ? ingredients.split(",").map((i: string) => i.trim().toLowerCase()).filter(Boolean)
       : [];
     if (
       userIngredients.length >= 3 &&
@@ -119,22 +119,25 @@ Instruction:
       typeof parsedAiResponse === "object" &&
       Array.isArray((parsedAiResponse as any).top5)
     ) {
-      const normalizedUserIngredients = userIngredients.map((ingredient: string) => ingredient.toLowerCase());
-      const ingredientMentionCount = (parsedAiResponse as any).top5.filter((item: any) => {
-        const title = typeof item?.title === "string" ? item.title.toLowerCase() : "";
-        const why = typeof item?.why === "string" ? item.why.toLowerCase() : "";
-        return normalizedUserIngredients.some((ingredient: string) =>
-          title.includes(ingredient) || why.includes(ingredient)
-        );
+      const matchCount = (parsedAiResponse as any).top5.filter((item: any) => {
+        const combined = `${typeof item?.title === "string" ? item.title : ""} ${typeof item?.why === "string" ? item.why : ""}`.toLowerCase();
+        return userIngredients.some((ingredient: string) => combined.includes(ingredient));
       }).length;
-      if (ingredientMentionCount < 3) {
+      console.log("INGREDIENT MATCH COUNT:", matchCount);
+      console.log("USER INGREDIENTS:", userIngredients);
+      console.log("TOP5:", (parsedAiResponse as any).top5);
+      if (userIngredients.length >= 3 && matchCount < 3) {
         const enforcedItems = userIngredients.slice(0, 3).map((ingredient: string) => ({
           title: `${ingredient} support`,
           why: `This recommendation is based directly on the ingredient you listed: ${ingredient}. It may be relevant to the cosmetic concerns described by the user.`,
           how: "Use this ingredient in a simple, fragrance-free cosmetic product and introduce it slowly into the routine.",
           watch_out: "Avoid combining too many new active products at once, and stop if irritation increases.",
         }));
-        (parsedAiResponse as any).top5 = [...enforcedItems, ...(parsedAiResponse as any).top5].slice(0, 5);
+        const remainingItems = (parsedAiResponse as any).top5;
+        (parsedAiResponse as any).top5 = [
+          ...enforcedItems,
+          ...remainingItems
+        ].slice(0, 5);
       }
     }
     return Response.json(parsedAiResponse);
