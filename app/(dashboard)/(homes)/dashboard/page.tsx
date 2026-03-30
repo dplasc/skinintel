@@ -54,7 +54,6 @@ export default function DashboardPage() {
 
     setScanResult(null);
     setIsLoading(true);
-    console.log("CLICKED");
 
     try {
       const formData = new FormData();
@@ -77,7 +76,6 @@ export default function DashboardPage() {
       const data = await res.json();
       setScanResult(data);
       const dbProducts = await getProducts();
-      console.log("DB PRODUCTS:", dbProducts);
       const normalizedProducts = dbProducts.map((product: any) => ({
         ...product,
         ingredients: Array.isArray(product.ingredients)
@@ -115,7 +113,6 @@ export default function DashboardPage() {
       const filteredProducts = sortedScoredProducts.filter((p) => p.score > 0);
       setScoredProducts(filteredProducts);
 
-      console.log("SCORED PRODUCTS:", sortedScoredProducts);
       if (
         data &&
         typeof data === "object" &&
@@ -127,7 +124,6 @@ export default function DashboardPage() {
         "medical_disclaimer" in data
       ) {
         setScanResult(data);
-      console.log("RAW INGREDIENTS INPUT:", ingredientsInput);
         const parsedIngredients = ingredientsInput
           .split(",")
           .map((i) => i.trim().toLowerCase())
@@ -147,11 +143,8 @@ export default function DashboardPage() {
             };
           })
         );
-        console.log("CANDIDATE INGREDIENTS:", candidateIngredients);
-        console.log("FIRST PRODUCT INGREDIENTS:", productsIngredientsForScoring[0]);
         const testResult = scoreProduct(candidateIngredients, productsIngredientsForScoring);
         setTestScore(testResult);
-        console.log("TEST SCORE:", testResult);
       } else {
         console.error("INVALID API RESPONSE SHAPE");
       }
