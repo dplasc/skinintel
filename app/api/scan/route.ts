@@ -9,6 +9,7 @@ export async function POST(request: Request) {
   const formData = await request.formData();
   const image = formData.get("image");
   const description = formData.get("description");
+  const ingredients = formData.get("ingredients");
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
@@ -89,21 +90,20 @@ Always keep the tone practical, specific, and non-medical.`
       },
       {
         role: "user",
-        content: `Analyze this cosmetic skincare case.
+        content: `Analyze this cosmetic skincare case and return JSON only.
 
 Description:
 ${description || "No description provided"}
 
 Ingredients mentioned by user:
-${formData.get("ingredients") || "None provided"}
+${ingredients || "None provided"}
 
-Return JSON only in the required structure.
-
-Important:
-- Use the user's actual concerns and listed ingredients
-- Prioritize ingredient-specific or action-specific recommendations
-- Avoid generic category suggestions unless clearly justified by the input
-- Make all top5 items distinct and practical`
+Instruction:
+- If ingredients are provided, build the recommendations primarily from those ingredients
+- Use the listed ingredients directly in top5 whenever relevant
+- Do not replace listed ingredients with alternative ingredients unless clearly necessary
+- Keep recommendations practical, specific, and non-medical
+- Avoid generic filler advice`
       }
     ],
   });
