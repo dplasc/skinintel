@@ -125,7 +125,7 @@ Instruction:
       }).length;
       console.log("INGREDIENT MATCH COUNT:", matchCount);
       console.log("USER INGREDIENTS:", userIngredients);
-      console.log("TOP5:", (parsedAiResponse as any).top5);
+      console.log("TOP5 TITLES:", (parsedAiResponse as any).top5?.map((item: any) => item.title));
       if (userIngredients.length >= 3 && matchCount < 3) {
         const enforcedItems = userIngredients.slice(0, 3).map((ingredient: string) => ({
           title: `${ingredient} support`,
