@@ -135,10 +135,17 @@ Instruction:
         how: "Use this ingredient in a simple, fragrance-free cosmetic product and introduce it slowly into the routine.",
         watch_out: "Avoid combining too many new active products at once, and stop if irritation increases.",
       }));
+      const deterministicKeywords = enforcedItems
+        .map((item) => item.title.toLowerCase().replace(/\b(care|treatment|hydration)\b/g, "").replace(/\s+/g, " ").trim())
+        .filter(Boolean);
+      const remainingTop5Items = (((parsedAiResponse as any).top5 || []) as any[]).filter((item: any) => {
+        const itemTitle = typeof item?.title === "string" ? item.title.toLowerCase() : "";
+        return !deterministicKeywords.some((keyword) => itemTitle.includes(keyword));
+      });
 
       (parsedAiResponse as any).top5 = [
         ...enforcedItems,
-        ...(((parsedAiResponse as any).top5 || []) as any[])
+        ...remainingTop5Items
       ].slice(0, 5);
 
       fallbackApplied = true;
