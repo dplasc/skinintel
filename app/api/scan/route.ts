@@ -138,10 +138,12 @@ Instruction:
       const deterministicKeywords = enforcedItems
         .map((item) => item.title.toLowerCase().replace(/\b(care|treatment|hydration)\b/g, "").replace(/\s+/g, " ").trim())
         .filter(Boolean);
+      const blockedIngredientConcepts = ["niacinamide", "salicylic acid", "glycerin"];
       const originalTop5Items = (((parsedAiResponse as any).top5 || []) as any[]);
       const isDeterministicConceptDuplicate = (item: any) => {
         const itemTitle = typeof item?.title === "string" ? item.title.toLowerCase() : "";
-        return deterministicKeywords.some((keyword) => itemTitle.includes(keyword));
+        return deterministicKeywords.some((keyword) => itemTitle.includes(keyword))
+          || blockedIngredientConcepts.some((concept) => itemTitle.includes(concept));
       };
       const nonDuplicateCandidates: any[] = [];
       const usedNonDuplicateTitles = new Set<string>();
