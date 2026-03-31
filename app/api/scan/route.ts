@@ -10,6 +10,12 @@ export async function POST(request: Request) {
   const image = formData.get("image");
   const description = formData.get("description");
   const ingredients = formData.get("ingredients");
+  const ingredientsString =
+    typeof ingredients === "string"
+      ? ingredients
+      : typeof ingredients?.toString === "function"
+      ? ingredients.toString()
+      : "";
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
@@ -96,7 +102,7 @@ Description:
 ${description || "No description provided"}
 
 Ingredients mentioned by user:
-${ingredients || "None provided"}
+${ingredientsString || "None provided"}
 
 Instruction:
 - If ingredients are provided, build the recommendations primarily from those ingredients
@@ -110,10 +116,10 @@ Instruction:
   const aiText = completion.choices[0].message.content || "";
   try {
     const parsedAiResponse = JSON.parse(aiText);
-    const userIngredients = typeof ingredients === "string"
-      ? ingredients.split(",").map((i: string) => i.trim().toLowerCase()).filter(Boolean)
-      : [];
-    let fallbackApplied = userIngredients.length >= 3;
+    const userIngredients = ingredientsString.split(",").map((i: string) => i.trim()).filter(Boolean);
+
+    let fallbackApplied = false;
+
     if (userIngredients.length >= 3) {
       const enforcedItems = userIngredients.slice(0, 3).map((ingredient: string) => ({
         title: `${ingredient} support`,
@@ -121,10 +127,13 @@ Instruction:
         how: "Use this ingredient in a simple, fragrance-free cosmetic product and introduce it slowly into the routine.",
         watch_out: "Avoid combining too many new active products at once, and stop if irritation increases.",
       }));
+
       (parsedAiResponse as any).top5 = [
         ...enforcedItems,
-        ...((parsedAiResponse as any).top5 || [])
+        ...(((parsedAiResponse as any).top5 || []) as any[])
       ].slice(0, 5);
+
+      fallbackApplied = true;
     }
     console.log("USER INGREDIENTS:", userIngredients);
     console.log("TOP5 TITLES:", (parsedAiResponse as any).top5?.map((item: any) => item.title));
