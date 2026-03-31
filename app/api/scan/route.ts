@@ -113,36 +113,21 @@ Instruction:
     const userIngredients = typeof ingredients === "string"
       ? ingredients.split(",").map((i: string) => i.trim().toLowerCase()).filter(Boolean)
       : [];
-    let fallbackApplied = false;
-    if (
-      userIngredients.length >= 3 &&
-      parsedAiResponse &&
-      typeof parsedAiResponse === "object" &&
-      Array.isArray((parsedAiResponse as any).top5)
-    ) {
-      const hasIngredientMatch = parsedAiResponse.top5.some((item: any) => {
-        const combined = `${item?.title || ""} ${item?.why || ""}`.toLowerCase();
-        return userIngredients.some((ingredient: string) =>
-          combined.includes(ingredient.toLowerCase())
-        );
-      });
-      console.log("USER INGREDIENTS:", userIngredients);
-      console.log("TOP5 TITLES:", (parsedAiResponse as any).top5?.map((item: any) => item.title));
-      if (userIngredients.length >= 3 && !hasIngredientMatch) {
-        fallbackApplied = true;
-        const enforcedItems = userIngredients.slice(0, 3).map((ingredient: string) => ({
-          title: `${ingredient} support`,
-          why: `This recommendation is based directly on the ingredient you listed: ${ingredient}. It may be relevant to the cosmetic concerns described by the user.`,
-          how: "Use this ingredient in a simple, fragrance-free cosmetic product and introduce it slowly into the routine.",
-          watch_out: "Avoid combining too many new active products at once, and stop if irritation increases.",
-        }));
-        const remainingItems = (parsedAiResponse as any).top5;
-        (parsedAiResponse as any).top5 = [
-          ...enforcedItems,
-          ...remainingItems
-        ].slice(0, 5);
-      }
+    let fallbackApplied = userIngredients.length >= 3;
+    if (userIngredients.length >= 3) {
+      const enforcedItems = userIngredients.slice(0, 3).map((ingredient: string) => ({
+        title: `${ingredient} support`,
+        why: `This recommendation is based directly on the ingredient you listed: ${ingredient}. It may be relevant to the cosmetic concerns described by the user.`,
+        how: "Use this ingredient in a simple, fragrance-free cosmetic product and introduce it slowly into the routine.",
+        watch_out: "Avoid combining too many new active products at once, and stop if irritation increases.",
+      }));
+      (parsedAiResponse as any).top5 = [
+        ...enforcedItems,
+        ...((parsedAiResponse as any).top5 || [])
+      ].slice(0, 5);
     }
+    console.log("USER INGREDIENTS:", userIngredients);
+    console.log("TOP5 TITLES:", (parsedAiResponse as any).top5?.map((item: any) => item.title));
     const normalizedResponse = {
       intro: typeof (parsedAiResponse as any).intro === "string" ? (parsedAiResponse as any).intro : "",
       assessment: Array.isArray((parsedAiResponse as any).assessment) ? (parsedAiResponse as any).assessment : ["Analysis generated"],
