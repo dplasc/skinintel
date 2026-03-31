@@ -116,6 +116,9 @@ Instruction:
     const normalizedIngredients = userIngredients.map((i: string) =>
       i.toLowerCase().trim()
     );
+    const ingredientTokens = normalizedIngredients.map((ingredient) =>
+      ingredient.split(/\s+/)
+    );
     let fallbackApplied = false;
     if (
       userIngredients.length >= 3 &&
@@ -128,8 +131,8 @@ Instruction:
           .toLowerCase()
           .replace(/[^a-z0-9\s]/g, " ");
         const words = text.split(/\s+/);
-        return normalizedIngredients.some((ingredient) =>
-          words.includes(ingredient)
+        return ingredientTokens.some((tokens) =>
+          tokens.every((token) => words.includes(token))
         );
       }).length;
       console.log("INGREDIENT MATCH COUNT:", matchCount);
