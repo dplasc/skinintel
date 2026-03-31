@@ -138,15 +138,34 @@ Instruction:
       const deterministicKeywords = enforcedItems
         .map((item) => item.title.toLowerCase().replace(/\b(care|treatment|hydration)\b/g, "").replace(/\s+/g, " ").trim())
         .filter(Boolean);
-      const remainingTop5Items = (((parsedAiResponse as any).top5 || []) as any[]).filter((item: any) => {
+      const originalTop5Items = (((parsedAiResponse as any).top5 || []) as any[]);
+      const remainingTop5Items = originalTop5Items.filter((item: any) => {
         const itemTitle = typeof item?.title === "string" ? item.title.toLowerCase() : "";
         return !deterministicKeywords.some((keyword) => itemTitle.includes(keyword));
       });
-
-      (parsedAiResponse as any).top5 = [
+      let finalTop5Items = [
         ...enforcedItems,
         ...remainingTop5Items
       ].slice(0, 5);
+      if (finalTop5Items.length < 5) {
+        const usedTitles = new Set(finalTop5Items
+          .map((item: any) => typeof item?.title === "string" ? item.title.toLowerCase().trim() : "")
+          .filter(Boolean));
+        const supplementalTop5Items = originalTop5Items.filter((item: any) => {
+          const itemTitle = typeof item?.title === "string" ? item.title.toLowerCase().trim() : "";
+          if (!itemTitle || usedTitles.has(itemTitle)) {
+            return false;
+          }
+          usedTitles.add(itemTitle);
+          return true;
+        });
+        finalTop5Items = [...finalTop5Items, ...supplementalTop5Items].slice(0, 5);
+      }
+      if (finalTop5Items.length < 5) {
+        finalTop5Items = [...finalTop5Items, ...originalTop5Items].slice(0, 5);
+      }
+
+      (parsedAiResponse as any).top5 = finalTop5Items;
 
       fallbackApplied = true;
     }
