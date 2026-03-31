@@ -113,12 +113,6 @@ Instruction:
     const userIngredients = typeof ingredients === "string"
       ? ingredients.split(",").map((i: string) => i.trim().toLowerCase()).filter(Boolean)
       : [];
-    const normalizedIngredients = userIngredients.map((i: string) =>
-      i.toLowerCase().trim()
-    );
-    const ingredientTokens = normalizedIngredients.map((ingredient) =>
-      ingredient.split(/\s+/)
-    );
     let fallbackApplied = false;
     if (
       userIngredients.length >= 3 &&
@@ -126,19 +120,15 @@ Instruction:
       typeof parsedAiResponse === "object" &&
       Array.isArray((parsedAiResponse as any).top5)
     ) {
-      const matchCount = (parsedAiResponse as any).top5.filter((item: any) => {
-        const text = `${item?.title || ""} ${item?.why || ""}`
-          .toLowerCase()
-          .replace(/[^a-z0-9\s]/g, " ");
-        const words = text.split(/\s+/);
-        return ingredientTokens.some((tokens) =>
-          tokens.every((token) => words.includes(token))
+      const hasIngredientMatch = parsedAiResponse.top5.some((item: any) => {
+        const combined = `${item?.title || ""} ${item?.why || ""}`.toLowerCase();
+        return userIngredients.some((ingredient: string) =>
+          combined.includes(ingredient.toLowerCase())
         );
-      }).length;
-      console.log("INGREDIENT MATCH COUNT:", matchCount);
+      });
       console.log("USER INGREDIENTS:", userIngredients);
       console.log("TOP5 TITLES:", (parsedAiResponse as any).top5?.map((item: any) => item.title));
-      if (userIngredients.length >= 3 && matchCount < 3) {
+      if (userIngredients.length >= 3 && !hasIngredientMatch) {
         fallbackApplied = true;
         const enforcedItems = userIngredients.slice(0, 3).map((ingredient: string) => ({
           title: `${ingredient} support`,
