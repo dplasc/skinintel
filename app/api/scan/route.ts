@@ -135,8 +135,6 @@ Instruction:
 
       fallbackApplied = true;
     }
-    console.log("USER INGREDIENTS:", userIngredients);
-    console.log("TOP5 TITLES:", (parsedAiResponse as any).top5?.map((item: any) => item.title));
     const normalizedResponse = {
       intro: typeof (parsedAiResponse as any).intro === "string" ? (parsedAiResponse as any).intro : "",
       assessment: Array.isArray((parsedAiResponse as any).assessment) ? (parsedAiResponse as any).assessment : ["Analysis generated"],
@@ -147,23 +145,7 @@ Instruction:
         ? (parsedAiResponse as any).medical_disclaimer
         : "This is an educational cosmetic analysis, not a medical diagnosis."
     };
-    (normalizedResponse as any).debug = {
-      intro: normalizedResponse.intro,
-      top5_titles: Array.isArray(normalizedResponse.top5)
-        ? normalizedResponse.top5.map((item: any) => item.title)
-        : [],
-      top5_count: Array.isArray(normalizedResponse.top5)
-        ? normalizedResponse.top5.length
-        : 0,
-      fallback_applied: fallbackApplied,
-      top5_titles_text: Array.isArray(normalizedResponse.top5)
-        ? normalizedResponse.top5.map((item: any) => item.title).join(" | ")
-        : ""
-    };
-    console.log("FINAL RESPONSE INTRO:", normalizedResponse.intro);
-    console.log("FINAL RESPONSE TOP5 TITLES:", normalizedResponse.top5?.map((item: any) => item.title));
-    console.log("FINAL RESPONSE TOP5 COUNT:", normalizedResponse.top5?.length);
-    return Response.json(normalizedResponse);
+    return NextResponse.json(normalizedResponse);
   } catch {}
   const aiIntro = aiText;
   const aiAssessment = ["Analysis generated"];

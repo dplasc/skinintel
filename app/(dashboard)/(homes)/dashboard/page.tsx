@@ -61,6 +61,7 @@ export default function DashboardPage() {
         formData.append("image", imageFile);
       }
       formData.append("description", description);
+      formData.append("ingredients", ingredientsInput);
 
       const res = await fetch("/api/scan", {
         method: "POST",
