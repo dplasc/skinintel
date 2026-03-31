@@ -113,6 +113,9 @@ Instruction:
     const userIngredients = typeof ingredients === "string"
       ? ingredients.split(",").map((i: string) => i.trim().toLowerCase()).filter(Boolean)
       : [];
+    const normalizedIngredients = userIngredients.map((i: string) =>
+      i.toLowerCase().trim()
+    );
     let fallbackApplied = false;
     if (
       userIngredients.length >= 3 &&
@@ -121,8 +124,13 @@ Instruction:
       Array.isArray((parsedAiResponse as any).top5)
     ) {
       const matchCount = (parsedAiResponse as any).top5.filter((item: any) => {
-        const combined = `${typeof item?.title === "string" ? item.title : ""} ${typeof item?.why === "string" ? item.why : ""}`.toLowerCase();
-        return userIngredients.some((ingredient: string) => combined.includes(ingredient));
+        const text = `${item?.title || ""} ${item?.why || ""}`
+          .toLowerCase()
+          .replace(/[^a-z0-9\s]/g, " ");
+        const words = text.split(/\s+/);
+        return normalizedIngredients.some((ingredient) =>
+          words.includes(ingredient)
+        );
       }).length;
       console.log("INGREDIENT MATCH COUNT:", matchCount);
       console.log("USER INGREDIENTS:", userIngredients);
