@@ -122,7 +122,15 @@ Instruction:
 
     if (userIngredients.length >= 3) {
       const enforcedItems = userIngredients.slice(0, 3).map((ingredient: string) => ({
-        title: `${ingredient} support`,
+        title: (() => {
+          const normalizedIngredient = ingredient.trim().toLowerCase();
+          const naturalTitleMap: Record<string, string> = {
+            niacinamide: "Niacinamide care",
+            "salicylic acid": "Salicylic acid treatment",
+            glycerin: "Glycerin hydration",
+          };
+          return naturalTitleMap[normalizedIngredient] || `${ingredient.charAt(0).toUpperCase()}${ingredient.slice(1)} care`;
+        })(),
         why: `This recommendation is based directly on the ingredient you listed: ${ingredient}. It may be relevant to the cosmetic concerns described by the user.`,
         how: "Use this ingredient in a simple, fragrance-free cosmetic product and introduce it slowly into the routine.",
         watch_out: "Avoid combining too many new active products at once, and stop if irritation increases.",
@@ -137,7 +145,7 @@ Instruction:
     }
     const normalizedResponse = {
       intro: typeof (parsedAiResponse as any).intro === "string" ? (parsedAiResponse as any).intro : "",
-      assessment: Array.isArray((parsedAiResponse as any).assessment) ? (parsedAiResponse as any).assessment : ["Analysis generated"],
+      assessment: Array.isArray((parsedAiResponse as any).assessment) ? (parsedAiResponse as any).assessment : ["Your skin input has been analyzed. Based on the provided information, here are key observations and recommendations."],
       top5: Array.isArray((parsedAiResponse as any).top5) ? (parsedAiResponse as any).top5 : [],
       next_steps: Array.isArray((parsedAiResponse as any).next_steps) ? (parsedAiResponse as any).next_steps : ["Review results in dashboard"],
       confidence: ["low", "medium", "high"].includes((parsedAiResponse as any).confidence) ? (parsedAiResponse as any).confidence : "low",
@@ -148,7 +156,7 @@ Instruction:
     return NextResponse.json(normalizedResponse);
   } catch {}
   const aiIntro = aiText;
-  const aiAssessment = ["Analysis generated"];
+  const aiAssessment = ["Your skin input has been analyzed. Based on the provided information, here are key observations and recommendations."];
 
   return Response.json({
     intro: aiIntro,
