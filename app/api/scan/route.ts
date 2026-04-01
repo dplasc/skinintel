@@ -167,18 +167,6 @@ Instruction:
         usedNonDuplicateTitles.add(itemTitle);
         nonDuplicateCandidates.push(item);
       }
-      console.log(
-        "ORIGINAL_TOP5_IN_OVERRIDE:",
-        originalTop5Items
-          .map((item: any) => item?.title)
-          .filter((title: any) => typeof title === "string")
-      );
-      console.log(
-        "NON_DUPLICATE_CANDIDATES:",
-        nonDuplicateCandidates
-          .map((item: any) => item?.title)
-          .filter((title: any) => typeof title === "string")
-      );
       const preferredAdditionalItems = nonDuplicateCandidates.slice(0, 2);
       let finalTop5Items = [...enforcedItems, ...preferredAdditionalItems].slice(0, 5);
       if (preferredAdditionalItems.length < 2) {
