@@ -155,8 +155,9 @@ Instruction:
         usedNonDuplicateTitles.add(itemTitle);
         nonDuplicateCandidates.push(item);
       }
-      let finalTop5Items = [...enforcedItems, ...nonDuplicateCandidates].slice(0, 5);
-      if (finalTop5Items.length < 5) {
+      const preferredAdditionalItems = nonDuplicateCandidates.slice(0, 2);
+      let finalTop5Items = [...enforcedItems, ...preferredAdditionalItems].slice(0, 5);
+      if (preferredAdditionalItems.length < 2) {
         const usedTitles = new Set(finalTop5Items
           .map((item: any) => typeof item?.title === "string" ? item.title.toLowerCase().trim() : "")
           .filter(Boolean));
