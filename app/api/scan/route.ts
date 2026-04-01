@@ -63,6 +63,9 @@ Recommendation quality rules:
 - Prefer ingredient-level or action-level recommendations over vague product-category advice
 - Prefer recommendations directly tied to ingredients explicitly mentioned by the user
 - Prefer direct actions over broad product categories
+- Do not repeat the same ingredient concept in multiple top5 items unless necessary
+- Maximize variety across the 5 recommendations
+- If niacinamide, salicylic acid, or glycerin are already represented once, prefer different complementary actions or routine steps for the remaining items
 - Do NOT include generic items like:
   - cleanser
   - toner
@@ -155,6 +158,18 @@ Instruction:
         usedNonDuplicateTitles.add(itemTitle);
         nonDuplicateCandidates.push(item);
       }
+      console.log(
+        "ORIGINAL_TOP5_IN_OVERRIDE:",
+        originalTop5Items
+          .map((item: any) => item?.title)
+          .filter((title: any) => typeof title === "string")
+      );
+      console.log(
+        "NON_DUPLICATE_CANDIDATES:",
+        nonDuplicateCandidates
+          .map((item: any) => item?.title)
+          .filter((title: any) => typeof title === "string")
+      );
       const preferredAdditionalItems = nonDuplicateCandidates.slice(0, 2);
       let finalTop5Items = [...enforcedItems, ...preferredAdditionalItems].slice(0, 5);
       if (preferredAdditionalItems.length < 2) {
