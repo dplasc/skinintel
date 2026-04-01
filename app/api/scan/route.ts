@@ -66,6 +66,15 @@ Recommendation quality rules:
 - Do not repeat the same ingredient concept in multiple top5 items unless necessary
 - Maximize variety across the 5 recommendations
 - If niacinamide, salicylic acid, or glycerin are already represented once, prefer different complementary actions or routine steps for the remaining items
+- When ingredient-led recommendations are already represented, remaining top5 items should prefer supporting routine actions instead of repeating the same ingredients
+- Prefer supporting idea types for remaining items:
+  - layering technique
+  - application frequency adjustment
+  - post-treatment hydration
+  - barrier-support step
+  - routine sequencing
+  - irritation reduction step
+- Do not create multiple separate top5 items that all revolve around niacinamide, salicylic acid, or glycerin when those concepts are already covered
 - Do NOT include generic items like:
   - cleanser
   - toner
