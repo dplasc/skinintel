@@ -161,16 +161,28 @@ Instruction:
         const usedTitles = new Set(finalTop5Items
           .map((item: any) => typeof item?.title === "string" ? item.title.toLowerCase().trim() : "")
           .filter(Boolean));
-        const lastResortTop5Items: any[] = [];
+        const fallbackNonDuplicateItems: any[] = [];
         for (const item of originalTop5Items) {
           const itemTitle = typeof item?.title === "string" ? item.title.toLowerCase().trim() : "";
-          if (!itemTitle || usedTitles.has(itemTitle)) {
+          if (!itemTitle || usedTitles.has(itemTitle) || isDeterministicConceptDuplicate(item)) {
             continue;
           }
           usedTitles.add(itemTitle);
-          lastResortTop5Items.push(item);
+          fallbackNonDuplicateItems.push(item);
         }
-        finalTop5Items = [...finalTop5Items, ...lastResortTop5Items].slice(0, 5);
+        finalTop5Items = [...finalTop5Items, ...fallbackNonDuplicateItems].slice(0, 5);
+        if (finalTop5Items.length < 5) {
+          const lastResortTop5Items: any[] = [];
+          for (const item of originalTop5Items) {
+            const itemTitle = typeof item?.title === "string" ? item.title.toLowerCase().trim() : "";
+            if (!itemTitle || usedTitles.has(itemTitle)) {
+              continue;
+            }
+            usedTitles.add(itemTitle);
+            lastResortTop5Items.push(item);
+          }
+          finalTop5Items = [...finalTop5Items, ...lastResortTop5Items].slice(0, 5);
+        }
       }
 
       (parsedAiResponse as any).top5 = finalTop5Items;
