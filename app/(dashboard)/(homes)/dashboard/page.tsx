@@ -205,17 +205,25 @@ export default function DashboardPage() {
             </p>
           </div>
           {savedScan ? (
-            <div className="flex items-center justify-between rounded-md border border-gray-200 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-900">
-              <p className="text-xs text-neutral-600 dark:text-neutral-300">Last saved result found</p>
+            <div className="rounded-md border border-gray-200 bg-gray-50 p-3 dark:border-neutral-700 dark:bg-neutral-800">
+              <p className="text-sm font-medium text-neutral-800 dark:text-neutral-100">
+                You have a saved skin analysis on this device
+              </p>
+              <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-300">
+                You can load your previous result and continue from where you left off.
+              </p>
               <button
                 type="button"
                 onClick={handleLoadLastResult}
-                className="rounded-md border border-gray-300 px-2.5 py-1 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800"
+                className="mt-3 rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700"
               >
                 Load last result
               </button>
             </div>
           ) : null}
+          <h3 className="mb-4 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+            Skin Analysis
+          </h3>
 
           <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
             <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Scan Inputs</p>
