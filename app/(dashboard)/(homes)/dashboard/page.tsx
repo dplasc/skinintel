@@ -3,7 +3,7 @@
 import DashboardBreadcrumb from "@/components/layout/dashboard-breadcrumb";
 import { getProducts } from "@/lib/getProducts";
 import { scoreProduct } from "@/lib/ingredientScoring";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function DashboardPage() {
@@ -15,6 +15,7 @@ export default function DashboardPage() {
   const [scanResult, setScanResult] = useState<any | null>(null);
   const [scanError, setScanError] = useState<string | null>(null);
   const [scoredProducts, setScoredProducts] = useState<any[]>([]);
+  const [savedScan, setSavedScan] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const ingredientCategoryMap: Record<string, string> = {
     "niacinamide": "active",
@@ -140,6 +141,15 @@ export default function DashboardPage() {
       setIsLoading(false);
     }
   };
+  useEffect(() => {
+    const saved = localStorage.getItem("skinintel_last_scan");
+    if (!saved) return;
+    try {
+      setSavedScan(JSON.parse(saved));
+    } catch (error) {
+      console.error("FAILED TO PARSE SAVED SCAN:", error);
+    }
+  }, []);
   const intro = (scanResult as any)?.intro;
   const assessment = (scanResult as any)?.assessment;
   const top5 = (scanResult as any)?.top5;
@@ -158,6 +168,24 @@ export default function DashboardPage() {
       }),
     );
     alert("Result saved on this device.");
+    try {
+      setSavedScan(JSON.parse(localStorage.getItem("skinintel_last_scan") || "null"));
+    } catch (error) {
+      console.error("FAILED TO REFRESH SAVED SCAN:", error);
+    }
+  };
+  const handleLoadLastResult = () => {
+    const saved = localStorage.getItem("skinintel_last_scan");
+    if (!saved) return;
+    try {
+      const parsed = JSON.parse(saved);
+      setScanResult(parsed?.scanResult ?? null);
+      setScoredProducts(Array.isArray(parsed?.scoredProducts) ? parsed.scoredProducts : []);
+      setDescription(typeof parsed?.description === "string" ? parsed.description : "");
+      setIngredientsInput(typeof parsed?.ingredientsInput === "string" ? parsed.ingredientsInput : "");
+    } catch (error) {
+      console.error("FAILED TO LOAD SAVED SCAN:", error);
+    }
   };
   return (
     <>
@@ -176,6 +204,18 @@ export default function DashboardPage() {
               Upload your photo and add context to receive educational skin insights.
             </p>
           </div>
+          {savedScan ? (
+            <div className="flex items-center justify-between rounded-md border border-gray-200 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-900">
+              <p className="text-xs text-neutral-600 dark:text-neutral-300">Last saved result found</p>
+              <button
+                type="button"
+                onClick={handleLoadLastResult}
+                className="rounded-md border border-gray-300 px-2.5 py-1 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800"
+              >
+                Load last result
+              </button>
+            </div>
+          ) : null}
 
           <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
             <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Scan Inputs</p>
