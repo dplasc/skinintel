@@ -228,7 +228,7 @@ export default function DashboardPage() {
             Upload your skin images and describe your concerns to receive an AI-powered analysis.
           </p>
 
-          <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900">
+          <div className="space-y-4 rounded-lg border border-gray-300 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900">
             <p className="text-base font-medium tracking-tight text-neutral-900 dark:text-neutral-100">Your Skin Details</p>
             <input
               type="file"
