@@ -283,7 +283,7 @@ export default function DashboardPage() {
             disabled={isLoading || !consentMedical || !consentPrivacy}
             className="w-fit rounded-md bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
           >
-            {isLoading ? "Analiza u tijeku..." : "Scan Skin"}
+            {isLoading ? "Analiza u tijeku..." : "Start Skin Analysis"}
           </button>
           {!consentMedical || !consentPrivacy ? (
             <p className="mt-1 text-sm text-red-500">
