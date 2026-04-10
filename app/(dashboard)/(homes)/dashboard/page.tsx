@@ -146,6 +146,19 @@ export default function DashboardPage() {
   const nextSteps = (scanResult as any)?.next_steps;
   const confidence = (scanResult as any)?.confidence;
   const medicalDisclaimer = (scanResult as any)?.medical_disclaimer;
+  const handleSaveResult = () => {
+    localStorage.setItem(
+      "skinintel_last_scan",
+      JSON.stringify({
+        savedAt: new Date().toISOString(),
+        description,
+        ingredientsInput,
+        scanResult,
+        scoredProducts,
+      }),
+    );
+    alert("Result saved on this device.");
+  };
   return (
     <>
       <DashboardBreadcrumb title="SkinIntel" text="SkinIntel" />
@@ -254,9 +267,18 @@ export default function DashboardPage() {
           </div>
           {scanResult ? (
             <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
-              <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                Scan Result
-              </p>
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                  Scan Result
+                </p>
+                <button
+                  type="button"
+                  onClick={handleSaveResult}
+                  className="rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800"
+                >
+                  Save result
+                </button>
+              </div>
               {intro ? (
                 <div className="space-y-2">
                   <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
