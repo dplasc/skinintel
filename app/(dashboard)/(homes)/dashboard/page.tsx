@@ -253,42 +253,76 @@ export default function DashboardPage() {
             )}
           </div>
           {scanResult ? (
-            <div className="space-y-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+            <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
               <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
                 Scan Result
               </p>
-              {intro ? <p className="text-sm text-neutral-700 dark:text-neutral-200">{intro}</p> : null}
+              {intro ? (
+                <div className="space-y-2">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Intro
+                  </p>
+                  <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{intro}</p>
+                </div>
+              ) : null}
               {assessment && Array.isArray(assessment) ? (
-                <ul className="list-disc space-y-1 pl-5 text-sm text-neutral-700 dark:text-neutral-200">
-                  {assessment.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
+                <div className="space-y-2">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Assessment
+                  </p>
+                  <ul className="list-disc space-y-2 pl-5 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
+                    {assessment.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
               ) : null}
               {top5 && Array.isArray(top5) ? (
                 <div className="space-y-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Recommended Focus
+                  </p>
                   {top5
                     .filter((item) => item && item.title)
                     .map((item, index) => (
-                    <div key={index} className="space-y-1 rounded-md border border-gray-200 p-3 dark:border-neutral-700">
+                    <div key={index} className="space-y-2 rounded-md border border-gray-200 p-4 dark:border-neutral-700">
                       <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{item.title}</p>
-                      <p className="text-sm text-neutral-700 dark:text-neutral-200">{item.why}</p>
-                      <p className="text-sm text-neutral-700 dark:text-neutral-200">{item.how}</p>
-                      <p className="text-sm text-neutral-700 dark:text-neutral-200">{item.watch_out}</p>
+                      <div className="space-y-1.5">
+                        <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{item.why}</p>
+                        <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{item.how}</p>
+                        <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{item.watch_out}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
               ) : null}
               {nextSteps && Array.isArray(nextSteps) ? (
-                <ul className="list-disc space-y-1 pl-5 text-sm text-neutral-700 dark:text-neutral-200">
-                  {nextSteps.map((step, index) => (
-                    <li key={index}>{step}</li>
-                  ))}
-                </ul>
+                <div className="space-y-2">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Next Steps
+                  </p>
+                  <ul className="list-disc space-y-2 pl-5 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
+                    {nextSteps.map((step, index) => (
+                      <li key={index}>{step}</li>
+                    ))}
+                  </ul>
+                </div>
               ) : null}
-              {confidence ? <p className="text-sm text-neutral-700 dark:text-neutral-200">{confidence}</p> : null}
+              {confidence ? (
+                <div className="space-y-2">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Confidence
+                  </p>
+                  <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{confidence}</p>
+                </div>
+              ) : null}
               {medicalDisclaimer ? (
-                <p className="text-xs text-neutral-500 dark:text-neutral-400">{medicalDisclaimer}</p>
+                <div className="space-y-2">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Disclaimer
+                  </p>
+                  <p className="text-xs leading-5 text-neutral-500 dark:text-neutral-400">{medicalDisclaimer}</p>
+                </div>
               ) : null}
             </div>
           ) : null}
