@@ -234,14 +234,14 @@ export default function DashboardPage() {
               type="file"
               accept="image/*"
               onChange={(event) => setImageFile(event.target.files?.[0] || null)}
-              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
+              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
             />
             <textarea
               placeholder="Describe your skin concerns, symptoms, or changes you have noticed..."
               rows={4}
               value={description}
               onChange={(event) => setDescription(event.target.value)}
-              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
+              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
             />
             <p className="text-xs text-neutral-500 dark:text-neutral-400">
               Optional (for advanced analysis): paste ingredient list from product packaging
@@ -250,7 +250,7 @@ export default function DashboardPage() {
               placeholder="PASTE INGREDIENTS (INCI) HERE — e.g. niacinamide, salicylic acid, zinc"
               value={ingredientsInput}
               onChange={(e) => setIngredientsInput(e.target.value)}
-              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
+              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
             />
             <div className="flex flex-col gap-2 pt-1">
               <label className="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-200">
@@ -258,7 +258,7 @@ export default function DashboardPage() {
                   type="checkbox"
                   checked={consentMedical}
                   onChange={(e) => setConsentMedical(e.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-gray-300 text-neutral-900 dark:border-neutral-600"
+                  className="mt-1 h-4 w-4 rounded border-gray-300 text-neutral-900 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600"
                 />
                 <span>
                   Razumijem da SkinIntel pruža edukativnu kozmetičku analizu, a ne medicinsku dijagnozu.
@@ -269,7 +269,7 @@ export default function DashboardPage() {
                   type="checkbox"
                   checked={consentPrivacy}
                   onChange={(e) => setConsentPrivacy(e.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-gray-300 text-neutral-900 dark:border-neutral-600"
+                  className="mt-1 h-4 w-4 rounded border-gray-300 text-neutral-900 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600"
                 />
                 <span>
                   Dajem izričitu privolu za obradu fotografije kože i opisa simptoma u svrhu analize i praćenja napretka.
