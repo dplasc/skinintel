@@ -191,7 +191,7 @@ export default function DashboardPage() {
     <>
       <DashboardBreadcrumb title="SkinIntel" text="SkinIntel" />
 
-      <div className="mt-8 rounded-xl border border-gray-200 bg-gray-50 px-6 py-7 dark:border-neutral-700 dark:bg-neutral-800">
+      <div className="mt-8 rounded-xl border border-gray-200 bg-gray-50 px-6 py-7 dark:border-neutral-700 dark:bg-neutral-950">
         <div className="mx-auto flex w-full max-w-3xl flex-col gap-7 text-left">
           <div className="space-y-2 border-b border-gray-200 pb-5 dark:border-neutral-700">
             <p className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
@@ -229,7 +229,7 @@ export default function DashboardPage() {
           </p>
 
           <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900">
-            <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Your Skin Details</p>
+            <p className="text-base font-medium tracking-tight text-neutral-900 dark:text-neutral-100">Your Skin Details</p>
             <input
               type="file"
               accept="image/*"
