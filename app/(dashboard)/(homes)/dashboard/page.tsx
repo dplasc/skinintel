@@ -68,14 +68,13 @@ export default function DashboardPage() {
         body: formData,
       });
       if (!res.ok) {
+        const errorText = await res.text();
         setScanError("Došlo je do greške tijekom analize. Pokušajte ponovno.");
-        console.error("SCAN REQUEST FAILED");
         alert("Scan request failed. Please try again.");
         return;
       }
 
       const data = await res.json();
-      setScanResult(data);
       const dbProducts = await getProducts();
       const normalizedProducts = dbProducts.map((product: any) => ({
         ...product,
@@ -267,7 +266,9 @@ export default function DashboardPage() {
               ) : null}
               {top5 && Array.isArray(top5) ? (
                 <div className="mt-2 space-y-2">
-                  {top5.map((item, index) => (
+                  {top5
+                    .filter((item) => item && item.title)
+                    .map((item, index) => (
                     <div key={index} className="rounded border border-gray-200 p-2 dark:border-neutral-700">
                       <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{item.title}</p>
                       <p className="text-sm text-neutral-700 dark:text-neutral-200">{item.why}</p>
