@@ -38,7 +38,7 @@ export default function DashboardPage() {
       return;
     }
     if (!consentMedical || !consentPrivacy) {
-      setScanError("Morate prihvatiti uvjete prije analize.");
+      setScanError("Please accept the consent checkboxes before starting your skin analysis.");
       console.error("CONSENT NOT GIVEN");
       alert("You must accept the required consents before scanning.");
       return;
@@ -287,7 +287,7 @@ export default function DashboardPage() {
           </button>
           {!consentMedical || !consentPrivacy ? (
             <p className="mt-1 text-sm text-red-500">
-              Morate prihvatiti uvjete prije analize.
+              Please accept the consent checkboxes before starting your skin analysis.
             </p>
           ) : null}
           {scanError ? (
