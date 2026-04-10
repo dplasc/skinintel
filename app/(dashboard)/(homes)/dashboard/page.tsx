@@ -229,7 +229,7 @@ export default function DashboardPage() {
           </p>
 
           <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
-            <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Scan Inputs</p>
+            <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Your Skin Details</p>
             <input
               type="file"
               accept="image/*"
