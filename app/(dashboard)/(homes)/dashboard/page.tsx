@@ -150,14 +150,17 @@ export default function DashboardPage() {
     <>
       <DashboardBreadcrumb title="SkinIntel" text="SkinIntel" />
 
-      <div className="mt-6 rounded-xl border border-gray-200 bg-gray-50 px-6 py-6 dark:border-neutral-700 dark:bg-neutral-800">
-        <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 text-left">
-          <div className="border-b border-gray-200 pb-4 dark:border-neutral-700">
-            <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+      <div className="mt-8 rounded-xl border border-gray-200 bg-gray-50 px-6 py-7 dark:border-neutral-700 dark:bg-neutral-800">
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-7 text-left">
+          <div className="space-y-2 border-b border-gray-200 pb-5 dark:border-neutral-700">
+            <p className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+              Scan Workspace
+            </p>
+            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
               SkinIntel Scan
             </h2>
-            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">
-              Upload your skin photo and describe your issue
+            <p className="text-sm text-neutral-600 dark:text-neutral-300">
+              Upload your photo and add context to receive educational skin insights.
             </p>
           </div>
 
