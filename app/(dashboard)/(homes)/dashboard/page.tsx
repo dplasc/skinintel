@@ -224,6 +224,9 @@ export default function DashboardPage() {
           <h3 className="mb-4 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
             Skin Analysis
           </h3>
+          <p className="mb-4 text-sm text-gray-500 dark:text-neutral-400">
+            Upload your skin images and describe your concerns to receive an AI-powered analysis.
+          </p>
 
           <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
             <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Scan Inputs</p>
