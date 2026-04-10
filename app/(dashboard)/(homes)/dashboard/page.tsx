@@ -324,6 +324,17 @@ export default function DashboardPage() {
                   <p className="text-xs leading-5 text-neutral-500 dark:text-neutral-400">{medicalDisclaimer}</p>
                 </div>
               ) : null}
+              <div className="space-y-2">
+                <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                  What to do next
+                </p>
+                <ul className="list-disc space-y-2 pl-5 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
+                  <li>Start with 1-2 recommended ingredients only</li>
+                  <li>Avoid introducing multiple new products at once</li>
+                  <li>Track how your skin reacts over the next 7-14 days</li>
+                  <li>Repeat scan if condition changes</li>
+                </ul>
+              </div>
             </div>
           ) : null}
         </div>
