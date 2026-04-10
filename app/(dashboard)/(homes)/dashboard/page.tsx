@@ -1,18 +1,9 @@
 "use client";
 
-import GenerateContentCard from "@/app/(dashboard)/(homes)/dashboard/components/generate-content-card";
-import SalesStaticCard from "@/app/(dashboard)/(homes)/dashboard/components/sales-static-card";
-import StatCard from "@/app/(dashboard)/(homes)/dashboard/components/stat-card";
-import TabsWithTableCard from "@/app/(dashboard)/(homes)/dashboard/components/tabs-with-table-card";
-import TopCountriesCard from "@/app/(dashboard)/(homes)/dashboard/components/top-countries-card";
-import TopPerformerCard from "@/app/(dashboard)/(homes)/dashboard/components/top-performer-card";
-import TotalSubscriberCard from "@/app/(dashboard)/(homes)/dashboard/components/total-subscriber-card";
-import UserOverviewCard from "@/app/(dashboard)/(homes)/dashboard/components/user-overview-card";
 import DashboardBreadcrumb from "@/components/layout/dashboard-breadcrumb";
-import LoadingSkeleton from "@/components/loading-skeleton";
 import { getProducts } from "@/lib/getProducts";
 import { scoreProduct } from "@/lib/ingredientScoring";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 
 
 export default function DashboardPage() {
@@ -159,67 +150,71 @@ export default function DashboardPage() {
     <>
       <DashboardBreadcrumb title="SkinIntel" text="SkinIntel" />
 
-      <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 px-6 py-5 text-center dark:border-neutral-700 dark:bg-neutral-800">
-        <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 text-left">
-          <div>
-            <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+      <div className="mt-6 rounded-xl border border-gray-200 bg-gray-50 px-6 py-6 dark:border-neutral-700 dark:bg-neutral-800">
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 text-left">
+          <div className="border-b border-gray-200 pb-4 dark:border-neutral-700">
+            <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
               SkinIntel Scan
             </h2>
             <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">
               Upload your skin photo and describe your issue
             </p>
           </div>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(event) => setImageFile(event.target.files?.[0] || null)}
-            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
-          />
-          <textarea
-            placeholder="Describe your skin issue..."
-            rows={4}
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
-          />
-          <p className="text-xs text-neutral-500 dark:text-neutral-400">
-            Optional (for advanced analysis): paste ingredient list from product packaging
-          </p>
-          <textarea
-            placeholder="PASTE INGREDIENTS (INCI) HERE — e.g. niacinamide, salicylic acid, zinc"
-            value={ingredientsInput}
-            onChange={(e) => setIngredientsInput(e.target.value)}
-            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
-          />
-          <div className="flex flex-col gap-2">
-            <label className="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-200">
-              <input
-                type="checkbox"
-                checked={consentMedical}
-                onChange={(e) => setConsentMedical(e.target.checked)}
-                className="mt-1 h-4 w-4 rounded border-gray-300 text-neutral-900 dark:border-neutral-600"
-              />
-              <span>
-                Razumijem da SkinIntel pruža edukativnu kozmetičku analizu, a ne medicinsku dijagnozu.
-              </span>
-            </label>
-            <label className="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-200">
-              <input
-                type="checkbox"
-                checked={consentPrivacy}
-                onChange={(e) => setConsentPrivacy(e.target.checked)}
-                className="mt-1 h-4 w-4 rounded border-gray-300 text-neutral-900 dark:border-neutral-600"
-              />
-              <span>
-                Dajem izričitu privolu za obradu fotografije kože i opisa simptoma u svrhu analize i praćenja napretka.
-              </span>
-            </label>
+
+          <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+            <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Scan Inputs</p>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(event) => setImageFile(event.target.files?.[0] || null)}
+              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
+            />
+            <textarea
+              placeholder="Describe your skin issue..."
+              rows={4}
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
+            />
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+              Optional (for advanced analysis): paste ingredient list from product packaging
+            </p>
+            <textarea
+              placeholder="PASTE INGREDIENTS (INCI) HERE — e.g. niacinamide, salicylic acid, zinc"
+              value={ingredientsInput}
+              onChange={(e) => setIngredientsInput(e.target.value)}
+              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
+            />
+            <div className="flex flex-col gap-2 pt-1">
+              <label className="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-200">
+                <input
+                  type="checkbox"
+                  checked={consentMedical}
+                  onChange={(e) => setConsentMedical(e.target.checked)}
+                  className="mt-1 h-4 w-4 rounded border-gray-300 text-neutral-900 dark:border-neutral-600"
+                />
+                <span>
+                  Razumijem da SkinIntel pruža edukativnu kozmetičku analizu, a ne medicinsku dijagnozu.
+                </span>
+              </label>
+              <label className="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-200">
+                <input
+                  type="checkbox"
+                  checked={consentPrivacy}
+                  onChange={(e) => setConsentPrivacy(e.target.checked)}
+                  className="mt-1 h-4 w-4 rounded border-gray-300 text-neutral-900 dark:border-neutral-600"
+                />
+                <span>
+                  Dajem izričitu privolu za obradu fotografije kože i opisa simptoma u svrhu analize i praćenja napretka.
+                </span>
+              </label>
+            </div>
           </div>
           <button
             type="button"
             onClick={handleScanClick}
             disabled={isLoading || !consentMedical || !consentPrivacy}
-            className="w-fit rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white opacity-60 dark:bg-neutral-100 dark:text-neutral-900"
+            className="w-fit rounded-md bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
           >
             {isLoading ? "Analiza u tijeku..." : "Scan Skin"}
           </button>
@@ -233,17 +228,20 @@ export default function DashboardPage() {
               {scanError}
             </p>
           ) : null}
-          <div>
-            <h3>Scored Products</h3>
+          <div className="space-y-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+            <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Scored Products</h3>
             {scoredProducts.length === 0 ? (
-              <div>No matching products found.</div>
+              <div className="text-sm text-neutral-600 dark:text-neutral-300">No matching products found.</div>
             ) : (
               scoredProducts.map((p, i) => (
-                <div key={i}>
-                  {(p.product?.name || p.name || "Unnamed product")}
-                  {p.product?.brand ? ` (${p.product.brand})` : p.brand ? ` (${p.brand})` : ""} — score: {Math.round(p.score)}
+                <div key={i} className="rounded-md border border-gray-200 px-3 py-2 text-sm text-neutral-700 dark:border-neutral-700 dark:text-neutral-200">
+                  <p className="font-medium text-neutral-900 dark:text-neutral-100">
+                    {(p.product?.name || p.name || "Unnamed product")}
+                    {p.product?.brand ? ` (${p.product.brand})` : p.brand ? ` (${p.brand})` : ""}
+                  </p>
+                  <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-300">Score: {Math.round(p.score)}</p>
                   {Array.isArray(p.matchedIngredients) && p.matchedIngredients.length > 0 ? (
-                    <p className="text-xs text-neutral-600 dark:text-neutral-300">
+                    <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-300">
                       Matches: {p.matchedIngredients.join(", ")}
                     </p>
                   ) : null}
@@ -252,24 +250,24 @@ export default function DashboardPage() {
             )}
           </div>
           {scanResult ? (
-            <div className="rounded-md border border-gray-200 bg-white p-3 dark:border-neutral-700 dark:bg-neutral-900">
-              <p className="mb-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                Scan result
+            <div className="space-y-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                Scan Result
               </p>
               {intro ? <p className="text-sm text-neutral-700 dark:text-neutral-200">{intro}</p> : null}
               {assessment && Array.isArray(assessment) ? (
-                <ul className="mt-2 list-disc pl-5 text-sm text-neutral-700 dark:text-neutral-200">
+                <ul className="list-disc space-y-1 pl-5 text-sm text-neutral-700 dark:text-neutral-200">
                   {assessment.map((item, index) => (
                     <li key={index}>{item}</li>
                   ))}
                 </ul>
               ) : null}
               {top5 && Array.isArray(top5) ? (
-                <div className="mt-2 space-y-2">
+                <div className="space-y-3">
                   {top5
                     .filter((item) => item && item.title)
                     .map((item, index) => (
-                    <div key={index} className="rounded border border-gray-200 p-2 dark:border-neutral-700">
+                    <div key={index} className="space-y-1 rounded-md border border-gray-200 p-3 dark:border-neutral-700">
                       <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{item.title}</p>
                       <p className="text-sm text-neutral-700 dark:text-neutral-200">{item.why}</p>
                       <p className="text-sm text-neutral-700 dark:text-neutral-200">{item.how}</p>
@@ -279,68 +277,18 @@ export default function DashboardPage() {
                 </div>
               ) : null}
               {nextSteps && Array.isArray(nextSteps) ? (
-                <ul className="mt-2 list-disc pl-5 text-sm text-neutral-700 dark:text-neutral-200">
+                <ul className="list-disc space-y-1 pl-5 text-sm text-neutral-700 dark:text-neutral-200">
                   {nextSteps.map((step, index) => (
                     <li key={index}>{step}</li>
                   ))}
                 </ul>
               ) : null}
-              {confidence ? <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-200">{confidence}</p> : null}
+              {confidence ? <p className="text-sm text-neutral-700 dark:text-neutral-200">{confidence}</p> : null}
               {medicalDisclaimer ? (
-                <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">{medicalDisclaimer}</p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">{medicalDisclaimer}</p>
               ) : null}
             </div>
           ) : null}
-        </div>
-      </div>
-
-      <Suspense fallback={<LoadingSkeleton />}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-6">
-          <StatCard />
-        </div>
-      </Suspense>
-
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 mt-6">
-        <div className="xl:col-span-12 2xl:col-span-6">
-          <Suspense fallback={<LoadingSkeleton />}>
-            <SalesStaticCard />
-          </Suspense>
-        </div>
-
-        <div className="xl:col-span-6 2xl:col-span-3">
-          <Suspense fallback={<LoadingSkeleton />}>
-            <TotalSubscriberCard />
-          </Suspense>
-        </div>
-
-        <div className="xl:col-span-6 2xl:col-span-3">
-          <Suspense fallback={<LoadingSkeleton />}>
-            <UserOverviewCard />
-          </Suspense>
-        </div>
-
-        <div className="xl:col-span-12 2xl:col-span-9">
-          <Suspense fallback={<LoadingSkeleton />}>
-            <TabsWithTableCard />
-          </Suspense>
-        </div>
-
-        <div className="xl:col-span-12 2xl:col-span-3">
-          <Suspense fallback={<LoadingSkeleton />}>
-            <TopPerformerCard />
-          </Suspense>
-        </div>
-
-        <div className="xl:col-span-12 2xl:col-span-6">
-          <Suspense fallback={<LoadingSkeleton />}>
-            <TopCountriesCard />
-          </Suspense>
-        </div>
-
-        <div className="xl:col-span-12 2xl:col-span-6">
-          <Suspense fallback={<LoadingSkeleton />}>
-            <GenerateContentCard />
-          </Suspense>
         </div>
       </div>
     </>
