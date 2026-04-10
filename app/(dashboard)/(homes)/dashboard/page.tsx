@@ -237,7 +237,7 @@ export default function DashboardPage() {
               className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
             />
             <textarea
-              placeholder="Describe your skin issue..."
+              placeholder="Describe your skin concerns, symptoms, or changes you have noticed..."
               rows={4}
               value={description}
               onChange={(event) => setDescription(event.target.value)}
