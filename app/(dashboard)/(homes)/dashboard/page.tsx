@@ -335,6 +335,14 @@ export default function DashboardPage() {
                   <li>Repeat scan if condition changes</li>
                 </ul>
               </div>
+              <div className="mt-1 space-y-1">
+                <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+                  Tracking your skin
+                </p>
+                <p className="text-xs leading-5 text-neutral-500 dark:text-neutral-400">
+                  Your results can be used to track your skin over time. In future versions, you'll be able to compare scans and monitor progress.
+                </p>
+              </div>
             </div>
           ) : null}
         </div>
