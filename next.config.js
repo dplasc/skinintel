@@ -4,13 +4,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/dashboard',
-        permanent: true,
-      },
-    ];
+    return [];
   },
 };
 
