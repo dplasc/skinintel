@@ -207,10 +207,10 @@ export default function DashboardPage() {
           {savedScan ? (
             <div className="rounded-md border border-gray-200 bg-gray-50 p-3 dark:border-neutral-700 dark:bg-neutral-800">
               <p className="text-sm font-medium text-neutral-800 dark:text-neutral-100">
-                You have a saved skin analysis on this device
+                You have a saved analysis
               </p>
-              <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-300">
-                You can load your previous result and continue from where you left off.
+              <p className="mt-1 text-sm text-gray-500">
+                Load your previous analysis or continue with a new scan.
               </p>
               <button
                 type="button"
