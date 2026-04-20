@@ -238,14 +238,14 @@ export default function DashboardPage() {
             </>
           ) : null}
           <h3 className="mb-4 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
-            Skin Analysis
+            Analiza kože
           </h3>
           <p className="mb-4 text-sm text-gray-500 dark:text-neutral-400">
-            Upload your skin images and describe your concerns to receive an AI-powered analysis.
+            Učitaj slike kože i opiši svoje probleme kako bi dobio AI analizu.
           </p>
 
           <div className="space-y-4 rounded-lg border border-gray-300 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900">
-            <p className="text-base font-medium tracking-tight text-neutral-900 dark:text-neutral-100">Your Skin Details</p>
+            <p className="text-base font-medium tracking-tight text-neutral-900 dark:text-neutral-100">Detalji o tvojoj koži</p>
             <input
               type="file"
               accept="image/*"
@@ -253,17 +253,17 @@ export default function DashboardPage() {
               className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
             />
             <textarea
-              placeholder="Describe your skin concerns, symptoms, or changes you have noticed..."
+              placeholder="Opiši probleme, simptome ili promjene koje si primijetio..."
               rows={4}
               value={description}
               onChange={(event) => setDescription(event.target.value)}
               className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
             />
             <p className="text-xs text-neutral-500 dark:text-neutral-400">
-              Optional (for advanced analysis): paste ingredient list from product packaging
+              Opcionalno (za naprednu analizu): zalijepi popis sastojaka s proizvoda
             </p>
             <textarea
-              placeholder="PASTE INGREDIENTS (INCI) HERE — e.g. niacinamide, salicylic acid, zinc"
+              placeholder="ZALIJEPI SASTOJKE (INCI) OVDJE — npr. niacinamid, salicilna kiselina, cink"
               value={ingredientsInput}
               onChange={(e) => setIngredientsInput(e.target.value)}
               className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
@@ -299,11 +299,11 @@ export default function DashboardPage() {
             disabled={isLoading || !consentMedical || !consentPrivacy}
             className="mt-4 w-fit rounded-md bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-blue-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
           >
-            {isLoading ? "Analiza u tijeku..." : "Start Skin Analysis"}
+            {isLoading ? "Analiza u tijeku..." : "Pokreni analizu kože"}
           </button>
           {!consentMedical || !consentPrivacy ? (
             <p className="mt-1 text-sm text-red-500">
-              Please accept the consent checkboxes before starting your skin analysis.
+              Molimo prihvati privole prije pokretanja analize.
             </p>
           ) : null}
           {scanError ? (
@@ -312,9 +312,9 @@ export default function DashboardPage() {
             </p>
           ) : null}
           <div className="space-y-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
-            <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Recommended products</h3>
+            <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Preporučeni proizvodi</h3>
             {scoredProducts.length === 0 ? (
-              <div className="text-sm text-gray-500">No matching products found yet. Try adding more details or ingredients.</div>
+              <div className="text-sm text-gray-500">Nema pronađenih proizvoda. Pokušaj dodati više detalja ili sastojaka.</div>
             ) : (
               scoredProducts.map((p, i) => (
                 <div key={i} className="rounded-md border border-gray-200 px-3 py-2 text-sm text-neutral-700 dark:border-neutral-700 dark:text-neutral-200">
