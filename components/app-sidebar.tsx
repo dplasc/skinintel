@@ -9,14 +9,16 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import LogoSidebar from "./shared/logo-sidebar";
 import { data } from "./sidebar-data";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props} className="hidden xl:block">
       <SidebarHeader>
-        <LogoSidebar />
+        <div
+          aria-hidden="true"
+          className="h-[72px] border-b border-neutral-100 dark:border-slate-700"
+        />
       </SidebarHeader>
 
       <SidebarContent className="scrollbar-thin scrollbar-invisible hover:scrollbar-visible">

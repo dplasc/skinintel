@@ -211,21 +211,25 @@ export default function DashboardPage() {
             </p>
           </div>
           {savedScan ? (
-            <div ref={savedAnalysisRef} className="rounded-md border border-blue-200 bg-blue-50 p-3 dark:border-blue-900 dark:bg-blue-950">
-              <p className="text-sm font-medium text-neutral-800 dark:text-neutral-100">
-                You have a saved analysis
-              </p>
-              <p className="mt-1 text-sm text-gray-500">
-                Load your previous analysis or continue with a new scan.
-              </p>
-              <button
-                type="button"
-                onClick={handleLoadLastResult}
-                className="mt-3 rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700"
-              >
-                Load saved analysis
-              </button>
-            </div>
+            <>
+              <p className="text-lg font-semibold text-neutral-900">Welcome back</p>
+              <p className="mt-1 mb-3 text-sm text-gray-500">Your previous skin analysis is ready to review.</p>
+              <div ref={savedAnalysisRef} className="rounded-md border border-blue-200 bg-blue-50 p-3 dark:border-blue-900 dark:bg-blue-950">
+                <p className="text-sm font-medium text-neutral-800 dark:text-neutral-100">
+                  You have a saved analysis
+                </p>
+                <p className="mt-1 text-sm text-gray-500">
+                  Load your previous analysis or continue with a new scan.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleLoadLastResult}
+                  className="mt-3 rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                >
+                  Load saved analysis
+                </button>
+              </div>
+            </>
           ) : null}
           <h3 className="mb-4 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
             Skin Analysis
