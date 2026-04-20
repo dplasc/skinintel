@@ -195,7 +195,12 @@ export default function DashboardPage() {
   return (
     <>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
-        <h6 className="text-2xl font-semibold">SkinIntel</h6>
+        <div>
+          <h6 className="text-2xl font-semibold">Skin Analysis Workspace</h6>
+          <p className="mt-1 text-sm text-gray-500">
+            Review your saved analysis or start a new scan.
+          </p>
+        </div>
       </div>
 
       <div className="mt-8 rounded-xl border border-gray-200 bg-gray-50 px-6 py-7 dark:border-neutral-700 dark:bg-neutral-950">
