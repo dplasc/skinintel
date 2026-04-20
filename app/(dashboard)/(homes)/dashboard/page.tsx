@@ -205,7 +205,7 @@ export default function DashboardPage() {
             </p>
           </div>
           {savedScan ? (
-            <div className="rounded-md border border-gray-200 bg-gray-50 p-3 dark:border-neutral-700 dark:bg-neutral-800">
+            <div className="rounded-md border border-blue-200 bg-blue-50 p-3 dark:border-blue-900 dark:bg-blue-950">
               <p className="text-sm font-medium text-neutral-800 dark:text-neutral-100">
                 You have a saved analysis
               </p>
