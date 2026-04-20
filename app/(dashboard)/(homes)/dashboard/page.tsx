@@ -217,7 +217,7 @@ export default function DashboardPage() {
                 onClick={handleLoadLastResult}
                 className="mt-3 rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700"
               >
-                Load last result
+                Load saved analysis
               </button>
             </div>
           ) : null}
