@@ -302,9 +302,9 @@ export default function DashboardPage() {
             </p>
           ) : null}
           <div className="space-y-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
-            <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Scored Products</h3>
+            <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Recommended products</h3>
             {scoredProducts.length === 0 ? (
-              <div className="text-sm text-neutral-600 dark:text-neutral-300">No matching products found.</div>
+              <div className="text-sm text-gray-500">No matching products found yet. Try adding more details or ingredients.</div>
             ) : (
               scoredProducts.map((p, i) => (
                 <div key={i} className="rounded-md border border-gray-200 px-3 py-2 text-sm text-neutral-700 dark:border-neutral-700 dark:text-neutral-200">
@@ -341,7 +341,9 @@ export default function DashboardPage() {
                   <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
                     Intro
                   </p>
-                  <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{intro}</p>
+                  <div className="rounded-md bg-gray-50 p-3">
+                    <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{intro}</p>
+                  </div>
                 </div>
               ) : null}
               {assessment && Array.isArray(assessment) ? (
@@ -405,7 +407,7 @@ export default function DashboardPage() {
               ) : null}
               <div className="space-y-2">
                 <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                  What to do next
+                  Your next steps
                 </p>
                 <ul className="list-disc space-y-2 pl-5 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
                   <li>Start with 1-2 recommended ingredients only</li>
