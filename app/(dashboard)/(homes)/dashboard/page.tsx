@@ -3,7 +3,7 @@
 import DashboardBreadcrumb from "@/components/layout/dashboard-breadcrumb";
 import { getProducts } from "@/lib/getProducts";
 import { scoreProduct } from "@/lib/ingredientScoring";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 export default function DashboardPage() {
@@ -17,6 +17,7 @@ export default function DashboardPage() {
   const [scoredProducts, setScoredProducts] = useState<any[]>([]);
   const [savedScan, setSavedScan] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const savedAnalysisRef = useRef<HTMLDivElement | null>(null);
   const ingredientCategoryMap: Record<string, string> = {
     "niacinamide": "active",
     "glycerin": "humectant",
@@ -150,6 +151,11 @@ export default function DashboardPage() {
       console.error("FAILED TO PARSE SAVED SCAN:", error);
     }
   }, []);
+  useEffect(() => {
+    if (savedScan) {
+      savedAnalysisRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [savedScan]);
   const intro = (scanResult as any)?.intro;
   const assessment = (scanResult as any)?.assessment;
   const top5 = (scanResult as any)?.top5;
@@ -205,7 +211,7 @@ export default function DashboardPage() {
             </p>
           </div>
           {savedScan ? (
-            <div className="rounded-md border border-blue-200 bg-blue-50 p-3 dark:border-blue-900 dark:bg-blue-950">
+            <div ref={savedAnalysisRef} className="rounded-md border border-blue-200 bg-blue-50 p-3 dark:border-blue-900 dark:bg-blue-950">
               <p className="text-sm font-medium text-neutral-800 dark:text-neutral-100">
                 You have a saved analysis
               </p>
