@@ -1,6 +1,5 @@
 "use client";
 
-import DashboardBreadcrumb from "@/components/layout/dashboard-breadcrumb";
 import { getProducts } from "@/lib/getProducts";
 import { scoreProduct } from "@/lib/ingredientScoring";
 import { useEffect, useRef, useState } from "react";
@@ -195,7 +194,9 @@ export default function DashboardPage() {
   };
   return (
     <>
-      <DashboardBreadcrumb title="SkinIntel" text="SkinIntel" />
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+        <h6 className="text-2xl font-semibold">SkinIntel</h6>
+      </div>
 
       <div className="mt-8 rounded-xl border border-gray-200 bg-gray-50 px-6 py-7 dark:border-neutral-700 dark:bg-neutral-950">
         <div className="mx-auto flex w-full max-w-3xl flex-col gap-7 text-left">
