@@ -15,10 +15,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props} className="hidden xl:block">
       <SidebarHeader>
-        <div
-          aria-hidden="true"
-          className="h-[72px] border-b border-neutral-100 dark:border-slate-700"
-        />
+        <div className="flex items-center h-[72px] border-b border-neutral-100 dark:border-slate-700 px-4">
+          <span className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+            SkinIntel
+          </span>
+        </div>
       </SidebarHeader>
 
       <SidebarContent className="scrollbar-thin scrollbar-invisible hover:scrollbar-visible">
