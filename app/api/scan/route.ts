@@ -86,10 +86,8 @@ STRICT RULES:
 - Focus on what will make the biggest difference for the user
 - Make the advice feel simple and doable
 - Give only the top 2-3 most impactful recommendations. Avoid overwhelming the user with too many suggestions.
-- The first 2 items in top5 must be the most important and highest impact actions
-- These should feel like "start here"
-- The remaining items can be secondary suggestions
-- Structure the output so the first recommendations feel like the main plan, and the rest like optional improvements.
+- The first 2 items in top5 MUST be clearly the most important and written as the main plan the user should follow immediately. These should feel like "start here now". The remaining items MUST feel secondary and less critical.
+- The user should immediately understand that the first recommendations are the priority and everything else is optional.
 
 - Make each recommendation clearly different in purpose
 
