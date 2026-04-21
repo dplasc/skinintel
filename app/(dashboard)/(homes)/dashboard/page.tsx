@@ -365,7 +365,17 @@ export default function DashboardPage() {
                   {top5
                     .filter((item) => item && item.title)
                     .map((item, index) => (
-                    <div key={index} className="space-y-2 rounded-md border border-gray-200 p-4 dark:border-neutral-700">
+                    <div
+                      key={index}
+                      className={`space-y-2 rounded-md border p-4 dark:border-neutral-700 ${
+                        index < 2 ? "border-blue-500 bg-blue-50" : "border-gray-200"
+                      }`}
+                    >
+                      {index < 2 ? (
+                        <p className="text-xs font-semibold uppercase tracking-wide text-blue-700">
+                          POČNI S OVIM
+                        </p>
+                      ) : null}
                       <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{item.title}</p>
                       <div className="space-y-1.5">
                         <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{item.why}</p>
