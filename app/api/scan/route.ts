@@ -80,6 +80,12 @@ STRICT RULES:
 - Avoid vague phrases like "some products", "certain ingredients"
 - Give 1-2 clear directions instead of many generic suggestions
 - Your advice should help the user make a clear decision about what to use next.
+- Limit recommendations to the 3 most important actions
+- Prioritize impact over completeness
+- Do NOT list many options
+- Focus on what will make the biggest difference for the user
+- Make the advice feel simple and doable
+- Give only the top 2-3 most impactful recommendations. Avoid overwhelming the user with too many suggestions.
 
 - Make each recommendation clearly different in purpose
 
