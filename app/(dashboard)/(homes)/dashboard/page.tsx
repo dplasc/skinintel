@@ -38,9 +38,9 @@ export default function DashboardPage() {
       return;
     }
     if (!consentMedical || !consentPrivacy) {
-      setScanError("Please accept the consent checkboxes before starting your skin analysis.");
+      setScanError("Molimo prihvati privole prije pokretanja analize kože.");
       console.error("CONSENT NOT GIVEN");
-      alert("You must accept the required consents before scanning.");
+      alert("Moraš prihvatiti potrebne privole prije analize.");
       return;
     }
 
@@ -62,7 +62,7 @@ export default function DashboardPage() {
       if (!res.ok) {
         const errorText = await res.text();
         setScanError("Došlo je do greške tijekom analize. Pokušajte ponovno.");
-        alert("Scan request failed. Please try again.");
+        alert("Zahtjev za analizom nije uspio. Pokušaj ponovno.");
         return;
       }
 
@@ -136,7 +136,7 @@ export default function DashboardPage() {
       setScanResult(null);
       setScoredProducts([]);
       console.error("SCAN ERROR:", error);
-      alert("Something went wrong. Please try again.");
+      alert("Došlo je do greške. Pokušaj ponovno.");
     } finally {
       setIsLoading(false);
     }
@@ -172,7 +172,7 @@ export default function DashboardPage() {
         scoredProducts,
       }),
     );
-    alert("Result saved on this device.");
+    alert("Rezultat je spremljen na ovom uređaju.");
     try {
       setSavedScan(JSON.parse(localStorage.getItem("skinintel_last_scan") || "null"));
     } catch (error) {
@@ -196,9 +196,9 @@ export default function DashboardPage() {
     <>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h6 className="text-2xl font-semibold">Skin Analysis Workspace</h6>
+          <h6 className="text-2xl font-semibold">Radni prostor za analizu kože</h6>
           <p className="mt-1 text-sm text-gray-500">
-            Review your saved analysis or start a new scan.
+            Pregledaj svoju spremljenu analizu ili pokreni novu.
           </p>
         </div>
       </div>
@@ -207,32 +207,32 @@ export default function DashboardPage() {
         <div className="mx-auto flex w-full max-w-3xl flex-col gap-7 text-left">
           <div className="space-y-2 border-b border-gray-200 pb-5 dark:border-neutral-700">
             <p className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-              Scan Workspace
+              Radni prostor analize
             </p>
             <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
-              SkinIntel Scan
+              SkinIntel analiza
             </h2>
             <p className="text-sm text-neutral-600 dark:text-neutral-300">
-              Upload your photo and add context to receive educational skin insights.
+              Učitaj fotografiju i dodaj opis kako bi dobio edukativnu analizu kože.
             </p>
           </div>
           {savedScan ? (
             <>
-              <p className="text-lg font-semibold text-neutral-900">Welcome back</p>
-              <p className="mt-1 mb-3 text-sm text-gray-500">Your previous skin analysis is ready to review.</p>
+              <p className="text-lg font-semibold text-neutral-900">Dobrodošao natrag</p>
+              <p className="mt-1 mb-3 text-sm text-gray-500">Tvoja prethodna analiza kože spremna je za pregled.</p>
               <div ref={savedAnalysisRef} className="rounded-md border border-blue-200 bg-blue-50 p-3 dark:border-blue-900 dark:bg-blue-950">
                 <p className="text-sm font-medium text-neutral-800 dark:text-neutral-100">
-                  You have a saved analysis
+                  Imaš spremljenu analizu
                 </p>
                 <p className="mt-1 text-sm text-gray-500">
-                  Load your previous analysis or continue with a new scan.
+                  Učitaj prethodnu analizu ili nastavi s novom.
                 </p>
                 <button
                   type="button"
                   onClick={handleLoadLastResult}
                   className="mt-3 rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700"
                 >
-                  Load saved analysis
+                  Učitaj spremljenu analizu
                 </button>
               </div>
             </>
@@ -319,13 +319,13 @@ export default function DashboardPage() {
               scoredProducts.map((p, i) => (
                 <div key={i} className="rounded-md border border-gray-200 px-3 py-2 text-sm text-neutral-700 dark:border-neutral-700 dark:text-neutral-200">
                   <p className="font-medium text-neutral-900 dark:text-neutral-100">
-                    {(p.product?.name || p.name || "Unnamed product")}
+                    {(p.product?.name || p.name || "Neimenovani proizvod")}
                     {p.product?.brand ? ` (${p.product.brand})` : p.brand ? ` (${p.brand})` : ""}
                   </p>
-                  <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-300">Score: {Math.round(p.score)}</p>
+                  <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-300">Rezultat: {Math.round(p.score)}</p>
                   {Array.isArray(p.matchedIngredients) && p.matchedIngredients.length > 0 ? (
                     <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-300">
-                      Matches: {p.matchedIngredients.join(", ")}
+                      Podudaranja: {p.matchedIngredients.join(", ")}
                     </p>
                   ) : null}
                 </div>
@@ -336,20 +336,20 @@ export default function DashboardPage() {
             <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
               <div className="flex items-center justify-between gap-3">
                 <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                  Scan Result
+                  Rezultat analize
                 </p>
                 <button
                   type="button"
                   onClick={handleSaveResult}
                   className="rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800"
                 >
-                  Save result
+                  Spremi rezultat
                 </button>
               </div>
               {intro ? (
                 <div className="space-y-2">
                   <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                    Intro
+                    Uvod
                   </p>
                   <div className="rounded-md bg-gray-50 p-3">
                     <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{intro}</p>
@@ -359,7 +359,7 @@ export default function DashboardPage() {
               {assessment && Array.isArray(assessment) ? (
                 <div className="space-y-2">
                   <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                    Assessment
+                    Procjena
                   </p>
                   <ul className="list-disc space-y-2 pl-5 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
                     {assessment.map((item, index) => (
@@ -371,7 +371,7 @@ export default function DashboardPage() {
               {top5 && Array.isArray(top5) ? (
                 <div className="space-y-3">
                   <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                    Recommended Focus
+                    Preporučeni fokus
                   </p>
                   {top5
                     .filter((item) => item && item.title)
@@ -390,7 +390,7 @@ export default function DashboardPage() {
               {nextSteps && Array.isArray(nextSteps) ? (
                 <div className="space-y-2">
                   <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                    Next Steps
+                    Sljedeći koraci
                   </p>
                   <ul className="list-disc space-y-2 pl-5 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
                     {nextSteps.map((step, index) => (
@@ -402,7 +402,7 @@ export default function DashboardPage() {
               {confidence ? (
                 <div className="space-y-2">
                   <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                    Confidence
+                    Pouzdanost
                   </p>
                   <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{confidence}</p>
                 </div>
@@ -410,28 +410,28 @@ export default function DashboardPage() {
               {medicalDisclaimer ? (
                 <div className="space-y-2">
                   <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                    Disclaimer
+                    Napomena
                   </p>
                   <p className="text-xs leading-5 text-neutral-500 dark:text-neutral-400">{medicalDisclaimer}</p>
                 </div>
               ) : null}
               <div className="space-y-2">
                 <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                  Your next steps
+                  Tvoji sljedeći koraci
                 </p>
                 <ul className="list-disc space-y-2 pl-5 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
-                  <li>Start with 1-2 recommended ingredients only</li>
-                  <li>Avoid introducing multiple new products at once</li>
-                  <li>Track how your skin reacts over the next 7-14 days</li>
-                  <li>Repeat scan if condition changes</li>
+                  <li>Započni s 1-2 preporučena sastojka</li>
+                  <li>Izbjegavaj uvođenje više novih proizvoda odjednom</li>
+                  <li>Prati kako koža reagira tijekom sljedećih 7-14 dana</li>
+                  <li>Ponovi analizu ako se stanje promijeni</li>
                 </ul>
               </div>
               <div className="mt-1 space-y-1">
                 <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
-                  Tracking your skin
+                  Praćenje kože
                 </p>
                 <p className="text-xs leading-5 text-neutral-500 dark:text-neutral-400">
-                  Your results can be used to track your skin over time. In future versions, you'll be able to compare scans and monitor progress.
+                  Rezultati se mogu koristiti za praćenje stanja kože kroz vrijeme. U budućim verzijama moći ćeš uspoređivati analize i pratiti napredak.
                 </p>
               </div>
             </div>

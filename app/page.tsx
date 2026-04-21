@@ -9,23 +9,23 @@ export default function HomePage() {
           SkinIntel
           </h1>
           <p className="mt-4 max-w-xl text-base text-neutral-600 dark:text-neutral-300">
-            AI-powered skin analysis for understanding and improving your skin.
+            AI analiza kože za bolje razumijevanje i poboljšanje stanja tvoje kože.
           </p>
           <p className="mt-2 max-w-lg text-sm text-neutral-500 dark:text-neutral-400">
-            Educational, non-medical insights based on your skin photo and input.
+            Edukativni, nemedicinski uvidi na temelju fotografije kože i tvog unosa.
           </p>
           <div className="mt-8 flex flex-col items-center gap-4">
             <Link
               href="/dashboard"
-              className="rounded-md bg-neutral-900 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
+              className="rounded-md bg-blue-600 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
             >
-              Start Scan
+              Pokreni analizu
             </Link>
             <Link
               href="/auth/login"
               className="text-sm text-neutral-600 underline-offset-4 transition hover:underline dark:text-neutral-300"
             >
-              Login
+              Prijava
             </Link>
           </div>
         </div>
