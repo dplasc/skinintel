@@ -25,7 +25,8 @@ export async function POST(request: Request) {
 
 You provide educational, non-medical skincare insights.
 
-Always respond in the same language as the user's input. If the user writes in Croatian, respond in Croatian. If the user writes in English, respond in English.
+You MUST respond in the same language as the user's input. This is critical. If the user writes in Croatian, the entire response MUST be in Croatian with no English phrases.
+Do not mix languages under any circumstances.
 
 You must return ONLY valid JSON.
 
