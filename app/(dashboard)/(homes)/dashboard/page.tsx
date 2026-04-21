@@ -367,13 +367,13 @@ export default function DashboardPage() {
                     .map((item, index) => (
                     <div
                       key={index}
-                      className={`space-y-2 rounded-md border p-4 dark:border-neutral-700 ${
-                        index < 2 ? "border-blue-500 bg-blue-50" : "border-gray-200"
+                      className={`space-y-2 rounded-md dark:border-neutral-700 ${
+                        index < 2 ? "border-2 border-blue-600 bg-blue-50 p-5" : "border border-gray-200 bg-white p-4"
                       }`}
                     >
                       {index < 2 ? (
-                        <p className="text-xs font-semibold uppercase tracking-wide text-blue-700">
-                          POČNI S OVIM
+                        <p className="text-xs font-semibold text-blue-700">
+                          GLAVNI KORAK
                         </p>
                       ) : null}
                       <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{item.title}</p>
