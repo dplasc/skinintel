@@ -205,17 +205,6 @@ export default function DashboardPage() {
 
       <div className="mt-8 rounded-xl border border-gray-200 bg-gray-50 px-6 py-7 dark:border-neutral-700 dark:bg-neutral-950">
         <div className="mx-auto flex w-full max-w-3xl flex-col gap-7 text-left">
-          <div className="space-y-2 border-b border-gray-200 pb-5 dark:border-neutral-700">
-            <p className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-              Radni prostor analize
-            </p>
-            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
-              SkinIntel analiza
-            </h2>
-            <p className="text-sm text-neutral-600 dark:text-neutral-300">
-              Učitaj fotografiju i dodaj opis kako bi dobio edukativnu analizu kože.
-            </p>
-          </div>
           {savedScan ? (
             <>
               <p className="text-lg font-semibold text-neutral-900">Dobrodošao natrag</p>
