@@ -286,7 +286,7 @@ export default function DashboardPage() {
             type="button"
             onClick={handleScanClick}
             disabled={isLoading || !consentMedical || !consentPrivacy}
-            className="mt-6 w-fit rounded-md bg-blue-700 px-6 py-3 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-blue-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-4 w-fit rounded-md bg-blue-700 px-6 py-3 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-blue-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isLoading ? "Analiza u tijeku..." : "Pokreni analizu kože"}
           </button>
