@@ -2,7 +2,7 @@
 
 import { getProducts } from "@/lib/getProducts";
 import { scoreProduct } from "@/lib/ingredientScoring";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 
 
 export default function DashboardPage() {
@@ -365,24 +365,30 @@ export default function DashboardPage() {
                   {top5
                     .filter((item) => item && item.title)
                     .map((item, index) => (
-                    <div
-                      key={index}
-                      className={`space-y-2 rounded-md dark:border-neutral-700 ${
-                        index < 2 ? "border-2 border-blue-600 bg-blue-50 p-5" : "border border-gray-200 bg-white p-4"
-                      }`}
-                    >
-                      {index < 2 ? (
-                        <p className="text-xs font-semibold text-blue-700">
-                          GLAVNI KORAK
+                    <Fragment key={index}>
+                      <div
+                        className={`space-y-2 rounded-md dark:border-neutral-700 ${
+                          index < 2 ? "border-2 border-blue-600 bg-blue-50 p-5" : "border border-gray-200 bg-white p-4"
+                        }`}
+                      >
+                        {index < 2 ? (
+                          <p className="text-xs font-semibold text-blue-700">
+                            GLAVNI KORAK
+                          </p>
+                        ) : null}
+                        <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{item.title}</p>
+                        <div className="space-y-1.5">
+                          <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{item.why}</p>
+                          <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{item.how}</p>
+                          <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{item.watch_out}</p>
+                        </div>
+                      </div>
+                      {index === 1 ? (
+                        <p className="mt-3 text-sm text-gray-600">
+                          Ako želiš jednostavnije rješenje, postoji formulacija koja kombinira hidrataciju i obnovu kože u jednom proizvodu, bez potrebe za više koraka.
                         </p>
                       ) : null}
-                      <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{item.title}</p>
-                      <div className="space-y-1.5">
-                        <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{item.why}</p>
-                        <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{item.how}</p>
-                        <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{item.watch_out}</p>
-                      </div>
-                    </div>
+                    </Fragment>
                   ))}
                 </div>
               ) : null}
