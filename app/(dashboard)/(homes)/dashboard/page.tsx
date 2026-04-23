@@ -16,6 +16,7 @@ export default function DashboardPage() {
   const [scoredProducts, setScoredProducts] = useState<any[]>([]);
   const [savedScan, setSavedScan] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const savedAnalysisRef = useRef<HTMLDivElement | null>(null);
   const ingredientCategoryMap: Record<string, string> = {
     "niacinamide": "active",
@@ -388,9 +389,13 @@ export default function DashboardPage() {
                           <p className="text-sm text-gray-600">
                             Ako želiš jednostavnije rješenje, postoji formulacija koja kombinira hidrataciju i obnovu kože u jednom proizvodu, bez potrebe za više koraka.
                           </p>
-                          <a href="#" className="mt-2 block text-sm text-blue-600 hover:underline">
+                          <button
+                            type="button"
+                            onClick={() => setShowModal(true)}
+                            className="mt-2 block text-sm text-blue-600 hover:underline"
+                          >
                             Saznaj više o rješenju
-                          </a>
+                          </button>
                         </div>
                       ) : null}
                     </Fragment>
@@ -448,6 +453,23 @@ export default function DashboardPage() {
           ) : null}
         </div>
       </div>
+      {showModal ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="w-full max-w-md rounded-lg bg-white p-6 text-center shadow-xl">
+            <p className="text-lg font-semibold text-neutral-900">U razvoju</p>
+            <p className="mt-2 text-sm text-neutral-700">
+              Radimo na personaliziranom rješenju za tvoju kožu. Uskoro dostupno.
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowModal(false)}
+              className="mt-4 rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
+            >
+              Zatvori
+            </button>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }
