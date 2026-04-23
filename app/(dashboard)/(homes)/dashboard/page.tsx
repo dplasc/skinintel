@@ -384,9 +384,14 @@ export default function DashboardPage() {
                         </div>
                       </div>
                       {index === 1 ? (
-                        <p className="mt-3 text-sm text-gray-600">
-                          Ako želiš jednostavnije rješenje, postoji formulacija koja kombinira hidrataciju i obnovu kože u jednom proizvodu, bez potrebe za više koraka.
-                        </p>
+                        <div className="mt-3">
+                          <p className="text-sm text-gray-600">
+                            Ako želiš jednostavnije rješenje, postoji formulacija koja kombinira hidrataciju i obnovu kože u jednom proizvodu, bez potrebe za više koraka.
+                          </p>
+                          <a href="#" className="mt-2 block text-sm text-blue-600 hover:underline">
+                            Saznaj više o rješenju
+                          </a>
+                        </div>
                       ) : null}
                     </Fragment>
                   ))}
