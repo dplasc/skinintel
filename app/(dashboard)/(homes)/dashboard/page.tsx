@@ -456,9 +456,12 @@ export default function DashboardPage() {
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
           <div className="w-full max-w-md rounded-lg bg-white p-6 text-center shadow-xl">
-            <p className="text-lg font-semibold text-neutral-900">U razvoju</p>
+            <p className="text-lg font-semibold text-neutral-900">Personalizirano rješenje za tvoju kožu</p>
             <p className="mt-2 text-sm text-neutral-700">
-              Radimo na personaliziranom rješenju za tvoju kožu. Uskoro dostupno.
+              Ova preporuka temelji se na tvojoj analizi kože i sastojcima koje koristiš.
+            </p>
+            <p className="mt-2 text-sm text-neutral-700">
+              Sljedeći korak je jednostavna rutina i formulacija koja cilja uzrok problema, ne samo simptome.
             </p>
             <button
               type="button"
