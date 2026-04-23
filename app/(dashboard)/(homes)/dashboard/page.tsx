@@ -453,7 +453,7 @@ export default function DashboardPage() {
           ) : null}
         </div>
       </div>
-      {showModal ? (
+      {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
           <div className="w-full max-w-md rounded-lg bg-white p-6 text-center shadow-xl">
             <p className="text-lg font-semibold text-neutral-900">U razvoju</p>
@@ -469,7 +469,7 @@ export default function DashboardPage() {
             </button>
           </div>
         </div>
-      ) : null}
+      )}
     </>
   );
 }
