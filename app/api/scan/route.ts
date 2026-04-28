@@ -59,6 +59,7 @@ REQUIRED OUTPUT FORMAT:
 STRICT RULES:
 
 - top5 MUST contain exactly 5 items
+- All 5 items must be meaningful and distinct. Do not include filler or weak suggestions just to reach 5 items.
 - DO NOT repeat the same ingredient more than once
 - MAX 2 ingredient-based recommendations
 - At least 3 items MUST be:
@@ -89,12 +90,10 @@ STRICT RULES:
 - Avoid vague phrases like "some products", "certain ingredients"
 - Give 1-2 clear directions instead of many generic suggestions
 - Your advice should help the user make a clear decision about what to use next.
-- Limit recommendations to the 3 most important actions
 - Prioritize impact over completeness
 - Do NOT list many options
 - Focus on what will make the biggest difference for the user
 - Make the advice feel simple and doable
-- Give only the top 2-3 most impactful recommendations. Avoid overwhelming the user with too many suggestions.
 - The first 2 items in top5 MUST be clearly the most important and written as the main plan the user should follow immediately. These should feel like "start here now". The remaining items MUST feel secondary and less critical.
 - The user should immediately understand that the first recommendations are the priority and everything else is optional.
 
@@ -118,7 +117,7 @@ Ingredients mentioned by user:
 ${ingredientsString || "None provided"}
 
 Instruction:
-- If ingredients are provided, build the recommendations primarily from those ingredients
+- If ingredients are provided, use them where relevant, but do not force all recommendations to be ingredient-based
 - Use the listed ingredients directly in top5 whenever relevant
 - Do not replace listed ingredients with alternative ingredients unless clearly necessary
 - Keep recommendations practical, specific, and non-medical
