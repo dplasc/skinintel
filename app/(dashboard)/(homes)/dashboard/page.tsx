@@ -471,6 +471,9 @@ export default function DashboardPage() {
               Tvoj rezultat može se pretvoriti u jednostavniju rutinu temeljenu na analizi kože i sastojcima koje si unio/la.
             </p>
             <p className="mt-2 text-sm text-neutral-700">
+              Ova rutina temelji se na preporukama koje si upravo dobio/la u analizi.
+            </p>
+            <p className="mt-2 text-sm text-neutral-700">
               Rutina može kombinirati tretman, hidrataciju i podršku kožnoj barijeri, bez medicinskih tvrdnji ili dijagnoza.
             </p>
             <button
