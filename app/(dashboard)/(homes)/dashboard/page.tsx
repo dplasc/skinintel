@@ -391,20 +391,6 @@ export default function DashboardPage() {
                           </p>
                         </div>
                       </div>
-                      {index === 1 ? (
-                        <div className="mt-3">
-                          <p className="text-sm text-gray-600">
-                            Ako želiš jednostavnije rješenje, postoji formulacija koja kombinira hidrataciju i obnovu kože u jednom proizvodu, bez potrebe za više koraka.
-                          </p>
-                          <button
-                            type="button"
-                            onClick={() => setShowModal(true)}
-                            className="mt-2 block text-sm text-blue-600 hover:underline"
-                          >
-                            Saznaj više o rješenju
-                          </button>
-                        </div>
-                      ) : null}
                     </Fragment>
                   ))}
                 </div>
@@ -421,6 +407,18 @@ export default function DashboardPage() {
                   </ul>
                 </div>
               ) : null}
+              <div className="mt-3">
+                <p className="text-sm text-gray-600">
+                  Ako želiš jednostavnije rješenje, postoji formulacija koja kombinira hidrataciju i obnovu kože u jednom proizvodu, bez potrebe za više koraka.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setShowModal(true)}
+                  className="mt-2 block text-sm text-blue-600 hover:underline"
+                >
+                  Saznaj više o rješenju
+                </button>
+              </div>
               {confidence ? (
                 <div className="space-y-2">
                   <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
