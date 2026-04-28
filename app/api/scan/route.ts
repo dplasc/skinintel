@@ -78,6 +78,7 @@ STRICT RULES:
   "use slowly", "introduce gradually"
 - Avoid generic advice like:
   "stay hydrated", "drink water"
+- Avoid low-value lifestyle advice such as stress reduction, drinking water, or general habits unless directly relevant to the skin condition.
 - Always give specific, actionable skincare steps
 - Mention concrete ingredient types when relevant (e.g. hyaluronic acid, ceramides, niacinamide)
 - Tailor recommendations directly to the user's described problem
@@ -102,6 +103,10 @@ STRICT RULES:
 - Focus on what will make the biggest difference for the user
 - Make the advice feel simple and doable
 - The first 2 items in top5 MUST be clearly the most important and written as the main plan the user should follow immediately. These should feel like "start here now". The remaining items MUST feel secondary and less critical.
+- The first 2 items MUST be specific product-based actions, including:
+  - product type
+  - ingredient concentration (if relevant)
+  - clear usage instruction
 - The user should immediately understand that the first recommendations are the priority and everything else is optional.
 
 - Make each recommendation clearly different in purpose
