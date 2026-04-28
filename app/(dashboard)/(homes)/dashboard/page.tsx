@@ -442,7 +442,7 @@ export default function DashboardPage() {
                   Praćenje kože
                 </p>
                 <p className="text-xs leading-5 text-neutral-500 dark:text-neutral-400">
-                  Rezultati se mogu koristiti za praćenje stanja kože kroz vrijeme. U budućim verzijama moći ćeš uspoređivati analize i pratiti napredak.
+                  Rezultati se mogu koristiti za praćenje stanja kože kroz vrijeme.
                 </p>
               </div>
             </div>
