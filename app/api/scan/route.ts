@@ -139,25 +139,25 @@ Instruction:
     const parsedAiResponse = JSON.parse(aiText);
     const normalizedResponse = {
       intro: typeof (parsedAiResponse as any).intro === "string" ? (parsedAiResponse as any).intro : "",
-      assessment: Array.isArray((parsedAiResponse as any).assessment) ? (parsedAiResponse as any).assessment : ["Your skin input has been analyzed. Based on the provided information, here are key observations and recommendations."],
+      assessment: Array.isArray((parsedAiResponse as any).assessment) ? (parsedAiResponse as any).assessment : ["Vaš unos kože je analiziran. Na temelju dostavljenih informacija, ovo su ključna zapažanja i preporuke."],
       top5: Array.isArray((parsedAiResponse as any).top5) ? (parsedAiResponse as any).top5 : [],
-      next_steps: Array.isArray((parsedAiResponse as any).next_steps) ? (parsedAiResponse as any).next_steps : ["Review results in dashboard"],
+      next_steps: Array.isArray((parsedAiResponse as any).next_steps) ? (parsedAiResponse as any).next_steps : ["Pregledajte rezultate u sučelju"],
       confidence: ["low", "medium", "high"].includes((parsedAiResponse as any).confidence) ? (parsedAiResponse as any).confidence : "low",
       medical_disclaimer: typeof (parsedAiResponse as any).medical_disclaimer === "string"
         ? (parsedAiResponse as any).medical_disclaimer
-        : "This is an educational cosmetic analysis, not a medical diagnosis."
+        : "Ovo je edukativna kozmetička analiza, a ne medicinska dijagnoza."
     };
     return NextResponse.json(normalizedResponse);
   } catch {}
   const aiIntro = aiText;
-  const aiAssessment = ["Your skin input has been analyzed. Based on the provided information, here are key observations and recommendations."];
+  const aiAssessment = ["Vaš unos kože je analiziran. Na temelju dostavljenih informacija, ovo su ključna zapažanja i preporuke."];
 
   return Response.json({
     intro: aiIntro,
     assessment: aiAssessment,
     top5: [],
-    next_steps: ["Review results in dashboard"],
+    next_steps: ["Pregledajte rezultate u sučelju"],
     confidence: "low",
-    medical_disclaimer: "This is an educational cosmetic analysis, not a medical diagnosis."
+    medical_disclaimer: "Ovo je edukativna kozmetička analiza, a ne medicinska dijagnoza."
   });
 }
