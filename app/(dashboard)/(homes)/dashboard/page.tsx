@@ -344,7 +344,7 @@ export default function DashboardPage() {
                   </div>
                 </div>
               ) : null}
-              {assessment && Array.isArray(assessment) ? (
+              {assessment && Array.isArray(assessment) && assessment.length > 0 ? (
                 <div className="space-y-2">
                   <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
                     Procjena
@@ -356,7 +356,7 @@ export default function DashboardPage() {
                   </ul>
                 </div>
               ) : null}
-              {top5 && Array.isArray(top5) ? (
+              {top5 && Array.isArray(top5) && top5.length > 0 && top5.some((item) => item && item.title) ? (
                 <div className="space-y-3">
                   <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
                     Preporučeni fokus
@@ -409,7 +409,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
               ) : null}
-              {nextSteps && Array.isArray(nextSteps) ? (
+              {nextSteps && Array.isArray(nextSteps) && nextSteps.length > 0 ? (
                 <div className="space-y-2">
                   <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
                     Sljedeći koraci
