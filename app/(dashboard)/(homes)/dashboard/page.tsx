@@ -377,9 +377,18 @@ export default function DashboardPage() {
                         ) : null}
                         <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{item.title}</p>
                         <div className="space-y-1.5">
-                          <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{item.why}</p>
-                          <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{item.how}</p>
-                          <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{item.watch_out}</p>
+                          <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">
+                            <span className="font-medium text-neutral-800 dark:text-neutral-100">Zašto: </span>
+                            {item.why}
+                          </p>
+                          <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">
+                            <span className="font-medium text-neutral-800 dark:text-neutral-100">Kako koristiti: </span>
+                            {item.how}
+                          </p>
+                          <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">
+                            <span className="font-medium text-neutral-800 dark:text-neutral-100">Na što paziti: </span>
+                            {item.watch_out}
+                          </p>
                         </div>
                       </div>
                       {index === 1 ? (
@@ -428,17 +437,6 @@ export default function DashboardPage() {
                   <p className="text-xs leading-5 text-neutral-500 dark:text-neutral-400">{medicalDisclaimer}</p>
                 </div>
               ) : null}
-              <div className="space-y-2">
-                <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                  Tvoji sljedeći koraci
-                </p>
-                <ul className="list-disc space-y-2 pl-5 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
-                  <li>Započni s 1-2 preporučena sastojka</li>
-                  <li>Izbjegavaj uvođenje više novih proizvoda odjednom</li>
-                  <li>Prati kako koža reagira tijekom sljedećih 7-14 dana</li>
-                  <li>Ponovi analizu ako se stanje promijeni</li>
-                </ul>
-              </div>
               <div className="mt-1 space-y-1">
                 <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
                   Praćenje kože
