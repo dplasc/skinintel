@@ -281,6 +281,12 @@ export default function DashboardPage() {
                   Dajem izričitu privolu za obradu fotografije kože i opisa simptoma u svrhu analize i praćenja napretka.
                 </span>
               </label>
+              <p className="mt-2 text-xs text-gray-500">
+                Više informacija pročitajte u{" "}
+                <a href="/privacy" className="underline hover:text-gray-700">
+                  Politici privatnosti
+                </a>.
+              </p>
             </div>
           </div>
           <button
