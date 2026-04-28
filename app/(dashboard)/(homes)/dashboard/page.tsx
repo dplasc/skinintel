@@ -385,18 +385,24 @@ export default function DashboardPage() {
                         ) : null}
                         <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{item.title}</p>
                         <div className="space-y-1.5">
-                          <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">
-                            <span className="font-medium text-neutral-800 dark:text-neutral-100">Zašto: </span>
-                            {item.why}
-                          </p>
-                          <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">
-                            <span className="font-medium text-neutral-800 dark:text-neutral-100">Kako koristiti: </span>
-                            {item.how}
-                          </p>
-                          <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">
-                            <span className="font-medium text-neutral-800 dark:text-neutral-100">Na što paziti: </span>
-                            {item.watch_out}
-                          </p>
+                          {item.why && item.why.trim() !== "" && (
+                            <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">
+                              <span className="font-medium text-neutral-800 dark:text-neutral-100">Zašto: </span>
+                              {item.why}
+                            </p>
+                          )}
+                          {item.how && item.how.trim() !== "" && (
+                            <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">
+                              <span className="font-medium text-neutral-800 dark:text-neutral-100">Kako koristiti: </span>
+                              {item.how}
+                            </p>
+                          )}
+                          {item.watch_out && item.watch_out.trim() !== "" && (
+                            <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">
+                              <span className="font-medium text-neutral-800 dark:text-neutral-100">Na što paziti: </span>
+                              {item.watch_out}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </Fragment>
