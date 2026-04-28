@@ -356,9 +356,11 @@ export default function DashboardPage() {
                     Procjena
                   </p>
                   <ul className="list-disc space-y-2 pl-5 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
-                    {assessment.map((item, index) => (
-                      <li key={index}>{item}</li>
-                    ))}
+                    {assessment
+                      .filter((item) => typeof item === "string" && item.trim() !== "")
+                      .map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
                   </ul>
                 </div>
               ) : null}
@@ -407,9 +409,11 @@ export default function DashboardPage() {
                     Sljedeći koraci
                   </p>
                   <ul className="list-disc space-y-2 pl-5 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
-                    {nextSteps.map((step, index) => (
-                      <li key={index}>{step}</li>
-                    ))}
+                    {nextSteps
+                      .filter((step) => typeof step === "string" && step.trim() !== "")
+                      .map((step, index) => (
+                        <li key={index}>{step}</li>
+                      ))}
                   </ul>
                 </div>
               ) : null}
