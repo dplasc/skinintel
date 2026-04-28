@@ -425,7 +425,7 @@ export default function DashboardPage() {
               ) : null}
               <div className="mt-3">
                 <p className="text-sm text-gray-600">
-                  Ako želiš jednostavnije rješenje, postoji formulacija koja kombinira hidrataciju i obnovu kože u jednom proizvodu, bez potrebe za više koraka.
+                  Ako želiš jednostavniji plan, možemo ti pomoći složiti rutinu koja prati tvoje preporuke.
                 </p>
                 <button
                   type="button"
@@ -468,15 +468,22 @@ export default function DashboardPage() {
           <div className="w-full max-w-md rounded-lg bg-white p-6 text-center shadow-xl">
             <p className="text-lg font-semibold text-neutral-900">Personalizirano rješenje za tvoju kožu</p>
             <p className="mt-2 text-sm text-neutral-700">
-              Ova preporuka temelji se na tvojoj analizi kože i sastojcima koje koristiš.
+              Tvoj rezultat može se pretvoriti u jednostavniju rutinu temeljenu na analizi kože i sastojcima koje si unio/la.
             </p>
             <p className="mt-2 text-sm text-neutral-700">
-              Sljedeći korak je jednostavna rutina i formulacija koja cilja uzrok problema, ne samo simptome.
+              Rutina može kombinirati tretman, hidrataciju i podršku kožnoj barijeri, bez medicinskih tvrdnji ili dijagnoza.
             </p>
             <button
               type="button"
               onClick={() => setShowModal(false)}
-              className="mt-4 rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
+              className="mt-5 w-full rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
+            >
+              Želim jednostavniji plan
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowModal(false)}
+              className="mt-2 rounded-md px-4 py-2 text-sm font-medium text-neutral-600 hover:bg-neutral-100"
             >
               Zatvori
             </button>
