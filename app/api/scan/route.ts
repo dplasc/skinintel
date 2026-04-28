@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { Buffer } from "node:buffer";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -8,6 +9,13 @@ const openai = new OpenAI({
 export async function POST(request: Request) {
   const formData = await request.formData();
   const image = formData.get("image");
+  if (!(image instanceof File) || !image.type.startsWith("image/")) {
+    return NextResponse.json({ error: "Valid image is required" }, { status: 400 });
+  }
+
+  const imageBuffer = Buffer.from(await image.arrayBuffer());
+  const base64Image = imageBuffer.toString("base64");
+  const imageDataUrl = `data:${image.type};base64,${base64Image}`;
   const description = formData.get("description");
   const ingredients = formData.get("ingredients");
   const ingredientsString =
@@ -98,7 +106,10 @@ STRICT RULES:
       },
       {
         role: "user",
-        content: `Analyze this cosmetic skincare case and return JSON only.
+        content: [
+          {
+            type: "text",
+            text: `Analyze this cosmetic skincare case and return JSON only.
 
 Description:
 ${description || "No description provided"}
@@ -112,6 +123,14 @@ Instruction:
 - Do not replace listed ingredients with alternative ingredients unless clearly necessary
 - Keep recommendations practical, specific, and non-medical
 - Avoid generic filler advice`
+          },
+          {
+            type: "image_url",
+            image_url: {
+              url: imageDataUrl,
+            },
+          },
+        ],
       }
     ],
   });
