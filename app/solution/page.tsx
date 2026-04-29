@@ -12,6 +12,26 @@ export default function SolutionPage() {
         </p>
         <p>Cilj je pojednostaviti rutinu i fokusirati se na uzrok problema.</p>
         <p className="text-neutral-500 dark:text-neutral-400">Uskoro više detalja.</p>
+
+        <section>
+          <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+            Što ovo rješenje radi
+          </h2>
+          <p className="mt-2">
+            Ovakva formulacija može pomoći u regulaciji sebuma, smanjenju nepravilnosti i jačanju
+            kožne barijere kroz kombinaciju aktivnih i umirujućih sastojaka.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+            Zašto je drugačije
+          </h2>
+          <p className="mt-2">
+            Umjesto korištenja više odvojenih proizvoda, ovaj pristup fokusira se na jednostavniju
+            rutinu s pažljivo odabranim sastojcima u jednoj formulaciji.
+          </p>
+        </section>
       </div>
     </main>
   );
