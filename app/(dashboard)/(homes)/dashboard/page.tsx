@@ -463,9 +463,14 @@ export default function DashboardPage() {
             </div>
           ) : null}
           {showSolutionMessage && (
-            <p className="mt-4 text-sm text-green-600">
-              Sljedeći korak je izrada jednostavnijeg rješenja na temelju tvoje analize.
-            </p>
+            <>
+              <p className="mt-4 text-sm text-green-600">
+                Sljedeći korak je izrada jednostavnijeg rješenja na temelju tvoje analize.
+              </p>
+              <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">
+                Ovo rješenje može biti dostupno kao gotova formulacija prilagođena tvojoj koži.
+              </p>
+            </>
           )}
         </div>
       </div>
