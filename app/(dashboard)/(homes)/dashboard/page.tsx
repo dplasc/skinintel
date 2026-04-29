@@ -476,12 +476,15 @@ export default function DashboardPage() {
             <p className="mt-2 text-sm text-neutral-700">
               Rutina može kombinirati tretman, hidrataciju i podršku kožnoj barijeri, bez medicinskih tvrdnji ili dijagnoza.
             </p>
+            <p className="mt-2 text-sm text-neutral-700">
+              U nekim slučajevima, ovakav pristup može se pojednostaviti kroz formulaciju koja kombinira ključne sastojke u jednom proizvodu.
+            </p>
             <button
               type="button"
               onClick={() => setShowModal(false)}
               className="mt-5 w-full rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
             >
-              Želim jednostavniji plan
+              Želim rješenje u jednom proizvodu
             </button>
             <button
               type="button"
