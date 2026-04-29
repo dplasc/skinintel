@@ -23,7 +23,7 @@ export default function SolutionPage() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email, consent })
       });
 
       if (!res.ok) {
