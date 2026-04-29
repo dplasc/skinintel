@@ -4,6 +4,24 @@ import { useState } from "react";
 
 export default function SolutionPage() {
   const [showInterestMessage, setShowInterestMessage] = useState(false);
+  const [email, setEmail] = useState("");
+  const handleInterestSubmit = async () => {
+    try {
+      const res = await fetch("/api/interest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email })
+      });
+
+      if (res.ok) {
+        setShowInterestMessage(true);
+      }
+    } catch (err) {
+      console.error("Interest submit error", err);
+    }
+  };
   return (
     <main className="mx-auto max-w-3xl px-6 py-12 text-neutral-900 dark:text-neutral-100">
       <h1 className="text-3xl font-semibold tracking-tight">
@@ -41,11 +59,13 @@ export default function SolutionPage() {
         <input
           type="email"
           placeholder="Unesi email za više informacija"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="mt-6 w-full rounded-md border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-400 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
         />
         <button
           type="button"
-          onClick={() => setShowInterestMessage(true)}
+          onClick={handleInterestSubmit}
           className="mt-3 w-full rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
         >
           Želim više informacija
