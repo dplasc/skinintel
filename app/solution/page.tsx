@@ -6,7 +6,12 @@ export default function SolutionPage() {
   const [showInterestMessage, setShowInterestMessage] = useState(false);
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [consent, setConsent] = useState(false);
   const handleInterestSubmit = async () => {
+    if (!consent) {
+      setErrorMessage("Potrebno je dati privolu");
+      return;
+    }
     if (!email || !email.includes("@")) {
       setErrorMessage("Unesi ispravan email");
       return;
@@ -75,6 +80,16 @@ export default function SolutionPage() {
           onChange={(e) => setEmail(e.target.value)}
           className="mt-6 w-full rounded-md border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-400 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
         />
+        <label className="mt-4 flex items-start gap-2 text-sm text-neutral-600">
+          <input
+            type="checkbox"
+            checked={consent}
+            onChange={(e) => setConsent(e.target.checked)}
+          />
+          <span>
+            Slažem se da se moj email koristi za slanje informacija o proizvodu.
+          </span>
+        </label>
         <button
           type="button"
           onClick={handleInterestSubmit}
