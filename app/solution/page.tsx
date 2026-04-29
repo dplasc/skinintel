@@ -6,6 +6,9 @@ export default function SolutionPage() {
   const [showInterestMessage, setShowInterestMessage] = useState(false);
   const [email, setEmail] = useState("");
   const handleInterestSubmit = async () => {
+    if (!email || !email.includes("@")) {
+      return;
+    }
     try {
       const res = await fetch("/api/interest", {
         method: "POST",
