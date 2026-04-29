@@ -1,7 +1,7 @@
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    const { email } = body
+    const { email, consent } = body
 
     if (!email) {
       return new Response(
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
       )
     }
 
-    console.log("INTEREST EMAIL:", email)
+    console.log("INTEREST:", { email, consent })
 
     return new Response(
       JSON.stringify({ success: true }),
