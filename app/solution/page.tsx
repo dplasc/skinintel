@@ -5,10 +5,13 @@ import { useState } from "react";
 export default function SolutionPage() {
   const [showInterestMessage, setShowInterestMessage] = useState(false);
   const [email, setEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const handleInterestSubmit = async () => {
     if (!email || !email.includes("@")) {
+      setErrorMessage("Unesi ispravan email");
       return;
     }
+    setErrorMessage("");
     try {
       const res = await fetch("/api/interest", {
         method: "POST",
@@ -18,11 +21,17 @@ export default function SolutionPage() {
         body: JSON.stringify({ email })
       });
 
+      if (!res.ok) {
+        setErrorMessage("Došlo je do greške. Pokušaj ponovno.");
+        return;
+      }
+
       if (res.ok) {
         setShowInterestMessage(true);
       }
     } catch (err) {
       console.error("Interest submit error", err);
+      setErrorMessage("Došlo je do greške. Pokušaj ponovno.");
     }
   };
   return (
@@ -73,6 +82,11 @@ export default function SolutionPage() {
         >
           Želim više informacija
         </button>
+        {errorMessage && (
+          <p className="mt-2 text-sm text-red-600">
+            {errorMessage}
+          </p>
+        )}
         {showInterestMessage && (
           <p className="mt-3 text-sm text-green-600">
             Hvala na interesu — uskoro ćemo imati više informacija za tebe.
