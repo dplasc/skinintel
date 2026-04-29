@@ -17,6 +17,7 @@ export default function DashboardPage() {
   const [savedScan, setSavedScan] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showSolutionMessage, setShowSolutionMessage] = useState(false);
   const savedAnalysisRef = useRef<HTMLDivElement | null>(null);
   const ingredientCategoryMap: Record<string, string> = {
     "niacinamide": "active",
@@ -461,6 +462,11 @@ export default function DashboardPage() {
               </div>
             </div>
           ) : null}
+          {showSolutionMessage && (
+            <p className="mt-4 text-sm text-green-600">
+              Sljedeći korak je izrada jednostavnijeg rješenja na temelju tvoje analize.
+            </p>
+          )}
         </div>
       </div>
       {showModal && (
@@ -481,7 +487,10 @@ export default function DashboardPage() {
             </p>
             <button
               type="button"
-              onClick={() => setShowModal(false)}
+              onClick={() => {
+                setShowModal(false);
+                setShowSolutionMessage(true);
+              }}
               className="mt-5 w-full rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
             >
               Želim rješenje u jednom proizvodu
