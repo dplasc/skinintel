@@ -6,7 +6,12 @@ export async function POST(req: Request) {
     if (!email) {
       return new Response(
         JSON.stringify({ error: "Email is required" }),
-        { status: 400 }
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
       )
     }
 
@@ -14,12 +19,22 @@ export async function POST(req: Request) {
 
     return new Response(
       JSON.stringify({ success: true }),
-      { status: 200 }
+      {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
     )
   } catch (error) {
     return new Response(
       JSON.stringify({ error: "Invalid request" }),
-      { status: 400 }
+      {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
     )
   }
 }
