@@ -2,6 +2,7 @@
 
 import { getProducts } from "@/lib/getProducts";
 import { scoreProduct } from "@/lib/ingredientScoring";
+import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useRef, useState } from "react";
 
 
@@ -18,6 +19,7 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showSolutionMessage, setShowSolutionMessage] = useState(false);
+  const router = useRouter();
   const savedAnalysisRef = useRef<HTMLDivElement | null>(null);
   const ingredientCategoryMap: Record<string, string> = {
     "niacinamide": "active",
@@ -494,7 +496,7 @@ export default function DashboardPage() {
               type="button"
               onClick={() => {
                 setShowModal(false);
-                setShowSolutionMessage(true);
+                router.push("/solution");
               }}
               className="mt-5 w-full rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
             >
