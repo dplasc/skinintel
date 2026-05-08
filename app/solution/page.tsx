@@ -9,6 +9,9 @@ export default function SolutionPage() {
   const [consent, setConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleInterestSubmit = async () => {
+    if (showInterestMessage) {
+      return;
+    }
     if (!consent) {
       setErrorMessage("Potrebno je dati privolu");
       return;
@@ -109,7 +112,7 @@ export default function SolutionPage() {
         <button
           type="button"
           onClick={handleInterestSubmit}
-          disabled={isSubmitting}
+          disabled={isSubmitting || showInterestMessage}
           className="mt-3 w-full rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-70"
         >
           {isSubmitting ? "Slanje..." : "Želim više informacija"}
