@@ -7,6 +7,7 @@ export default function SolutionPage() {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [consent, setConsent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleInterestSubmit = async () => {
     if (!consent) {
       setErrorMessage("Potrebno je dati privolu");
@@ -17,6 +18,7 @@ export default function SolutionPage() {
       return;
     }
     setErrorMessage("");
+    setIsSubmitting(true);
     try {
       const res = await fetch("/api/interest", {
         method: "POST",
@@ -37,6 +39,8 @@ export default function SolutionPage() {
     } catch (err) {
       console.error("Interest submit error", err);
       setErrorMessage("Došlo je do greške. Pokušaj ponovno.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
   return (
@@ -105,9 +109,10 @@ export default function SolutionPage() {
         <button
           type="button"
           onClick={handleInterestSubmit}
-          className="mt-3 w-full rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
+          disabled={isSubmitting}
+          className="mt-3 w-full rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-70"
         >
-          Želim više informacija
+          {isSubmitting ? "Slanje..." : "Želim više informacija"}
         </button>
         {errorMessage && (
           <p className="mt-2 text-sm text-red-600">
