@@ -38,6 +38,8 @@ export default function SolutionPage() {
 
       if (res.ok) {
         setShowInterestMessage(true);
+        setEmail("");
+        setConsent(false);
       }
     } catch (err) {
       console.error("Interest submit error", err);
