@@ -90,6 +90,18 @@ export default function SolutionPage() {
             Slažem se da se moj email koristi za slanje informacija o proizvodu.
           </span>
         </label>
+        <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+          Slanjem podataka potvrđujete da ste pročitali{" "}
+          <a
+            href="/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-neutral-700 dark:hover:text-neutral-200"
+          >
+            Pravila privatnosti
+          </a>
+          .
+        </p>
         <button
           type="button"
           onClick={handleInterestSubmit}
