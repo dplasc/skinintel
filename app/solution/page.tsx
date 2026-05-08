@@ -115,9 +115,15 @@ export default function SolutionPage() {
           </p>
         )}
         {showInterestMessage && (
-          <p className="mt-3 text-sm text-green-600">
-            Hvala na interesu — uskoro ćemo imati više informacija za tebe.
-          </p>
+          <div className="mt-3 space-y-1">
+            <p className="text-sm text-green-600">
+              Hvala na interesu — uskoro ćemo imati više informacija za tebe.
+            </p>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+              Vaši podaci koriste se isključivo za informacije vezane uz SkinIntel i neće biti
+              dijeljeni s trećim stranama.
+            </p>
+          </div>
         )}
       </div>
     </main>
