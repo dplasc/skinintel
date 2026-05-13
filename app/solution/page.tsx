@@ -136,6 +136,10 @@ export default function SolutionPage() {
           </div>
         )}
       </div>
+      <p className="mt-10 text-xs leading-5 text-neutral-500 dark:text-neutral-400">
+        SkinIntel pruža edukativne kozmetičke informacije i ne zamjenjuje medicinski savjet,
+        dijagnozu ili terapiju.
+      </p>
     </main>
   );
 }
