@@ -93,6 +93,7 @@ export default function SolutionPage() {
           maxLength={120}
           aria-label="Email adresa"
           spellCheck={false}
+          autoCapitalize="none"
           placeholder="Unesi email za više informacija"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
