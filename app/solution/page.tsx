@@ -90,6 +90,7 @@ export default function SolutionPage() {
           type="email"
           autoComplete="email"
           inputMode="email"
+          maxLength={120}
           placeholder="Unesi email za više informacija"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
