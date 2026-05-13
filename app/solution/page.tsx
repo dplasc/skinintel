@@ -96,6 +96,7 @@ export default function SolutionPage() {
           autoCapitalize="none"
           required
           name="email"
+          enterKeyHint="send"
           placeholder="Unesi email za više informacija"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
