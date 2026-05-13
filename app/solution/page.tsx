@@ -16,7 +16,8 @@ export default function SolutionPage() {
       setErrorMessage("Potrebno je dati privolu");
       return;
     }
-    if (!email || !email.includes("@")) {
+    const normalizedEmail = email.trim().toLowerCase();
+    if (!normalizedEmail || !normalizedEmail.includes("@")) {
       setErrorMessage("Unesi ispravan email");
       return;
     }
@@ -28,7 +29,7 @@ export default function SolutionPage() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ email, consent })
+        body: JSON.stringify({ email: normalizedEmail, consent })
       });
 
       if (!res.ok) {
