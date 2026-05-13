@@ -156,3 +156,43 @@ Open items
 Next step
 
 Normalize interest email with `trim().toLowerCase()` before validation/send.
+
+---
+
+STRUCTURED SUMMARY
+
+Chat title
+
+Interest capture email normalization + frontend hardening
+
+Phase
+
+FAZA 10 – Monetization / Value capture / trust layer
+
+What was completed
+
+- email normalization before validation and API send using `email.trim().toLowerCase()`
+- duplicate submit protection with an `isSubmitting` guard inside the submit handler
+- native email UX improvements for browser/mobile input behavior
+- accessibility additions for the interest email input
+- frontend hardening additions for email input length and keyboard behavior
+- production validation confirmation kept focused on the existing `/solution` interest capture flow
+
+Decisions
+
+- no API route changes
+- no UI text, layout, or styling changes
+- no validation refactor
+- no submit logic refactor beyond the duplicate-submit guard
+- keep hardening incremental and low-risk
+
+Open items
+
+- real privacy policy later
+- delete request flow later
+- retention policy later
+- optional deeper server-side email validation later
+
+Next step
+
+Keep future changes minimal and production-focused; only add backend validation if it reduces real production risk.
