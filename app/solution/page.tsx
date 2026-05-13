@@ -95,6 +95,7 @@ export default function SolutionPage() {
           spellCheck={false}
           autoCapitalize="none"
           required
+          name="email"
           placeholder="Unesi email za više informacija"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
