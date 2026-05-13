@@ -91,6 +91,7 @@ export default function SolutionPage() {
           autoComplete="email"
           inputMode="email"
           maxLength={120}
+          aria-label="Email adresa"
           placeholder="Unesi email za više informacija"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
