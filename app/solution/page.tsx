@@ -9,6 +9,9 @@ export default function SolutionPage() {
   const [consent, setConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleInterestSubmit = async () => {
+    if (isSubmitting) {
+      return;
+    }
     if (showInterestMessage) {
       return;
     }
