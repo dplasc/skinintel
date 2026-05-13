@@ -94,6 +94,7 @@ export default function SolutionPage() {
           aria-label="Email adresa"
           spellCheck={false}
           autoCapitalize="none"
+          required
           placeholder="Unesi email za više informacija"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
