@@ -64,7 +64,7 @@ export default function SolutionPage() {
           analize u jednom proizvodu.
         </p>
         <p>Cilj je pojednostaviti rutinu i fokusirati se na uzrok problema.</p>
-        <p className="text-neutral-500 dark:text-neutral-400">Uskoro više detalja.</p>
+        <p className="text-neutral-500 dark:text-neutral-400">Detalji rješenja temelje se na tvojoj analizi.</p>
 
         <section>
           <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
@@ -115,12 +115,12 @@ export default function SolutionPage() {
         <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
           Slanjem podataka potvrđujete da ste pročitali{" "}
           <a
-            href="/privacy-policy"
+            href="/privacy"
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-neutral-700 dark:hover:text-neutral-200"
           >
-            Pravila privatnosti
+            Politika privatnosti
           </a>
           .
         </p>
@@ -140,7 +140,7 @@ export default function SolutionPage() {
         {showInterestMessage && (
           <div className="mt-3 space-y-1">
             <p className="text-sm text-green-600">
-              Hvala na interesu — uskoro ćemo imati više informacija za tebe.
+              Hvala na interesu — poslat ćemo ti informacije vezane uz SkinIntel.
             </p>
             <p className="text-xs text-neutral-500 dark:text-neutral-400">
               Vaši podaci koriste se isključivo za informacije vezane uz SkinIntel i neće biti
