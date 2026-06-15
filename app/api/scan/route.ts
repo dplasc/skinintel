@@ -3,6 +3,8 @@ import OpenAI from "openai";
 import { Buffer } from "node:buffer";
 import { auth } from "@/auth";
 
+const MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -17,6 +19,12 @@ export async function POST(request: Request) {
   const image = formData.get("image");
   if (!(image instanceof File) || !image.type.startsWith("image/")) {
     return NextResponse.json({ error: "Valid image is required" }, { status: 400 });
+  }
+  if (image.size > MAX_IMAGE_SIZE_BYTES) {
+    return Response.json(
+      { error: "Image too large. Please upload an image under 5 MB." },
+      { status: 413 }
+    );
   }
 
   const imageBuffer = Buffer.from(await image.arrayBuffer());
