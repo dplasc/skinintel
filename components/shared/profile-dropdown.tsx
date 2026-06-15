@@ -7,10 +7,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import userImg from "@/public/assets/images/user.png";
-import { Mail, Settings, User } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
 
 const ProfileDropdown = () => {
   const { data: session } = useSession();
@@ -66,30 +64,6 @@ const ProfileDropdown = () => {
 
         <div className="max-h-[400px] overflow-y-auto scroll-sm pt-4">
           <ul className="flex flex-col gap-3">
-            <li>
-              <Link
-                href="/view-profile"
-                className="text-black dark:text-white hover:text-primary dark:hover:text-primary flex items-center gap-3"
-              >
-                <User className="w-5 h-5" /> My Profile
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/email"
-                className="text-black dark:text-white hover:text-primary dark:hover:text-primary flex items-center gap-3"
-              >
-                <Mail className="w-5 h-5" /> Inbox
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/company"
-                className="text-black dark:text-white hover:text-primary dark:hover:text-primary flex items-center gap-3"
-              >
-                <Settings className="w-5 h-5" /> Settings
-              </Link>
-            </li>
             <li>
               <Logout />
             </li>
