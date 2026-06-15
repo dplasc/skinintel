@@ -1,7 +1,6 @@
 "use client";
 
 import LoginForm from "@/components/auth/login-form";
-import ThemeLogo from "@/components/shared/theme-logo";
 import AuthImage from "@/public/assets/images/auth/auth-img.png";
 import { StaticImg } from "@/types/static-image";
 import type { Metadata } from "next";
@@ -36,8 +35,13 @@ const Login = () => {
         <div className="lg:max-w-[464px] w-full mx-auto">
           {/* Logo and heading */}
           <div>
-            <div className="mb-2.5 inline-block max-w-[290px]">
-              <ThemeLogo />
+            <div className="mb-6 text-center">
+              <div className="text-2xl font-semibold text-gray-900 dark:text-white">
+                SkinIntel
+              </div>
+              <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                AI analiza kože
+              </div>
             </div>
 
             <h4 className="font-semibold mb-3">Prijava u SkinIntel</h4>
