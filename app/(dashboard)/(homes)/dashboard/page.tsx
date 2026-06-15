@@ -58,6 +58,8 @@ export default function DashboardPage() {
       }
       formData.append("description", description);
       formData.append("ingredients", ingredientsInput);
+      formData.append("consentMedical", consentMedical ? "true" : "false");
+      formData.append("consentPrivacy", consentPrivacy ? "true" : "false");
 
       const res = await fetch("/api/scan", {
         method: "POST",

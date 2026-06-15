@@ -26,6 +26,12 @@ export async function POST(request: Request) {
   }
 
   const formData = await request.formData();
+  const consentMedical = formData.get("consentMedical");
+  const consentPrivacy = formData.get("consentPrivacy");
+  if (consentMedical !== "true" || consentPrivacy !== "true") {
+    return Response.json({ error: "Consent required" }, { status: 403 });
+  }
+
   const image = formData.get("image");
   if (!(image instanceof File) || !image.type.startsWith("image/")) {
     return NextResponse.json({ error: "Valid image is required" }, { status: 400 });
