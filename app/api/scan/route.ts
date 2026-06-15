@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { Buffer } from "node:buffer";
 import { auth } from "@/auth";
+import { checkScanRateLimit } from "@/lib/rateLimit";
 
 const MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
 
@@ -13,6 +14,15 @@ export async function POST(request: Request) {
   const session = await auth();
   if (!session?.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const sessionUserWithId = session.user as { id?: string };
+  const userKey = session.user.email ?? sessionUserWithId.id ?? "unknown";
+  const rateLimit = await checkScanRateLimit(userKey);
+  if (!rateLimit.allowed) {
+    return Response.json(
+      { error: "Too many scan requests. Please try again later." },
+      { status: 429 }
+    );
   }
 
   const formData = await request.formData();
