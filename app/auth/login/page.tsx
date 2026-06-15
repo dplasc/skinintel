@@ -1,10 +1,7 @@
 "use client";
 
 import LoginForm from "@/components/auth/login-form";
-import AuthImage from "@/public/assets/images/auth/auth-img.png";
-import { StaticImg } from "@/types/static-image";
 import type { Metadata } from "next";
-import Image from "next/image";
 
 const metadata: Metadata = {
   title: "Prijava u SkinIntel",
@@ -12,26 +9,10 @@ const metadata: Metadata = {
     "Pristupi svom prostoru za analizu kože.",
 };
 
-const forgotPassImage: StaticImg = {
-  image: AuthImage,
-};
-
 const Login = () => {
   return (
-    <section className="bg-white dark:bg-slate-900 flex flex-wrap min-h-screen">
-      {/* Left Image */}
-      <div className="lg:w-1/2 hidden lg:block">
-        <div className="flex items-center justify-center h-screen flex-col">
-          <Image
-            src={forgotPassImage.image}
-            alt="Auth Illustration"
-            className="object-cover w-full h-full"
-          />
-        </div>
-      </div>
-
-      {/* Right Form */}
-      <div className="lg:w-1/2 w-full py-8 px-6 flex flex-col justify-center">
+    <section className="bg-white dark:bg-slate-900 flex min-h-screen">
+      <div className="w-full py-8 px-6 flex flex-col justify-center">
         <div className="lg:max-w-[464px] w-full mx-auto">
           {/* Logo and heading */}
           <div>
