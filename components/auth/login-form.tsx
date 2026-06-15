@@ -15,7 +15,6 @@ import { loginSchema } from '@/lib/zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff, Loader2, Lock, Mail } from 'lucide-react'
 import { signIn } from 'next-auth/react'
-import Link from 'next/link'
 import { useRef, useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -150,12 +149,6 @@ const LoginForm = () => {
                 Zapamti me
               </label>
             </div>
-            <Link
-              href="/auth/forgot-password"
-              className="text-primary font-medium hover:underline text-sm"
-            >
-              Zaboravili ste lozinku?
-            </Link>
           </div>
 
           {/* Submit Button */}
