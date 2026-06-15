@@ -8,9 +8,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 const metadata: Metadata = {
-  title: "Register & Create Account | WowDash Admin Dashboard",
+  title: "Prijava u SkinIntel",
   description:
-    "Create a new user account and get started with the WowDash Admin Dashboard built with Next.js and Tailwind CSS.",
+    "Pristupi svom prostoru za analizu kože.",
 };
 
 const forgotPassImage: StaticImg = {
@@ -40,9 +40,9 @@ const Login = () => {
               <ThemeLogo />
             </div>
 
-            <h4 className="font-semibold mb-3">Sign In to your Account</h4>
+            <h4 className="font-semibold mb-3">Prijava u SkinIntel</h4>
             <p className="mb-8 text-neutral-500 dark:text-neutral-300 text-lg">
-              Welcome back! Please enter your details.
+              Pristupi svom prostoru za analizu kože.
             </p>
           </div>
 

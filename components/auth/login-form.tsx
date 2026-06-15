@@ -33,8 +33,8 @@ const LoginForm = () => {
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: 'wowdash@gmail.com',
-      password: 'Pa$$w0rd!',
+      email: '',
+      password: '',
     },
   })
 
@@ -58,10 +58,10 @@ const LoginForm = () => {
             password: values.password,
             callbackUrl: '/dashboard',
           })
-          toast.success('Login successful!')
+          toast.success('Prijava uspješna!')
         }
       } catch (error) {
-        toast.error('Something went wrong. Please try again.')
+        toast.error('Došlo je do greške. Pokušajte ponovno.')
       } finally {
         setLoading(false)
       }
@@ -92,7 +92,7 @@ const LoginForm = () => {
                     <Input
                       {...field}
                       type="email"
-                      placeholder="Email"
+                      placeholder="Email adresa"
                       name="email"
                       className="ps-13 pe-12 h-14 rounded-xl bg-neutral-100 dark:bg-slate-800 border border-neutral-300 dark:border-slate-700 focus:border-primary dark:focus:border-primary focus-visible:border-primary !shadow-none !ring-0"
                       disabled={loading}
@@ -116,7 +116,7 @@ const LoginForm = () => {
                     <Input
                       {...field}
                       type={showPassword ? 'text' : 'password'}
-                      placeholder="Password"
+                      placeholder="Lozinka"
                       name="password"
                       className="ps-13 pe-12 h-14 rounded-xl bg-neutral-100 dark:bg-slate-800 border border-neutral-300 dark:border-slate-700 focus:border-primary dark:focus:border-primary focus-visible:border-primary !shadow-none !ring-0"
                       disabled={loading}
@@ -147,14 +147,14 @@ const LoginForm = () => {
                 className="border border-neutral-500 w-4.5 h-4.5"
               />
               <label htmlFor="remember" className="text-sm">
-                Remember me
+                Zapamti me
               </label>
             </div>
             <Link
               href="/auth/forgot-password"
               className="text-primary font-medium hover:underline text-sm"
             >
-              Forgot Password?
+              Zaboravili ste lozinku?
             </Link>
           </div>
 
@@ -167,10 +167,10 @@ const LoginForm = () => {
             {isSubmitting || isPending ? (
               <>
                 <Loader2 className="animate-spin h-4.5 w-4.5 mr-2" />
-                Signing in...
+                Prijava...
               </>
             ) : (
-              'Sign In'
+              'Prijava'
             )}
           </Button>
         </form>
@@ -179,7 +179,7 @@ const LoginForm = () => {
       {/* Divider */}
       <div className="mt-8 relative text-center before:absolute before:w-full before:h-px before:bg-neutral-300 dark:before:bg-slate-600 before:top-1/2 before:left-0">
         <span className="relative z-10 px-4 bg-white dark:bg-slate-900 text-base">
-          Or sign in with
+          Ili nastavite s
         </span>
       </div>
 
@@ -189,12 +189,12 @@ const LoginForm = () => {
       {/* Signup Prompt */}
       <div className="mt-8 text-center text-sm">
         <p>
-          Don&apos;t have an account?{' '}
+          Nemate račun?{' '}
           <Link
             href="/auth/register"
             className="text-primary font-semibold hover:underline"
           >
-            Sign Up
+            Registracija
           </Link>
         </p>
       </div>
