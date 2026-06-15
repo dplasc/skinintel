@@ -185,19 +185,6 @@ const LoginForm = () => {
 
       {/* Social Login */}
       <SocialLogin />
-
-      {/* Signup Prompt */}
-      <div className="mt-8 text-center text-sm">
-        <p>
-          Nemate račun?{' '}
-          <Link
-            href="/auth/register"
-            className="text-primary font-semibold hover:underline"
-          >
-            Registracija
-          </Link>
-        </p>
-      </div>
     </>
   )
 }
