@@ -1,12 +1,18 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { Buffer } from "node:buffer";
+import { auth } from "@/auth";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(request: Request) {
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const formData = await request.formData();
   const image = formData.get("image");
   if (!(image instanceof File) || !image.type.startsWith("image/")) {
