@@ -14,14 +14,11 @@ const redis =
         token: upstashRedisRestToken,
       })
     : null;
-const isProduction = process.env.NODE_ENV === "production";
 
 export async function checkScanRateLimit(userKey: string) {
   if (!redis) {
     console.error("Scan rate limit disabled: missing Upstash Redis configuration");
-    return isProduction
-      ? { allowed: false, reason: "missing_redis_configuration" }
-      : { allowed: true, reason: "missing_redis_configuration" };
+    return { allowed: true };
   }
 
   const hourWindow = Math.floor(Date.now() / SCAN_RATE_LIMIT_WINDOW_MS);
@@ -37,8 +34,6 @@ export async function checkScanRateLimit(userKey: string) {
     return { allowed: requestCount <= SCAN_RATE_LIMIT_MAX_REQUESTS };
   } catch (error) {
     console.error("Scan rate limit failed", error);
-    return isProduction
-      ? { allowed: false, reason: "redis_unavailable" }
-      : { allowed: true, reason: "redis_unavailable" };
+    return { allowed: true };
   }
 }
