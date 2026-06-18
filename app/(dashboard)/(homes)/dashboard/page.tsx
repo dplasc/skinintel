@@ -41,6 +41,7 @@ export default function DashboardPage() {
   const [scoredProducts, setScoredProducts] = useState<any[]>([]);
   const [savedScan, setSavedScan] = useState<any | null>(null);
   const [latestAnalysis, setLatestAnalysis] = useState<LatestAnalysis | null>(null);
+  const [latestAnalysisTotal, setLatestAnalysisTotal] = useState(0);
   const [latestAnalysisLoaded, setLatestAnalysisLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -192,7 +193,8 @@ export default function DashboardPage() {
     getLatestAnalysis()
       .then((data) => {
         if (active) {
-          setLatestAnalysis(data);
+          setLatestAnalysis(data?.latest ?? null);
+          setLatestAnalysisTotal(data?.total ?? 0);
         }
       })
       .catch((error) => {
@@ -361,6 +363,7 @@ export default function DashboardPage() {
           {latestAnalysisLoaded ? (
             <div className="space-y-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
               <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Zadnja analiza</h3>
+              <p className="text-xs text-neutral-500 dark:text-neutral-400">Ukupno analiza: {latestAnalysisTotal}</p>
               {latestAnalysis ? (
                 <>
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-neutral-500 dark:text-neutral-400">

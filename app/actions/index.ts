@@ -15,25 +15,24 @@ export async function doLogout () {
 export async function getLatestAnalysis() {
     const session = await auth();
     if (!session?.user?.email) {
-        return null;
+        return { latest: null, total: 0 };
     }
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (!supabaseUrl || !supabaseServiceRoleKey) {
         console.error("Latest analysis skipped: missing Supabase configuration");
-        return null;
+        return { latest: null, total: 0 };
     }
     const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
-    const { data, error } = await supabase
+    const { data, error, count } = await supabase
         .from("analyses")
-        .select("id, confidence, created_at")
+        .select("id, confidence, created_at", { count: "exact" })
         .eq("user_email", session.user.email)
         .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
+        .limit(1);
     if (error) {
         console.error("Latest analysis fetch failed:", error);
-        return null;
+        return { latest: null, total: 0 };
     }
-    return data ?? null;
+    return { latest: data?.[0] ?? null, total: count ?? 0 };
 }
