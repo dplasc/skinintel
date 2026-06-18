@@ -81,6 +81,28 @@ export default async function HistoryPage() {
                 </p>
               </>
             )}
+            {analyses.length >= 2 ? (
+              <div className="space-y-1 border-t border-gray-200 pt-2 dark:border-neutral-700">
+                <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Prije / poslije</h3>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  Najstarija analiza: {formatCreatedAt(analyses[analyses.length - 1]?.created_at)}
+                </p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  Najnovija analiza: {formatCreatedAt(analyses[0]?.created_at)}
+                </p>
+                <div className="flex gap-4 pt-1">
+                  <Link
+                    href={`/history/${analyses[analyses.length - 1]?.id}`}
+                    className="text-xs font-medium text-blue-600"
+                  >
+                    Otvori najstariju
+                  </Link>
+                  <Link href={`/history/${analyses[0]?.id}`} className="text-xs font-medium text-blue-600">
+                    Otvori najnoviju
+                  </Link>
+                </div>
+              </div>
+            ) : null}
           </div>
           <div className="space-y-6 border-l border-gray-200 pl-6 dark:border-neutral-700">
             {analyses.map((analysis) => {
