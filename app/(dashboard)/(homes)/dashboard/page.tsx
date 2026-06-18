@@ -1,6 +1,6 @@
 "use client";
 
-import { getLatestAnalysis } from "@/app/actions";
+import { getLatestAnalysis, getReminderPreference, saveReminderPreference } from "@/app/actions";
 import { getProducts } from "@/lib/getProducts";
 import { scoreProduct } from "@/lib/ingredientScoring";
 import Link from "next/link";
@@ -43,6 +43,8 @@ export default function DashboardPage() {
   const [latestAnalysis, setLatestAnalysis] = useState<LatestAnalysis | null>(null);
   const [latestAnalysisTotal, setLatestAnalysisTotal] = useState(0);
   const [latestAnalysisLoaded, setLatestAnalysisLoaded] = useState(false);
+  const [reminderDays, setReminderDays] = useState<number | null>(null);
+  const [reminderSaved, setReminderSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showSolutionMessage, setShowSolutionMessage] = useState(false);
@@ -209,6 +211,33 @@ export default function DashboardPage() {
       active = false;
     };
   }, []);
+  useEffect(() => {
+    let active = true;
+    getReminderPreference()
+      .then((data) => {
+        if (active && typeof data?.reminderDays === "number") {
+          setReminderDays(data.reminderDays);
+        }
+      })
+      .catch((error) => {
+        console.error("FAILED TO LOAD REMINDER PREFERENCE:", error);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+  const handleReminderChange = async (days: number) => {
+    setReminderDays(days);
+    setReminderSaved(false);
+    try {
+      const result = await saveReminderPreference(days);
+      if (result?.ok) {
+        setReminderSaved(true);
+      }
+    } catch (error) {
+      console.error("FAILED TO SAVE REMINDER PREFERENCE:", error);
+    }
+  };
   const intro = (scanResult as any)?.intro;
   const assessment = (scanResult as any)?.assessment;
   const top5 = (scanResult as any)?.top5;
@@ -398,6 +427,27 @@ export default function DashboardPage() {
               )}
             </div>
           ) : null}
+          <div className="space-y-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+            <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Podsjetnik za novu analizu</h3>
+            <div className="flex flex-col gap-2">
+              {[7, 14, 30].map((days) => (
+                <label key={days} className="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-200">
+                  <input
+                    type="radio"
+                    name="reminderDays"
+                    value={days}
+                    checked={reminderDays === days}
+                    onChange={() => handleReminderChange(days)}
+                    className="h-4 w-4 border-gray-300 text-neutral-900 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600"
+                  />
+                  <span>{days} dana</span>
+                </label>
+              ))}
+            </div>
+            {reminderSaved ? (
+              <p className="text-xs text-green-600">Postavka spremljena.</p>
+            ) : null}
+          </div>
           {scanResult ? (
             <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
               <div className="flex items-center justify-between gap-3">

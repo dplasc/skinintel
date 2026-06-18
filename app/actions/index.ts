@@ -36,3 +36,58 @@ export async function getLatestAnalysis() {
     }
     return { latest: data?.[0] ?? null, total: count ?? 0 };
 }
+
+const ALLOWED_REMINDER_DAYS = [7, 14, 30];
+
+export async function getReminderPreference() {
+    const session = await auth();
+    if (!session?.user?.email) {
+        return { reminderDays: null };
+    }
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!supabaseUrl || !supabaseServiceRoleKey) {
+        console.error("Reminder preference read skipped: missing Supabase configuration");
+        return { reminderDays: null };
+    }
+    const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
+    const { data, error } = await supabase
+        .from("user_preferences")
+        .select("reminder_days")
+        .eq("user_email", session.user.email)
+        .limit(1);
+    if (error) {
+        console.error("Reminder preference fetch failed:", error);
+        return { reminderDays: null };
+    }
+    return { reminderDays: data?.[0]?.reminder_days ?? null };
+}
+
+export async function saveReminderPreference(days: number) {
+    const session = await auth();
+    if (!session?.user?.email) {
+        return { ok: false };
+    }
+    if (!ALLOWED_REMINDER_DAYS.includes(days)) {
+        console.error("Reminder preference save rejected: invalid value", days);
+        return { ok: false };
+    }
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!supabaseUrl || !supabaseServiceRoleKey) {
+        console.error("Reminder preference save skipped: missing Supabase configuration");
+        return { ok: false };
+    }
+    const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
+    const { error } = await supabase
+        .from("user_preferences")
+        .upsert(
+            { user_email: session.user.email, reminder_days: days },
+            { onConflict: "user_email" },
+        );
+    if (error) {
+        console.error("Reminder preference save failed:", error);
+        return { ok: false };
+    }
+    return { ok: true };
+}
