@@ -302,16 +302,38 @@ export default function DashboardPage() {
   ];
   return (
     <>
-      <section className="rounded-[28px] border border-[#ECE0D4] bg-[#FBF4EC] px-6 py-8 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] sm:px-9 sm:py-10 dark:border-neutral-800 dark:bg-neutral-900">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#D9734E]">
-          SkinIntel
-        </p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[#2B2A28] sm:text-4xl dark:text-neutral-100">
-          Dobrodošao natrag
-        </h1>
-        <p className="mt-3 max-w-2xl text-base leading-relaxed text-[#6E6A63] dark:text-neutral-400">
-          Prati stanje svoje kože, uspoređuj rezultate i otkrij što djeluje kroz vrijeme.
-        </p>
+      <section className="relative overflow-hidden rounded-[36px] border border-[#ECE0D4] bg-[#FBF4EC] px-7 py-14 shadow-[0_2px_4px_rgba(43,42,40,0.03),0_18px_50px_rgba(43,42,40,0.09)] sm:px-14 sm:py-20 dark:border-neutral-800 dark:bg-neutral-900">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 dark:opacity-50"
+          style={{
+            background:
+              "radial-gradient(130% 130% at 0% 0%, #FBF6F0 0%, rgba(251,246,240,0) 55%), radial-gradient(95% 95% at 100% 0%, rgba(217,115,78,0.12) 0%, rgba(217,115,78,0) 48%), radial-gradient(85% 85% at 100% 100%, rgba(243,201,179,0.22) 0%, rgba(243,201,179,0) 52%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#F3C9B3]/30 blur-3xl"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-28 left-1/3 h-64 w-64 rounded-full bg-[#D9734E]/10 blur-3xl"
+        />
+
+        <div className="relative max-w-2xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#E7CDBC] bg-[#FBF6F0]/80 px-4 py-1.5 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-800/70">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
+            <span className="bg-gradient-to-r from-[#D9734E] to-[#E0976F] bg-clip-text text-[11px] font-semibold uppercase tracking-[0.32em] text-transparent">
+              SkinIntel
+            </span>
+          </span>
+          <h1 className="mt-7 text-4xl font-semibold leading-[1.05] tracking-tight text-[#2B2A28] sm:text-6xl dark:text-neutral-50">
+            Dobrodošao natrag
+          </h1>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#6E6A63] sm:text-xl dark:text-neutral-300">
+            Prati stanje svoje kože, uspoređuj rezultate i otkrij što djeluje kroz vrijeme.
+          </p>
+        </div>
       </section>
 
       <div className="mt-6 mb-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
