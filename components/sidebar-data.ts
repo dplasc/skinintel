@@ -1,4 +1,4 @@
-import { House } from "lucide-react";
+import { House, Clock } from "lucide-react";
 
 export const data = {
   navMain: [
@@ -6,6 +6,11 @@ export const data = {
       title: "Scan",
       url: "/dashboard",
       icon: House,
+    },
+    {
+      title: "History",
+      url: "/history",
+      icon: Clock,
     },
   ],
 };
