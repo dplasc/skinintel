@@ -275,15 +275,63 @@ export default function DashboardPage() {
       console.error("FAILED TO LOAD SAVED SCAN:", error);
     }
   };
+  const lastAnalysisDate = latestAnalysis?.created_at
+    ? formatCreatedAt(latestAnalysis.created_at).split(" ")[0]
+    : null;
+  const statCards = [
+    {
+      label: "Ukupno analiza",
+      value: latestAnalysisLoaded ? String(latestAnalysisTotal) : "—",
+      hint: "Tvoj dosadašnji napredak",
+    },
+    {
+      label: "Zadnja analiza",
+      value: lastAnalysisDate ?? "Još nema",
+      hint: lastAnalysisDate ? "Datum zadnje analize" : "Pokreni prvu analizu",
+    },
+    {
+      label: "Razina pouzdanosti",
+      value: latestAnalysis?.confidence ?? "—",
+      hint: "Iz zadnje analize",
+    },
+    {
+      label: "Podsjetnik",
+      value: reminderDays !== null ? `${reminderDays} dana` : "Nije postavljen",
+      hint: "Sljedeća analiza",
+    },
+  ];
   return (
     <>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
-        <div>
-          <h6 className="text-2xl font-semibold">Radni prostor za analizu kože</h6>
-          <p className="mt-1 text-sm text-gray-500">
-            Pregledaj svoju spremljenu analizu ili pokreni novu.
-          </p>
-        </div>
+      <section className="rounded-[28px] border border-[#ECE0D4] bg-[#FBF4EC] px-6 py-8 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] sm:px-9 sm:py-10 dark:border-neutral-800 dark:bg-neutral-900">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#D9734E]">
+          SkinIntel
+        </p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[#2B2A28] sm:text-4xl dark:text-neutral-100">
+          Dobrodošao natrag
+        </h1>
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-[#6E6A63] dark:text-neutral-400">
+          Prati stanje svoje kože, uspoređuj rezultate i otkrij što djeluje kroz vrijeme.
+        </p>
+      </section>
+
+      <div className="mt-6 mb-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {statCards.map((card) => (
+          <div
+            key={card.label}
+            className="rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-5 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] transition-shadow hover:shadow-[0_4px_16px_rgba(43,42,40,0.08)] dark:border-neutral-800 dark:bg-neutral-900"
+          >
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
+              <p className="text-xs font-medium uppercase tracking-wide text-[#6E6A63] dark:text-neutral-400">
+                {card.label}
+              </p>
+            </div>
+            <p className="mt-3 break-words text-2xl font-semibold leading-tight text-[#2B2A28] dark:text-neutral-100">
+              {card.value}
+            </p>
+            <p className="mt-1 text-xs text-[#9A938A] dark:text-neutral-500">{card.hint}</p>
+          </div>
+        ))}
       </div>
 
       <div className="mt-8 rounded-xl border border-gray-200 bg-gray-50 px-6 py-7 dark:border-neutral-700 dark:bg-neutral-950">
