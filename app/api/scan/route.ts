@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { Buffer } from "node:buffer";
+import { createClient } from "@supabase/supabase-js";
 import { auth } from "@/auth";
 import { checkScanRateLimit } from "@/lib/rateLimit";
 
@@ -188,6 +189,30 @@ Instruction:
         ? (parsedAiResponse as any).medical_disclaimer
         : "Ovo je edukativna kozmetička analiza, a ne medicinska dijagnoza."
     };
+    try {
+      const supabaseUrl = process.env.SUPABASE_URL;
+      const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+      if (supabaseUrl && supabaseServiceRoleKey) {
+        const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
+        const { error: persistError } = await supabase.from("analyses").insert([
+          {
+            user_email: session.user.email,
+            result: normalizedResponse,
+            confidence: normalizedResponse.confidence,
+            consent_medical: true,
+            consent_privacy: true,
+            model: "gpt-4o-mini",
+          },
+        ]);
+        if (persistError) {
+          console.error("Analysis persistence failed:", persistError);
+        }
+      } else {
+        console.error("Analysis persistence skipped: missing Supabase configuration");
+      }
+    } catch (persistException) {
+      console.error("Analysis persistence threw:", persistException);
+    }
     return NextResponse.json(normalizedResponse);
   } catch {}
   const aiIntro = aiText;
