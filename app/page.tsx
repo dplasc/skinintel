@@ -84,12 +84,66 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="relative order-last w-full">
-            <img
-              src="/assets/images/18_SKININTEL_HERO_VISUAL_V2.webp"
-              alt="SkinIntel AI analiza kože"
-              className="aspect-[4/5] w-full rounded-3xl object-cover shadow-[0_20px_60px_rgba(43,42,40,0.12)] sm:aspect-[16/9] lg:aspect-auto lg:h-auto"
+          <div className="relative order-last flex w-full flex-col items-center justify-center gap-8 lg:flex-row lg:justify-end">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#D9734E]/15 blur-3xl sm:h-96 sm:w-96"
             />
+            <div className="relative w-[240px] sm:w-[300px] lg:w-[340px]">
+              <div className="relative aspect-[9/19] w-full rounded-[2.75rem] border border-[#E7CDBC] bg-[#1F1D1B] p-2.5 shadow-[0_30px_80px_rgba(43,42,40,0.28)] dark:border-neutral-700">
+                <div
+                  aria-hidden="true"
+                  className="absolute left-1/2 top-3 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-[#1F1D1B]"
+                />
+                <img
+                  src="/assets/images/20_SKININTEL_MOBILE_ANALYSIS_HERO_V1.webp"
+                  alt="SkinIntel mobilna analiza kože"
+                  className="h-full w-full rounded-[2.25rem] object-cover"
+                />
+              </div>
+
+              <div className="absolute -left-3 top-10 hidden rounded-2xl border border-[#ECE0D4] bg-white/90 px-4 py-3 shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm sm:-left-8 lg:flex lg:flex-col dark:border-neutral-700 dark:bg-neutral-900/90">
+                <span className="text-xl font-semibold text-[#D9734E]">92%</span>
+                <span className="text-[11px] font-medium text-[#6E6A63] dark:text-neutral-400">
+                  Razina pouzdanosti
+                </span>
+              </div>
+
+              <div className="absolute -right-3 top-1/2 hidden rounded-2xl border border-[#ECE0D4] bg-white/90 px-4 py-3 shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm sm:-right-8 lg:flex lg:flex-col dark:border-neutral-700 dark:bg-neutral-900/90">
+                <span className="text-xl font-semibold text-[#D9734E]">+48%</span>
+                <span className="text-[11px] font-medium text-[#6E6A63] dark:text-neutral-400">
+                  Napredak kože
+                </span>
+              </div>
+
+              <div className="absolute -bottom-4 left-1/2 hidden -translate-x-1/2 rounded-2xl border border-[#ECE0D4] bg-white/90 px-4 py-3 text-center shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm lg:flex lg:flex-col lg:items-center dark:border-neutral-700 dark:bg-neutral-900/90">
+                <span className="text-xl font-semibold text-[#D9734E]">14 dana</span>
+                <span className="text-[11px] font-medium text-[#6E6A63] dark:text-neutral-400">
+                  Praćenje promjena
+                </span>
+              </div>
+            </div>
+
+            <div className="grid w-full max-w-sm grid-cols-3 gap-3 lg:hidden">
+              <div className="flex flex-col items-center rounded-2xl border border-[#ECE0D4] bg-white/90 px-2 py-3 text-center shadow-[0_4px_16px_rgba(43,42,40,0.08)] dark:border-neutral-700 dark:bg-neutral-900/90">
+                <span className="text-base font-semibold text-[#D9734E]">92%</span>
+                <span className="mt-0.5 text-[10px] font-medium leading-tight text-[#6E6A63] dark:text-neutral-400">
+                  Razina pouzdanosti
+                </span>
+              </div>
+              <div className="flex flex-col items-center rounded-2xl border border-[#ECE0D4] bg-white/90 px-2 py-3 text-center shadow-[0_4px_16px_rgba(43,42,40,0.08)] dark:border-neutral-700 dark:bg-neutral-900/90">
+                <span className="text-base font-semibold text-[#D9734E]">+48%</span>
+                <span className="mt-0.5 text-[10px] font-medium leading-tight text-[#6E6A63] dark:text-neutral-400">
+                  Napredak kože
+                </span>
+              </div>
+              <div className="flex flex-col items-center rounded-2xl border border-[#ECE0D4] bg-white/90 px-2 py-3 text-center shadow-[0_4px_16px_rgba(43,42,40,0.08)] dark:border-neutral-700 dark:bg-neutral-900/90">
+                <span className="text-base font-semibold text-[#D9734E]">14 dana</span>
+                <span className="mt-0.5 text-[10px] font-medium leading-tight text-[#6E6A63] dark:text-neutral-400">
+                  Praćenje promjena
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
