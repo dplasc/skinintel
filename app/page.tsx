@@ -86,7 +86,7 @@ export default function HomePage() {
           </div>
           <div className="relative order-last w-full">
             <img
-              src="/assets/images/skinintel-hero-v1.png"
+              src="/assets/images/18_SKININTEL_HERO_VISUAL_V2.webp"
               alt="SkinIntel AI analiza kože"
               className="h-auto w-full rounded-3xl object-cover shadow-[0_20px_60px_rgba(43,42,40,0.12)]"
             />
