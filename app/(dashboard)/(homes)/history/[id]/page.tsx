@@ -26,6 +26,23 @@ type AnalysisRow = {
   result?: AnalysisResult | null;
 };
 
+function formatCreatedAt(value?: string): string {
+  if (!value) return "Nepoznat datum";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Nepoznat datum";
+  const parts = new Intl.DateTimeFormat("hr-HR", {
+    timeZone: "Europe/Zagreb",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(date);
+  const get = (type: string) => parts.find((part) => part.type === type)?.value ?? "";
+  return `${get("day")}.${get("month")}.${get("year")}. ${get("hour")}:${get("minute")}`;
+}
+
 export default async function HistoryDetailPage({
   params,
 }: {
@@ -69,7 +86,7 @@ export default async function HistoryDetailPage({
     );
   }
 
-  const createdAt = analysis.created_at ?? "Nepoznat datum";
+  const createdAt = formatCreatedAt(analysis.created_at);
   const confidence = analysis.confidence ?? "nepoznato";
   const model = analysis.model ?? "nepoznato";
   const result = analysis.result ?? {};
