@@ -64,7 +64,24 @@ export default async function HistoryPage() {
         <p className="text-sm text-gray-500">Još nema spremljenih analiza.</p>
       ) : (
         <>
-          <p className="mb-4 text-sm text-gray-500">Ukupno analiza: {analyses.length}</p>
+          <div className="mb-6 space-y-2 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+            <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Sažetak napretka</h3>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">Ukupno analiza: {analyses.length}</p>
+            {analyses.length === 1 ? (
+              <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                Početak praćenja: {formatCreatedAt(analyses[0]?.created_at)}
+              </p>
+            ) : (
+              <>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  Prva analiza: {formatCreatedAt(analyses[analyses.length - 1]?.created_at)}
+                </p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  Zadnja analiza: {formatCreatedAt(analyses[0]?.created_at)}
+                </p>
+              </>
+            )}
+          </div>
           <div className="space-y-6 border-l border-gray-200 pl-6 dark:border-neutral-700">
             {analyses.map((analysis) => {
               const createdAt = formatCreatedAt(analysis?.created_at);
