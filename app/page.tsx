@@ -55,7 +55,7 @@ export default function HomePage() {
           className="pointer-events-none absolute -left-24 top-40 h-72 w-72 rounded-full bg-[#D9734E]/10 blur-3xl"
         />
 
-        <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 py-24 sm:py-32 lg:grid-cols-2 lg:gap-16">
+        <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-6 py-14 sm:gap-12 sm:py-32 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <span className="inline-flex items-center gap-2 rounded-full border border-[#E7CDBC] bg-[#FBF6F0]/80 px-4 py-1.5 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-800/70">
               <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
@@ -88,7 +88,7 @@ export default function HomePage() {
             <img
               src="/assets/images/18_SKININTEL_HERO_VISUAL_V2.webp"
               alt="SkinIntel AI analiza kože"
-              className="h-auto w-full rounded-3xl object-cover shadow-[0_20px_60px_rgba(43,42,40,0.12)]"
+              className="aspect-[4/5] w-full rounded-3xl object-cover shadow-[0_20px_60px_rgba(43,42,40,0.12)] sm:aspect-[16/9] lg:aspect-auto lg:h-auto"
             />
           </div>
         </div>
