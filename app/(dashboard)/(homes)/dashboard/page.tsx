@@ -444,6 +444,11 @@ export default function DashboardPage() {
                 </label>
               ))}
             </div>
+            {reminderDays !== null ? (
+              <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                Trenutno odabrano: {reminderDays} dana
+              </p>
+            ) : null}
             {reminderSaved ? (
               <p className="text-xs text-green-600">Postavka spremljena.</p>
             ) : null}
