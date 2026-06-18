@@ -435,35 +435,43 @@ export default function DashboardPage() {
             {isLoading ? "Analiza u tijeku..." : "Pokreni analizu kože"}
           </button>
           {!consentMedical || !consentPrivacy ? (
-            <p className="mt-1 text-sm text-red-500">
+            <div className="mt-1 rounded-xl border border-[#E7D9C4] bg-[#FBF1E3] px-4 py-2.5 text-sm text-[#9A6B2F] dark:border-neutral-800 dark:bg-neutral-900 dark:text-amber-300/80">
               Molimo prihvati privole prije pokretanja analize.
-            </p>
+            </div>
           ) : null}
           {scanError ? (
-            <p className="mt-1 text-sm text-red-500">
+            <div className="mt-1 rounded-xl border border-[#E7D9C4] bg-[#FBF1E3] px-4 py-2.5 text-sm text-[#9A6B2F] dark:border-neutral-800 dark:bg-neutral-900 dark:text-amber-300/80">
               {scanError}
-            </p>
+            </div>
           ) : null}
           {latestAnalysisLoaded ? (
-            <div className="space-y-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
-              <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Zadnja analiza</h3>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400">Ukupno analiza: {latestAnalysisTotal}</p>
+            <div className="rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-6 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
+                <p className="text-xs font-medium uppercase tracking-wide text-[#6E6A63] dark:text-neutral-400">
+                  Zadnja analiza
+                </p>
+              </div>
+              <p className="mt-3 text-sm text-[#6E6A63] dark:text-neutral-400">
+                Ukupno analiza:{" "}
+                <span className="font-semibold text-[#2B2A28] dark:text-neutral-100">{latestAnalysisTotal}</span>
+              </p>
               {latestAnalysis ? (
                 <>
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-neutral-500 dark:text-neutral-400">
+                  <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[#9A938A] dark:text-neutral-500">
                     <span>{formatCreatedAt(latestAnalysis.created_at)}</span>
                     <span>Razina pouzdanosti: {latestAnalysis.confidence ?? "nepoznato"}</span>
                   </div>
-                  <div className="flex flex-wrap gap-4">
+                  <div className="mt-4 flex flex-wrap gap-3">
                     <Link
                       href={`/history/${latestAnalysis.id}`}
-                      className="text-xs font-medium text-blue-600 hover:underline"
+                      className="inline-flex items-center rounded-xl bg-[#D9734E] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#C45F3D] active:scale-[0.98]"
                     >
                       Otvori analizu
                     </Link>
                     <Link
                       href="/history"
-                      className="text-xs font-medium text-blue-600 hover:underline"
+                      className="inline-flex items-center rounded-xl border border-[#ECE0D4] px-4 py-2 text-xs font-semibold text-[#2B2A28] transition hover:bg-[#F7DECF] active:scale-[0.98] dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
                     >
                       Povijest analiza
                     </Link>
@@ -471,10 +479,10 @@ export default function DashboardPage() {
                 </>
               ) : (
                 <>
-                  <p className="text-sm text-gray-500">Još nema spremljenih analiza.</p>
+                  <p className="mt-3 text-sm text-[#6E6A63] dark:text-neutral-400">Još nema spremljenih analiza.</p>
                   <Link
                     href="/dashboard"
-                    className="text-xs font-medium text-blue-600 hover:underline"
+                    className="mt-4 inline-flex items-center rounded-xl bg-[#D9734E] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#C45F3D] active:scale-[0.98]"
                   >
                     Pokreni prvu analizu
                   </Link>
@@ -482,30 +490,35 @@ export default function DashboardPage() {
               )}
             </div>
           ) : null}
-          <div className="space-y-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
-            <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Podsjetnik za novu analizu</h3>
-            <div className="flex flex-col gap-2">
+          <div className="rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-6 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
+              <p className="text-xs font-medium uppercase tracking-wide text-[#6E6A63] dark:text-neutral-400">
+                Podsjetnik za novu analizu
+              </p>
+            </div>
+            <div className="mt-4 flex flex-col gap-2.5">
               {[7, 14, 30].map((days) => (
-                <label key={days} className="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-200">
+                <label key={days} className="flex items-center gap-2.5 text-sm text-[#2B2A28] dark:text-neutral-200">
                   <input
                     type="radio"
                     name="reminderDays"
                     value={days}
                     checked={reminderDays === days}
                     onChange={() => handleReminderChange(days)}
-                    className="h-4 w-4 border-gray-300 text-neutral-900 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600"
+                    className="h-4 w-4 border-[#ECE0D4] accent-[#D9734E] transition focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 dark:border-neutral-600"
                   />
                   <span>{days} dana</span>
                 </label>
               ))}
             </div>
             {reminderDays !== null ? (
-              <p className="text-xs text-neutral-500 dark:text-neutral-400">
+              <p className="mt-3 text-xs text-[#9A938A] dark:text-neutral-500">
                 Trenutno odabrano: {reminderDays} dana
               </p>
             ) : null}
             {reminderSaved ? (
-              <p className="text-xs text-green-600">Postavka spremljena.</p>
+              <p className="mt-2 text-xs font-medium text-[#5C7E59] dark:text-emerald-400/80">Postavka spremljena.</p>
             ) : null}
           </div>
           {scanResult ? (
