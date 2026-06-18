@@ -46,8 +46,8 @@ export function NavMain({ items }: { items: SidebarItem[] }) {
   };
 
   return (
-    <SidebarGroup className={`${isCollapsed ? "px-1.5" : ""}`}>
-      <SidebarMenu>
+    <SidebarGroup className={cn("px-3 py-4", isCollapsed && "px-1.5")}>
+      <SidebarMenu className="gap-1.5">
         {items.map((item) => {
           const isGroupActive = item.items?.some(
             (subItem) =>
@@ -136,13 +136,13 @@ export function NavMain({ items }: { items: SidebarItem[] }) {
                   asChild
                   tooltip={item.title}
                   className={cn(
-                    "cursor-pointer py-5.5 px-3 text-base text-[#4b5563] dark:text-white hover:bg-primary/10 active:bg-primary/10 dark:hover:bg-slate-700",
+                    "h-auto cursor-pointer gap-3 rounded-xl px-3.5 py-3 text-[15px] font-medium text-[#5A554E] transition-colors hover:bg-[#F2E4D6] hover:text-[#2B2A28] active:bg-[#F2E4D6] dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100",
                     isMenuActive
-                      ? "bg-primary hover:bg-primary text-white dark:hover:bg-primary hover:text-white"
+                      ? "bg-[#F4DCCB] font-semibold text-[#C0532F] shadow-[inset_3px_0_0_0_#D9734E] hover:bg-[#F4DCCB] hover:text-[#C0532F] dark:bg-neutral-800 dark:text-[#E8916C] dark:hover:bg-neutral-800"
                       : ""
                   )}
                 >
-                  <Link href={item.url} className="flex items-center gap-2">
+                  <Link href={item.url} className="flex items-center gap-3">
                     {item.icon && <item.icon className="!w-4.5 !h-4.5" />}
                     <span>{item.title}</span>
                   </Link>
