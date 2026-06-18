@@ -334,50 +334,57 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <div className="mt-8 rounded-xl border border-gray-200 bg-gray-50 px-6 py-7 dark:border-neutral-700 dark:bg-neutral-950">
-        <div className="mx-auto flex w-full max-w-3xl flex-col gap-7 text-left">
+      <div className="mt-8 rounded-[28px] border border-[#ECE0D4] bg-[#FBF6F0] px-6 py-9 sm:px-9 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 text-left">
           {savedScan ? (
-            <>
-              <p className="text-lg font-semibold text-neutral-900">Dobrodošao natrag</p>
-              <p className="mt-1 mb-3 text-sm text-gray-500">Tvoja prethodna analiza kože spremna je za pregled.</p>
-              <div ref={savedAnalysisRef} className="rounded-md border border-blue-200 bg-blue-50 p-3 dark:border-blue-900 dark:bg-blue-950">
-                <p className="text-sm font-medium text-neutral-800 dark:text-neutral-100">
-                  Imaš spremljenu analizu
+            <div
+              ref={savedAnalysisRef}
+              className="rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-6 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900"
+            >
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
+                <p className="text-xs font-medium uppercase tracking-wide text-[#6E6A63] dark:text-neutral-400">
+                  Spremljena analiza
                 </p>
-                <p className="mt-1 text-sm text-gray-500">
-                  Učitaj prethodnu analizu ili nastavi s novom.
-                </p>
-                <button
-                  type="button"
-                  onClick={handleLoadLastResult}
-                  className="mt-3 rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700"
-                >
-                  Učitaj spremljenu analizu
-                </button>
               </div>
-            </>
+              <p className="mt-3 text-xl font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
+                Imaš spremljenu analizu
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
+                Tvoja prethodna analiza kože spremna je za pregled. Učitaj je ili nastavi s novom.
+              </p>
+              <button
+                type="button"
+                onClick={handleLoadLastResult}
+                className="mt-4 inline-flex items-center rounded-xl border border-[#D9734E] px-4 py-2.5 text-sm font-semibold text-[#C45F3D] transition hover:bg-[#F7DECF] active:scale-[0.98] dark:border-[#E8916C] dark:text-[#E8916C] dark:hover:bg-neutral-800"
+              >
+                Učitaj spremljenu analizu
+              </button>
+            </div>
           ) : null}
-          <h3 className="mb-4 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
-            Analiza kože
-          </h3>
-          <p className="mb-4 text-sm text-gray-500 dark:text-neutral-400">
-            Učitaj slike kože i opiši svoje probleme kako bi dobio AI analizu.
-          </p>
+          <div>
+            <h3 className="text-xl font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
+              Analiza kože
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
+              Učitaj slike kože i opiši svoje probleme kako bi dobio AI analizu.
+            </p>
+          </div>
 
-          <div className="space-y-4 rounded-lg border border-gray-300 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900">
-            <p className="text-base font-medium tracking-tight text-neutral-900 dark:text-neutral-100">Detalji o tvojoj koži</p>
+          <div className="space-y-5 rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-6 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
+            <p className="text-base font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">Detalji o tvojoj koži</p>
             <input
               type="file"
               accept="image/*"
               onChange={(event) => setImageFile(event.target.files?.[0] || null)}
-              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
+              className="w-full rounded-xl border border-[#ECE0D4] bg-[#FFFDFA] px-4 py-2.5 text-sm text-[#2B2A28] transition placeholder:text-[#9A938A] focus:border-[#D9734E] focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200"
             />
             <textarea
               placeholder="Opiši probleme, simptome ili promjene koje si primijetio..."
               rows={4}
               value={description}
               onChange={(event) => setDescription(event.target.value)}
-              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
+              className="w-full rounded-xl border border-[#ECE0D4] bg-[#FFFDFA] px-4 py-2.5 text-sm text-[#2B2A28] transition placeholder:text-[#9A938A] focus:border-[#D9734E] focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200"
             />
             <p className="text-xs text-neutral-500 dark:text-neutral-400">
               Opcionalno (za naprednu analizu): zalijepi popis sastojaka s proizvoda
@@ -386,7 +393,7 @@ export default function DashboardPage() {
               placeholder="ZALIJEPI SASTOJKE (INCI) OVDJE — npr. niacinamid, salicilna kiselina, cink"
               value={ingredientsInput}
               onChange={(e) => setIngredientsInput(e.target.value)}
-              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-neutral-700 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200"
+              className="w-full rounded-xl border border-[#ECE0D4] bg-[#FFFDFA] px-4 py-2.5 text-sm text-[#2B2A28] transition placeholder:text-[#9A938A] focus:border-[#D9734E] focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200"
             />
             <div className="flex flex-col gap-2 pt-1">
               <label className="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-200">
@@ -394,7 +401,7 @@ export default function DashboardPage() {
                   type="checkbox"
                   checked={consentMedical}
                   onChange={(e) => setConsentMedical(e.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-gray-300 text-neutral-900 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600"
+                  className="mt-1 h-4 w-4 rounded border-[#ECE0D4] accent-[#D9734E] transition focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 dark:border-neutral-600"
                 />
                 <span>
                   Razumijem da SkinIntel pruža edukativnu kozmetičku analizu, a ne medicinsku dijagnozu.
@@ -405,7 +412,7 @@ export default function DashboardPage() {
                   type="checkbox"
                   checked={consentPrivacy}
                   onChange={(e) => setConsentPrivacy(e.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-gray-300 text-neutral-900 transition focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-600"
+                  className="mt-1 h-4 w-4 rounded border-[#ECE0D4] accent-[#D9734E] transition focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 dark:border-neutral-600"
                 />
                 <span>
                   Dajem izričitu privolu za obradu fotografije kože i opisa simptoma u svrhu analize i praćenja napretka.
@@ -423,7 +430,7 @@ export default function DashboardPage() {
             type="button"
             onClick={handleScanClick}
             disabled={isLoading || !consentMedical || !consentPrivacy}
-            className="mt-4 w-fit rounded-md bg-blue-700 px-6 py-3 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-blue-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-2 w-full rounded-2xl bg-[#D9734E] px-7 py-3.5 text-sm font-semibold text-white shadow-[0_2px_10px_rgba(217,115,78,0.25)] transition duration-200 hover:bg-[#C45F3D] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:w-fit"
           >
             {isLoading ? "Analiza u tijeku..." : "Pokreni analizu kože"}
           </button>
