@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { createClient } from "@supabase/supabase-js";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 type AnalysisRow = {
@@ -55,9 +56,10 @@ export default async function HistoryPage() {
                 ? analysis.result.intro
                 : "No summary available.";
             return (
-              <div
+              <Link
                 key={analysis?.id ?? `${createdAt}-${model}`}
-                className="rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900"
+                href={`/history/${analysis?.id}`}
+                className="block rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900"
               >
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-neutral-500 dark:text-neutral-400">
                   <span>{createdAt}</span>
@@ -67,7 +69,8 @@ export default async function HistoryPage() {
                 <p className="mt-2 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
                   {intro}
                 </p>
-              </div>
+                <p className="mt-2 text-xs font-medium text-blue-600">Open full analysis</p>
+              </Link>
             );
           })}
         </div>
