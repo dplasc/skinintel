@@ -588,6 +588,17 @@ export default function DashboardPage() {
               </div>
             </div>
           ) : null}
+          {scanResult ? (
+            <div className="space-y-2 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <p className="text-sm font-medium text-green-600">✓ Analiza spremljena</p>
+              <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                Pregledaj kasnije u Povijesti analiza.
+              </p>
+              <Link href="/history" className="text-xs font-medium text-blue-600 hover:underline">
+                Povijest analiza
+              </Link>
+            </div>
+          ) : null}
           {scoredProducts.length > 0 ? (
             <div className="space-y-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
               <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Preporučeni proizvodi</h3>
