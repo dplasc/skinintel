@@ -28,6 +28,19 @@ function formatCreatedAt(value?: string): string {
   return `${get("day")}.${get("month")}.${get("year")}. ${get("hour")}:${get("minute")}`;
 }
 
+function formatDayGap(newest?: string, oldest?: string): string {
+  if (!newest || !oldest) return "Razmak: nije dostupno";
+  const newestDate = new Date(newest);
+  const oldestDate = new Date(oldest);
+  if (Number.isNaN(newestDate.getTime()) || Number.isNaN(oldestDate.getTime())) {
+    return "Razmak: nije dostupno";
+  }
+  const newestDay = Date.UTC(newestDate.getFullYear(), newestDate.getMonth(), newestDate.getDate());
+  const oldestDay = Date.UTC(oldestDate.getFullYear(), oldestDate.getMonth(), oldestDate.getDate());
+  const days = Math.abs(Math.round((newestDay - oldestDay) / 86400000));
+  return `Razmak: ${days} dana`;
+}
+
 export default async function HistoryPage() {
   const session = await auth();
   if (!session?.user?.email) {
@@ -89,6 +102,9 @@ export default async function HistoryPage() {
                 </p>
                 <p className="text-xs text-neutral-500 dark:text-neutral-400">
                   Najnovija analiza: {formatCreatedAt(analyses[0]?.created_at)}
+                </p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  {formatDayGap(analyses[0]?.created_at, analyses[analyses.length - 1]?.created_at)}
                 </p>
                 <div className="flex gap-4 pt-1">
                   <Link
