@@ -1,10 +1,34 @@
 "use client";
 
+import { getLatestAnalysis } from "@/app/actions";
 import { getProducts } from "@/lib/getProducts";
 import { scoreProduct } from "@/lib/ingredientScoring";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useRef, useState } from "react";
 
+type LatestAnalysis = {
+  id?: string | number;
+  confidence?: string;
+  created_at?: string;
+};
+
+function formatCreatedAt(value?: string): string {
+  if (!value) return "Nepoznat datum";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Nepoznat datum";
+  const parts = new Intl.DateTimeFormat("hr-HR", {
+    timeZone: "Europe/Zagreb",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(date);
+  const get = (type: string) => parts.find((part) => part.type === type)?.value ?? "";
+  return `${get("day")}.${get("month")}.${get("year")}. ${get("hour")}:${get("minute")}`;
+}
 
 export default function DashboardPage() {
   const [consentMedical, setConsentMedical] = useState(false);
@@ -16,6 +40,8 @@ export default function DashboardPage() {
   const [scanError, setScanError] = useState<string | null>(null);
   const [scoredProducts, setScoredProducts] = useState<any[]>([]);
   const [savedScan, setSavedScan] = useState<any | null>(null);
+  const [latestAnalysis, setLatestAnalysis] = useState<LatestAnalysis | null>(null);
+  const [latestAnalysisLoaded, setLatestAnalysisLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showSolutionMessage, setShowSolutionMessage] = useState(false);
@@ -161,6 +187,26 @@ export default function DashboardPage() {
       savedAnalysisRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [savedScan]);
+  useEffect(() => {
+    let active = true;
+    getLatestAnalysis()
+      .then((data) => {
+        if (active) {
+          setLatestAnalysis(data);
+        }
+      })
+      .catch((error) => {
+        console.error("FAILED TO LOAD LATEST ANALYSIS:", error);
+      })
+      .finally(() => {
+        if (active) {
+          setLatestAnalysisLoaded(true);
+        }
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
   const intro = (scanResult as any)?.intro;
   const assessment = (scanResult as any)?.assessment;
   const top5 = (scanResult as any)?.top5;
@@ -311,6 +357,43 @@ export default function DashboardPage() {
             <p className="mt-1 text-sm text-red-500">
               {scanError}
             </p>
+          ) : null}
+          {latestAnalysisLoaded ? (
+            <div className="space-y-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Zadnja analiza</h3>
+              {latestAnalysis ? (
+                <>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-neutral-500 dark:text-neutral-400">
+                    <span>{formatCreatedAt(latestAnalysis.created_at)}</span>
+                    <span>Razina pouzdanosti: {latestAnalysis.confidence ?? "nepoznato"}</span>
+                  </div>
+                  <div className="flex flex-wrap gap-4">
+                    <Link
+                      href={`/history/${latestAnalysis.id}`}
+                      className="text-xs font-medium text-blue-600 hover:underline"
+                    >
+                      Otvori analizu
+                    </Link>
+                    <Link
+                      href="/history"
+                      className="text-xs font-medium text-blue-600 hover:underline"
+                    >
+                      Povijest analiza
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p className="text-sm text-gray-500">Još nema spremljenih analiza.</p>
+                  <Link
+                    href="/dashboard"
+                    className="text-xs font-medium text-blue-600 hover:underline"
+                  >
+                    Pokreni prvu analizu
+                  </Link>
+                </>
+              )}
+            </div>
           ) : null}
           {scanResult ? (
             <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
