@@ -62,16 +62,16 @@ export default async function HistoryDetailPage({
     return (
       <>
         <div className="mb-6">
-          <h6 className="text-2xl font-semibold">History</h6>
+          <h6 className="text-2xl font-semibold">Povijest analiza</h6>
         </div>
-        <p className="text-sm text-gray-500">Analysis not found.</p>
+        <p className="text-sm text-gray-500">Analiza nije pronađena.</p>
       </>
     );
   }
 
-  const createdAt = analysis.created_at ?? "Unknown date";
-  const confidence = analysis.confidence ?? "unknown";
-  const model = analysis.model ?? "unknown";
+  const createdAt = analysis.created_at ?? "Nepoznat datum";
+  const confidence = analysis.confidence ?? "nepoznato";
+  const model = analysis.model ?? "nepoznato";
   const result = analysis.result ?? {};
   const intro = typeof result.intro === "string" ? result.intro : "";
   const assessment = Array.isArray(result.assessment) ? result.assessment : [];
@@ -83,10 +83,10 @@ export default async function HistoryDetailPage({
   return (
     <>
       <div className="mb-6">
-        <h6 className="text-2xl font-semibold">History</h6>
+        <h6 className="text-2xl font-semibold">Povijest analiza</h6>
         <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-neutral-500 dark:text-neutral-400">
           <span>{createdAt}</span>
-          <span>Confidence: {confidence}</span>
+          <span>Razina pouzdanosti: {confidence}</span>
           <span>Model: {model}</span>
         </div>
       </div>
@@ -95,7 +95,7 @@ export default async function HistoryDetailPage({
         {intro ? (
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-              Intro
+              Sažetak
             </p>
             <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{intro}</p>
           </div>
@@ -104,7 +104,7 @@ export default async function HistoryDetailPage({
         {assessment.length > 0 ? (
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-              Assessment
+              Procjena
             </p>
             <ul className="list-disc space-y-2 pl-5 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
               {assessment
@@ -119,7 +119,7 @@ export default async function HistoryDetailPage({
         {top5.length > 0 ? (
           <div className="space-y-3">
             <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-              Top 5
+              Glavne preporuke
             </p>
             {top5
               .filter((item) => item && item.title)
@@ -135,7 +135,7 @@ export default async function HistoryDetailPage({
                     {item.why && item.why.trim() !== "" ? (
                       <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">
                         <span className="font-medium text-neutral-800 dark:text-neutral-100">
-                          Why:{" "}
+                          Zašto:{" "}
                         </span>
                         {item.why}
                       </p>
@@ -143,7 +143,7 @@ export default async function HistoryDetailPage({
                     {item.how && item.how.trim() !== "" ? (
                       <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">
                         <span className="font-medium text-neutral-800 dark:text-neutral-100">
-                          How:{" "}
+                          Kako:{" "}
                         </span>
                         {item.how}
                       </p>
@@ -151,7 +151,7 @@ export default async function HistoryDetailPage({
                     {item.watch_out && item.watch_out.trim() !== "" ? (
                       <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">
                         <span className="font-medium text-neutral-800 dark:text-neutral-100">
-                          Watch out:{" "}
+                          Obrati pažnju:{" "}
                         </span>
                         {item.watch_out}
                       </p>
@@ -165,7 +165,7 @@ export default async function HistoryDetailPage({
         {nextSteps.length > 0 ? (
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-              Next steps
+              Sljedeći koraci
             </p>
             <ul className="list-disc space-y-2 pl-5 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
               {nextSteps
@@ -179,7 +179,7 @@ export default async function HistoryDetailPage({
 
         <div className="space-y-2">
           <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-            Confidence
+            Razina pouzdanosti
           </p>
           <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{confidence}</p>
         </div>
@@ -187,7 +187,7 @@ export default async function HistoryDetailPage({
         {medicalDisclaimer ? (
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-              Disclaimer
+              Napomena
             </p>
             <p className="text-xs leading-5 text-neutral-500 dark:text-neutral-400">
               {medicalDisclaimer}

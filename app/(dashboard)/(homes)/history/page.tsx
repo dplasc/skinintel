@@ -40,21 +40,21 @@ export default async function HistoryPage() {
   return (
     <>
       <div className="mb-6">
-        <h6 className="text-2xl font-semibold">History</h6>
+        <h6 className="text-2xl font-semibold">Povijest analiza</h6>
       </div>
 
       {analyses.length === 0 ? (
-        <p className="text-sm text-gray-500">No saved analyses yet.</p>
+        <p className="text-sm text-gray-500">Još nema spremljenih analiza.</p>
       ) : (
         <div className="space-y-4">
           {analyses.map((analysis) => {
-            const createdAt = analysis?.created_at ?? "Unknown date";
-            const confidence = analysis?.confidence ?? "unknown";
-            const model = analysis?.model ?? "unknown";
+            const createdAt = analysis?.created_at ?? "Nepoznat datum";
+            const confidence = analysis?.confidence ?? "nepoznato";
+            const model = analysis?.model ?? "nepoznato";
             const intro =
               analysis?.result && typeof analysis.result.intro === "string"
                 ? analysis.result.intro
-                : "No summary available.";
+                : "Sažetak nije dostupan.";
             return (
               <Link
                 key={analysis?.id ?? `${createdAt}-${model}`}
@@ -63,13 +63,13 @@ export default async function HistoryPage() {
               >
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-neutral-500 dark:text-neutral-400">
                   <span>{createdAt}</span>
-                  <span>Confidence: {confidence}</span>
+                  <span>Razina pouzdanosti: {confidence}</span>
                   <span>Model: {model}</span>
                 </div>
                 <p className="mt-2 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
                   {intro}
                 </p>
-                <p className="mt-2 text-xs font-medium text-blue-600">Open full analysis</p>
+                <p className="mt-2 text-xs font-medium text-blue-600">Otvori cijelu analizu</p>
               </Link>
             );
           })}
