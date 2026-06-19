@@ -302,7 +302,7 @@ export default function DashboardPage() {
   ];
   return (
     <>
-      <section className="relative overflow-hidden rounded-[36px] border border-[#ECE0D4] bg-[#FBF4EC] px-7 py-14 shadow-[0_2px_4px_rgba(43,42,40,0.03),0_18px_50px_rgba(43,42,40,0.09)] sm:px-14 sm:py-20 dark:border-neutral-800 dark:bg-neutral-900">
+      <section className="relative overflow-hidden rounded-3xl border border-[#ECE0D4] bg-[#FBF4EC] px-6 py-9 shadow-[0_2px_4px_rgba(43,42,40,0.03),0_18px_50px_rgba(43,42,40,0.09)] sm:rounded-[36px] sm:px-14 sm:py-20 dark:border-neutral-800 dark:bg-neutral-900">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 dark:opacity-50"
@@ -313,26 +313,57 @@ export default function DashboardPage() {
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#F3C9B3]/30 blur-3xl"
+          className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[#F3C9B3]/30 blur-3xl sm:-right-20 sm:-top-20 sm:h-72 sm:w-72"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -bottom-28 left-1/3 h-64 w-64 rounded-full bg-[#D9734E]/10 blur-3xl"
+          className="pointer-events-none absolute -bottom-24 left-1/3 h-52 w-52 rounded-full bg-[#D9734E]/10 blur-3xl sm:-bottom-28 sm:h-64 sm:w-64"
         />
 
         <div className="relative max-w-2xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#E7CDBC] bg-[#FBF6F0]/80 px-4 py-1.5 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-800/70">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#E7CDBC] bg-[#FBF6F0]/80 px-3.5 py-1.5 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-800/70">
             <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
-            <span className="bg-gradient-to-r from-[#D9734E] to-[#E0976F] bg-clip-text text-[11px] font-semibold uppercase tracking-[0.32em] text-transparent">
-              SkinIntel
+            <span className="bg-gradient-to-r from-[#D9734E] to-[#E0976F] bg-clip-text text-[10px] font-semibold uppercase tracking-[0.28em] text-transparent sm:text-[11px] sm:tracking-[0.32em]">
+              AI dnevnik kože
             </span>
           </span>
-          <h1 className="mt-7 text-4xl font-semibold leading-[1.05] tracking-tight text-[#2B2A28] sm:text-6xl dark:text-neutral-50">
-            Dobrodošao natrag
+          <h1 className="mt-5 text-[34px] font-semibold leading-[1.08] tracking-tight text-[#2B2A28] sm:mt-7 sm:text-6xl dark:text-neutral-50">
+            Dobrodošla natrag
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#6E6A63] sm:text-xl dark:text-neutral-300">
-            Prati stanje svoje kože, uspoređuj rezultate i otkrij što djeluje kroz vrijeme.
+          <p className="mt-3.5 max-w-xl text-base leading-relaxed text-[#6E6A63] sm:mt-6 sm:text-xl dark:text-neutral-300">
+            Prati stanje svoje kože, uspoređuj rezultate i nastavi svoj ritual njege.
           </p>
+
+          <div className="mt-7 flex items-center gap-4 rounded-2xl border border-[#ECE0D4] bg-[#FBF6F0]/90 p-4 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] backdrop-blur-sm sm:mt-9 sm:max-w-sm dark:border-neutral-800 dark:bg-neutral-950/70">
+            <span
+              aria-hidden="true"
+              className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-[#F3C9B3]/60 to-[#D9734E]/20 text-lg dark:from-neutral-800 dark:to-neutral-800"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#C45F3D"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 21s-7-4.35-9.33-9.06C1.1 8.86 2.7 5.5 6 5.5c2 0 3.2 1.2 4 2.4.8-1.2 2-2.4 4-2.4 3.3 0 4.9 3.36 3.33 6.44C19 16.65 12 21 12 21z" />
+              </svg>
+            </span>
+            <div className="min-w-0">
+              <p className="text-[11px] font-medium uppercase tracking-wide text-[#9A938A] dark:text-neutral-500">
+                Zadnja analiza
+              </p>
+              <p className="mt-0.5 truncate text-sm font-semibold text-[#2B2A28] dark:text-neutral-100">
+                {lastAnalysisDate ?? "Još nema analize"}
+              </p>
+              <p className="mt-0.5 truncate text-xs text-[#6E6A63] dark:text-neutral-400">
+                {latestAnalysis?.confidence ?? "Spremno za prvi pregled"}
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
