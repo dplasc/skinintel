@@ -321,12 +321,25 @@ export default function DashboardPage() {
         />
 
         <div className="relative max-w-2xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#E7CDBC] bg-[#FBF6F0]/80 px-3.5 py-1.5 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-800/70">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
-            <span className="bg-gradient-to-r from-[#D9734E] to-[#E0976F] bg-clip-text text-[10px] font-semibold uppercase tracking-[0.28em] text-transparent sm:text-[11px] sm:tracking-[0.32em]">
-              AI dnevnik kože
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2.5">
+            <span className="inline-flex items-center gap-2.5">
+              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-gradient-to-br from-[#D9734E] to-[#E0976F] shadow-[0_2px_8px_rgba(217,115,78,0.3)]">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-[18px] w-[18px] text-white">
+                  <path d="M12 3.2c-3.6 3.8-5.6 6.9-5.6 10.1a5.6 5.6 0 0 0 11.2 0c0-3.2-2-6.3-5.6-10.1Z" fill="currentColor" />
+                  <path d="M9.4 13.9c0 1.6 1.1 2.7 2.6 2.9" stroke="#FBF4EC" strokeWidth="1.4" strokeLinecap="round" />
+                </svg>
+              </span>
+              <span className="text-base font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
+                SkinIntel
+              </span>
             </span>
-          </span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#E7CDBC] bg-[#FBF6F0]/80 px-3 py-1 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-800/70">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
+              <span className="bg-gradient-to-r from-[#D9734E] to-[#E0976F] bg-clip-text text-[10px] font-semibold uppercase tracking-[0.28em] text-transparent sm:text-[11px] sm:tracking-[0.32em]">
+                AI dnevnik kože
+              </span>
+            </span>
+          </div>
           <h1 className="mt-5 text-[34px] font-semibold leading-[1.08] tracking-tight text-[#2B2A28] sm:mt-7 sm:text-6xl dark:text-neutral-50">
             Dobrodošla natrag
           </h1>
@@ -334,41 +347,29 @@ export default function DashboardPage() {
             Prati stanje svoje kože, uspoređuj rezultate i nastavi svoj ritual njege.
           </p>
 
-          <div className="mt-7 flex items-center gap-4 rounded-2xl border border-[#ECE0D4] bg-[#FBF6F0]/90 p-4 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] backdrop-blur-sm sm:mt-9 sm:max-w-sm dark:border-neutral-800 dark:bg-neutral-950/70">
-            <span
-              aria-hidden="true"
-              className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-[#F3C9B3]/60 to-[#D9734E]/20 text-lg dark:from-neutral-800 dark:to-neutral-800"
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#C45F3D"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+          <div className="mt-7 grid grid-cols-3 gap-2.5 sm:mt-9 sm:max-w-xl sm:gap-4">
+            {statCards.slice(0, 3).map((card) => (
+              <div
+                key={card.label}
+                className="rounded-xl border border-[#ECE0D4] bg-[#FBF6F0]/90 p-3 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm transition-shadow hover:shadow-[0_4px_16px_rgba(43,42,40,0.08)] sm:p-4 dark:border-neutral-800 dark:bg-neutral-950/70"
               >
-                <path d="M12 21s-7-4.35-9.33-9.06C1.1 8.86 2.7 5.5 6 5.5c2 0 3.2 1.2 4 2.4.8-1.2 2-2.4 4-2.4 3.3 0 4.9 3.36 3.33 6.44C19 16.65 12 21 12 21z" />
-              </svg>
-            </span>
-            <div className="min-w-0">
-              <p className="text-[11px] font-medium uppercase tracking-wide text-[#9A938A] dark:text-neutral-500">
-                Zadnja analiza
-              </p>
-              <p className="mt-0.5 truncate text-sm font-semibold text-[#2B2A28] dark:text-neutral-100">
-                {lastAnalysisDate ?? "Još nema analize"}
-              </p>
-              <p className="mt-0.5 truncate text-xs text-[#6E6A63] dark:text-neutral-400">
-                {latestAnalysis?.confidence ?? "Spremno za prvi pregled"}
-              </p>
-            </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="h-1 w-1 flex-none rounded-full bg-[#D9734E]" />
+                  <p className="text-[10px] font-medium uppercase leading-tight tracking-wide text-[#9A938A] dark:text-neutral-500">
+                    {card.label}
+                  </p>
+                </div>
+                <p className="mt-2 break-words text-sm font-semibold leading-tight text-[#2B2A28] sm:text-lg dark:text-neutral-100">
+                  {card.value}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       <div className="mt-6 mb-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {statCards.map((card) => (
+        {statCards.filter((card) => card.label === "Podsjetnik").map((card) => (
           <div
             key={card.label}
             className="rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-5 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] transition-shadow hover:shadow-[0_4px_16px_rgba(43,42,40,0.08)] dark:border-neutral-800 dark:bg-neutral-900"
