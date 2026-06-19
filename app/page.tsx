@@ -128,11 +128,91 @@ export default function HomePage() {
             </div>
 
             <div className="mt-8 overflow-hidden rounded-[28px] px-3 pb-3 sm:mt-10 sm:px-4 sm:pb-4">
-              <img
-                src="/assets/images/SkinIntel Hero Background V1.webp"
-                alt="SkinIntel AI analiza kože"
-                className="h-full w-full rounded-[24px] object-cover"
-              />
+              <div className="relative overflow-hidden rounded-[24px]">
+                <img
+                  src="/assets/images/SkinIntel Hero Background V1.webp"
+                  alt="SkinIntel AI analiza kože"
+                  className="h-full w-full rounded-[24px] object-cover"
+                />
+
+                <div className="absolute left-3 top-3 rounded-2xl border border-white/60 bg-white/85 px-3 py-2 shadow-[0_8px_24px_rgba(43,42,40,0.14)] backdrop-blur-sm sm:left-5 sm:top-5 sm:px-4 sm:py-2.5 dark:border-white/10 dark:bg-neutral-900/80">
+                  <span className="block text-[8px] font-semibold uppercase tracking-[0.18em] text-[#6E6A63] sm:text-[10px] dark:text-neutral-400">
+                    Pouzdanost analize
+                  </span>
+                  <span className="block text-lg font-semibold text-[#D9734E] sm:text-2xl">
+                    92%
+                  </span>
+                </div>
+
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 rounded-2xl border border-white/60 bg-white/85 px-3 py-2 shadow-[0_8px_24px_rgba(43,42,40,0.14)] backdrop-blur-sm sm:left-5 sm:px-4 sm:py-2.5 dark:border-white/10 dark:bg-neutral-900/80">
+                  <span className="block text-[10px] font-medium text-[#6E6A63] sm:text-xs dark:text-neutral-400">
+                    Crvenilo
+                  </span>
+                  <span className="flex items-center gap-1 text-sm font-semibold text-[#4E9D6B] sm:text-base">
+                    Smanjeno
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <line x1="12" y1="5" x2="12" y2="19" />
+                      <polyline points="19 12 12 19 5 12" />
+                    </svg>
+                  </span>
+                </div>
+
+                <div className="absolute bottom-3 left-3 rounded-2xl border border-white/60 bg-white/85 px-3 py-2 shadow-[0_8px_24px_rgba(43,42,40,0.14)] backdrop-blur-sm sm:bottom-5 sm:left-5 sm:px-4 sm:py-2.5 dark:border-white/10 dark:bg-neutral-900/80">
+                  <span className="block text-[10px] font-medium text-[#6E6A63] sm:text-xs dark:text-neutral-400">
+                    Barijera kože
+                  </span>
+                  <span className="flex items-center gap-1 text-sm font-semibold text-[#4E9D6B] sm:text-base">
+                    Jača
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <line x1="12" y1="19" x2="12" y2="5" />
+                      <polyline points="5 12 12 5 19 12" />
+                    </svg>
+                  </span>
+                </div>
+
+                <div className="absolute bottom-3 right-3 rounded-2xl border border-[#F3C9B3]/70 bg-[#FBF1E8]/90 px-3 py-2 shadow-[0_8px_24px_rgba(43,42,40,0.14)] backdrop-blur-sm sm:bottom-5 sm:right-5 sm:px-4 sm:py-2.5 dark:border-white/10 dark:bg-neutral-900/80">
+                  <span className="block text-[10px] font-medium text-[#6E6A63] sm:text-xs dark:text-neutral-400">
+                    Hidratacija
+                  </span>
+                  <span className="flex items-center gap-1 text-sm font-semibold text-[#4E9D6B] sm:text-base">
+                    Poboljšana
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <line x1="12" y1="19" x2="12" y2="5" />
+                      <polyline points="5 12 12 5 19 12" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
