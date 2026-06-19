@@ -214,41 +214,12 @@ export default function HomePage() {
             tjedne — bez nagađanja.
           </p>
         </div>
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="rounded-3xl border border-[#ECE0D4] bg-[#FBF4EC] p-8 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_4px_16px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
-            <span className="inline-flex items-center rounded-full bg-[#F7DECF] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#B85C3A] dark:bg-neutral-800 dark:text-amber-300/90">
-              Prije
-            </span>
-            <h3 className="mt-5 text-xl font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
-              Početno stanje
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
-              Crvenilo, suhoća i osjetljivost zabilježeni su u prvoj analizi.
-            </p>
-          </div>
-          <div className="rounded-3xl border border-[#ECE0D4] bg-[#FBF6F0] p-8 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_4px_16px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-950">
-            <span className="inline-flex items-center rounded-full bg-[#E3F0E6] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3F7A54] dark:bg-neutral-800 dark:text-emerald-300/90">
-              Poslije
-            </span>
-            <h3 className="mt-5 text-xl font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
-              Nakon 14 dana
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
-              Koža pokazuje mirniji izgled, bolju hidrataciju i stabilniju
-              barijeru.
-            </p>
-          </div>
-        </div>
-        <div className="mt-8 flex justify-center">
-          <div className="inline-flex items-center gap-3 rounded-full border border-[#ECE0D4] bg-white/90 px-5 py-2.5 shadow-[0_4px_16px_rgba(43,42,40,0.06)] dark:border-neutral-700 dark:bg-neutral-900/90">
-            <span className="text-sm font-semibold text-[#4E9D6B]">
-              +28% vidljiv napredak
-            </span>
-            <span className="h-4 w-px bg-[#ECE0D4] dark:bg-neutral-700" />
-            <span className="text-sm font-medium text-[#6E6A63] dark:text-neutral-400">
-              14 dana praćenja
-            </span>
-          </div>
+        <div className="mt-12">
+          <img
+            src="/assets/images/skinintel-before-after-v1.webp"
+            alt="SkinIntel prije i poslije praćenja stanja kože"
+            className="mx-auto w-full rounded-3xl border border-[#ECE0D4] shadow-[0_2px_4px_rgba(43,42,40,0.03),0_12px_40px_rgba(43,42,40,0.08)] dark:border-neutral-800"
+          />
         </div>
       </section>
 
