@@ -148,47 +148,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION — ŠTO DOBIVAŠ */}
-      <section className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D9734E]">
-            Što dobivaš
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#2B2A28] sm:text-4xl dark:text-neutral-100">
-            Što dobivaš nakon analize?
-          </h2>
-        </div>
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="rounded-3xl border border-[#ECE0D4] bg-[#FBF4EC] p-8 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_4px_16px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
-            <h3 className="text-lg font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
-              AI procjena stanja kože
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
-              Dobivaš edukativno objašnjenje vidljivih promjena i mogućih uzoraka
-              na koži.
-            </p>
-          </div>
-          <div className="rounded-3xl border border-[#ECE0D4] bg-[#FBF4EC] p-8 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_4px_16px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
-            <h3 className="text-lg font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
-              Personalizirane preporuke
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
-              SkinIntel predlaže smjernice za njegu na temelju fotografije, opisa
-              i proizvoda koje koristiš.
-            </p>
-          </div>
-          <div className="rounded-3xl border border-[#ECE0D4] bg-[#FBF4EC] p-8 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_4px_16px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
-            <h3 className="text-lg font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
-              Praćenje promjena kroz vrijeme
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
-              Spremaš analize i uspoređuješ kako se stanje kože mijenja kroz dane
-              i tjedne.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* SECTION 2 — KAKO RADI */}
       <section className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
         <div className="mx-auto max-w-2xl text-center">
