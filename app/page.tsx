@@ -55,26 +55,26 @@ export default function HomePage() {
           className="pointer-events-none absolute -left-24 top-40 h-72 w-72 rounded-full bg-[#D9734E]/10 blur-3xl"
         />
 
-        <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-6 py-14 sm:gap-12 sm:py-32 lg:grid-cols-2 lg:gap-16">
+        <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 py-14 sm:py-24 lg:grid-cols-2 lg:gap-16 lg:py-32">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <span className="inline-flex items-center gap-2 rounded-full border border-[#E7CDBC] bg-[#FBF6F0]/80 px-4 py-1.5 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-800/70">
               <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
               <span className="bg-gradient-to-r from-[#D9734E] to-[#E0976F] bg-clip-text text-[11px] font-semibold uppercase tracking-[0.32em] text-transparent">
-                SkinIntel
+                AI analiza kože
               </span>
             </span>
             <h1 className="mt-8 text-4xl font-semibold leading-[1.08] tracking-tight text-[#2B2A28] sm:text-6xl dark:text-neutral-50">
-              Razumij svoju kožu uz pomoć umjetne inteligencije
+              Što tvoja koža pokušava reći?
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#6E6A63] sm:text-xl dark:text-neutral-300">
-              Učitaj fotografiju kože, opiši problem i dobij edukativnu analizu koja ti pomaže pratiti promjene kroz vrijeme.
+              Učitaj fotografiju kože i dobij edukativnu AI analizu s jasnim preporukama za njegu.
             </p>
             <div className="mt-10 flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row">
               <Link
                 href="/dashboard"
                 className="inline-flex w-full items-center justify-center rounded-2xl bg-[#D9734E] px-8 py-3.5 text-sm font-semibold text-white shadow-[0_2px_12px_rgba(217,115,78,0.28)] hover:bg-[#C45F3D] sm:w-auto"
               >
-                Pokreni analizu
+                Pokreni besplatnu analizu
               </Link>
               <Link
                 href="/auth/login"
@@ -84,63 +84,89 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="relative order-last flex w-full flex-col items-center justify-center gap-8 lg:flex-row lg:justify-end">
+
+          {/* VISUAL AREA — premium skincare card (no phone frame, no image) */}
+          <div className="relative order-last w-full">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#D9734E]/15 blur-3xl sm:h-96 sm:w-96"
             />
-            <div className="relative w-[240px] sm:w-[300px] lg:w-[340px]">
-              <div className="relative aspect-[9/19] w-full rounded-[2.75rem] border border-[#E7CDBC] bg-[#1F1D1B] p-2.5 shadow-[0_30px_80px_rgba(43,42,40,0.28)] dark:border-neutral-700">
-                <div
+            <div
+              className="relative overflow-hidden rounded-[2.5rem] border border-[#E7CDBC] p-8 shadow-[0_30px_80px_rgba(43,42,40,0.16)] sm:p-12 dark:border-neutral-700"
+              style={{
+                background:
+                  "radial-gradient(120% 120% at 20% 10%, #FFF7EF 0%, #FBEDE1 45%, #F3C9B3 100%)",
+              }}
+            >
+              {/* abstract skin / face inspired shape */}
+              <div className="relative mx-auto flex aspect-square w-full max-w-sm items-center justify-center">
+                <svg
+                  viewBox="0 0 320 320"
+                  fill="none"
                   aria-hidden="true"
-                  className="absolute left-1/2 top-3 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-[#1F1D1B]"
-                />
-                <img
-                  src="/assets/images/20_SKININTEL_MOBILE_ANALYSIS_HERO_V1.webp"
-                  alt="SkinIntel mobilna analiza kože"
-                  className="h-full w-full rounded-[2.25rem] object-cover"
-                />
-              </div>
-
-              <div className="absolute -left-3 top-10 hidden rounded-2xl border border-[#ECE0D4] bg-white/90 px-4 py-3 shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm sm:-left-8 lg:flex lg:flex-col dark:border-neutral-700 dark:bg-neutral-900/90">
-                <span className="text-xl font-semibold text-[#D9734E]">92%</span>
-                <span className="text-[11px] font-medium text-[#6E6A63] dark:text-neutral-400">
-                  Razina pouzdanosti
-                </span>
-              </div>
-
-              <div className="absolute -right-3 top-1/2 hidden rounded-2xl border border-[#ECE0D4] bg-white/90 px-4 py-3 shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm sm:-right-8 lg:flex lg:flex-col dark:border-neutral-700 dark:bg-neutral-900/90">
-                <span className="text-xl font-semibold text-[#D9734E]">+48%</span>
-                <span className="text-[11px] font-medium text-[#6E6A63] dark:text-neutral-400">
-                  Napredak kože
-                </span>
-              </div>
-
-              <div className="absolute -bottom-4 left-1/2 hidden -translate-x-1/2 rounded-2xl border border-[#ECE0D4] bg-white/90 px-4 py-3 text-center shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm lg:flex lg:flex-col lg:items-center dark:border-neutral-700 dark:bg-neutral-900/90">
-                <span className="text-xl font-semibold text-[#D9734E]">14 dana</span>
-                <span className="text-[11px] font-medium text-[#6E6A63] dark:text-neutral-400">
-                  Praćenje promjena
-                </span>
+                  className="h-full w-full"
+                >
+                  <defs>
+                    <radialGradient id="hero-skin" cx="38%" cy="32%" r="75%">
+                      <stop offset="0%" stopColor="#FFFBF6" />
+                      <stop offset="55%" stopColor="#F7D9C4" />
+                      <stop offset="100%" stopColor="#D9734E" />
+                    </radialGradient>
+                    <linearGradient id="hero-stroke" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#E0976F" />
+                      <stop offset="100%" stopColor="#D9734E" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    d="M160 24c52 0 96 34 110 84 14 50-6 96-44 132-26 24-44 44-66 44s-40-20-66-44c-38-36-58-82-44-132C64 58 108 24 160 24Z"
+                    fill="url(#hero-skin)"
+                    opacity="0.95"
+                  />
+                  <path
+                    d="M104 150c14-22 40-34 64-30 22 4 38 18 50 38"
+                    stroke="url(#hero-stroke)"
+                    strokeWidth="5"
+                    strokeLinecap="round"
+                    opacity="0.7"
+                  />
+                  <path
+                    d="M94 196c26 20 60 28 92 20 22-6 40-18 52-36"
+                    stroke="#FBF4EC"
+                    strokeWidth="5"
+                    strokeLinecap="round"
+                    opacity="0.65"
+                  />
+                  <circle cx="206" cy="118" r="9" fill="#FBF4EC" opacity="0.85" />
+                  <circle cx="128" cy="206" r="6" fill="#FBF4EC" opacity="0.7" />
+                  <circle cx="232" cy="200" r="5" fill="#FBF4EC" opacity="0.6" />
+                </svg>
               </div>
             </div>
 
-            <div className="grid w-full max-w-sm grid-cols-3 gap-3 lg:hidden">
-              <div className="flex flex-col items-center rounded-2xl border border-[#ECE0D4] bg-white/90 px-2 py-3 text-center shadow-[0_4px_16px_rgba(43,42,40,0.08)] dark:border-neutral-700 dark:bg-neutral-900/90">
-                <span className="text-base font-semibold text-[#D9734E]">92%</span>
-                <span className="mt-0.5 text-[10px] font-medium leading-tight text-[#6E6A63] dark:text-neutral-400">
-                  Razina pouzdanosti
+            {/* floating insight cards — grid on mobile, floating on large screens */}
+            <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-4 lg:mt-0 lg:block">
+              <div className="rounded-2xl border border-[#ECE0D4] bg-white/90 px-4 py-3 shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm lg:absolute lg:-left-6 lg:top-12 dark:border-neutral-700 dark:bg-neutral-900/90">
+                <span className="block text-xl font-semibold text-[#D9734E]">92%</span>
+                <span className="block text-[11px] font-medium text-[#6E6A63] dark:text-neutral-400">
+                  Pouzdanost
                 </span>
               </div>
-              <div className="flex flex-col items-center rounded-2xl border border-[#ECE0D4] bg-white/90 px-2 py-3 text-center shadow-[0_4px_16px_rgba(43,42,40,0.08)] dark:border-neutral-700 dark:bg-neutral-900/90">
-                <span className="text-base font-semibold text-[#D9734E]">+48%</span>
-                <span className="mt-0.5 text-[10px] font-medium leading-tight text-[#6E6A63] dark:text-neutral-400">
-                  Napredak kože
+              <div className="rounded-2xl border border-[#ECE0D4] bg-white/90 px-4 py-3 shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm lg:absolute lg:-right-6 lg:top-20 dark:border-neutral-700 dark:bg-neutral-900/90">
+                <span className="block text-sm font-semibold text-[#2B2A28] dark:text-neutral-100">Hidratacija</span>
+                <span className="block text-[11px] font-medium text-[#6E6A63] dark:text-neutral-400">
+                  Poboljšana
                 </span>
               </div>
-              <div className="flex flex-col items-center rounded-2xl border border-[#ECE0D4] bg-white/90 px-2 py-3 text-center shadow-[0_4px_16px_rgba(43,42,40,0.08)] dark:border-neutral-700 dark:bg-neutral-900/90">
-                <span className="text-base font-semibold text-[#D9734E]">14 dana</span>
-                <span className="mt-0.5 text-[10px] font-medium leading-tight text-[#6E6A63] dark:text-neutral-400">
-                  Praćenje promjena
+              <div className="rounded-2xl border border-[#ECE0D4] bg-white/90 px-4 py-3 shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm lg:absolute lg:-left-8 lg:bottom-16 dark:border-neutral-700 dark:bg-neutral-900/90">
+                <span className="block text-sm font-semibold text-[#2B2A28] dark:text-neutral-100">Barijera kože</span>
+                <span className="block text-[11px] font-medium text-[#6E6A63] dark:text-neutral-400">
+                  Jača
+                </span>
+              </div>
+              <div className="rounded-2xl border border-[#ECE0D4] bg-white/90 px-4 py-3 shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm lg:absolute lg:-right-4 lg:bottom-8 dark:border-neutral-700 dark:bg-neutral-900/90">
+                <span className="block text-sm font-semibold text-[#2B2A28] dark:text-neutral-100">AI uvid</span>
+                <span className="block text-[11px] font-medium text-[#6E6A63] dark:text-neutral-400">
+                  Personalizirano
                 </span>
               </div>
             </div>
