@@ -43,104 +43,131 @@ export default function HomePage() {
           className="pointer-events-none absolute inset-0 dark:opacity-50"
           style={{
             background:
-              "radial-gradient(120% 120% at 50% 0%, #FBF4EC 0%, rgba(251,244,236,0) 60%), radial-gradient(80% 80% at 85% 8%, rgba(217,115,78,0.12) 0%, rgba(217,115,78,0) 50%), radial-gradient(70% 70% at 10% 30%, rgba(243,201,179,0.20) 0%, rgba(243,201,179,0) 55%)",
+              "radial-gradient(120% 120% at 50% 0%, #FBF4EC 0%, rgba(251,244,236,0) 60%), radial-gradient(80% 80% at 85% 8%, rgba(217,115,78,0.10) 0%, rgba(217,115,78,0) 50%), radial-gradient(70% 70% at 10% 30%, rgba(243,201,179,0.18) 0%, rgba(243,201,179,0) 55%)",
           }}
         />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#F3C9B3]/30 blur-3xl"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -left-24 top-40 h-72 w-72 rounded-full bg-[#D9734E]/10 blur-3xl"
-        />
 
-        <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-6 py-14 sm:gap-12 sm:py-32 lg:grid-cols-2 lg:gap-16">
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#E7CDBC] bg-[#FBF6F0]/80 px-4 py-1.5 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-800/70">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
-              <span className="bg-gradient-to-r from-[#D9734E] to-[#E0976F] bg-clip-text text-[11px] font-semibold uppercase tracking-[0.32em] text-transparent">
-                SkinIntel
-              </span>
+        <div className="relative mx-auto w-full max-w-6xl px-5 pb-14 pt-6 sm:px-6 sm:pb-20 sm:pt-8">
+          {/* 1 — Brand row */}
+          <div className="flex items-center justify-between">
+            <span className="bg-gradient-to-r from-[#D9734E] to-[#E0976F] bg-clip-text text-lg font-semibold tracking-tight text-transparent">
+              SkinIntel
             </span>
-            <h1 className="mt-8 text-4xl font-semibold leading-[1.08] tracking-tight text-[#2B2A28] sm:text-6xl dark:text-neutral-50">
-              Razumij svoju kožu uz pomoć umjetne inteligencije
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#6E6A63] sm:text-xl dark:text-neutral-300">
-              Učitaj fotografiju kože, opiši problem i dobij edukativnu analizu koja ti pomaže pratiti promjene kroz vrijeme.
-            </p>
-            <div className="mt-10 flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row">
-              <Link
-                href="/dashboard"
-                className="inline-flex w-full items-center justify-center rounded-2xl bg-[#D9734E] px-8 py-3.5 text-sm font-semibold text-white shadow-[0_2px_12px_rgba(217,115,78,0.28)] hover:bg-[#C45F3D] sm:w-auto"
-              >
-                Pokreni analizu
-              </Link>
-              <Link
-                href="/auth/login"
-                className="inline-flex w-full items-center justify-center rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] px-8 py-3.5 text-sm font-semibold text-[#2B2A28] hover:bg-[#F7DECF] sm:w-auto dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:bg-neutral-800"
-              >
-                Prijava
-              </Link>
-            </div>
+            <button
+              type="button"
+              aria-label="Izbornik"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[#ECE0D4] bg-[#FBF4EC] text-[#2B2A28] shadow-[0_1px_2px_rgba(43,42,40,0.04)] hover:bg-[#F7DECF] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
+            >
+              <span className="flex flex-col gap-1">
+                <span className="block h-0.5 w-5 rounded-full bg-current" />
+                <span className="block h-0.5 w-5 rounded-full bg-current" />
+                <span className="block h-0.5 w-5 rounded-full bg-current" />
+              </span>
+            </button>
           </div>
-          <div className="relative order-last flex w-full flex-col items-center justify-center gap-8 lg:flex-row lg:justify-end">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#D9734E]/15 blur-3xl sm:h-96 sm:w-96"
-            />
-            <div className="relative w-[240px] sm:w-[300px] lg:w-[340px]">
-              <div className="relative aspect-[9/19] w-full rounded-[2.75rem] border border-[#E7CDBC] bg-[#1F1D1B] p-2.5 shadow-[0_30px_80px_rgba(43,42,40,0.28)] dark:border-neutral-700">
-                <div
-                  aria-hidden="true"
-                  className="absolute left-1/2 top-3 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-[#1F1D1B]"
-                />
+
+          <div className="mt-10 grid grid-cols-1 items-center gap-12 sm:mt-14 lg:grid-cols-2 lg:gap-16">
+            {/* Text column */}
+            <div className="flex flex-col items-start text-left">
+              {/* 2 — Pill */}
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#E7CDBC] bg-[#FBF6F0]/80 px-4 py-1.5 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-800/70">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#D9734E]">
+                  AI analiza kože
+                </span>
+              </span>
+
+              {/* 3 — Headline */}
+              <h1 className="mt-6 text-[2rem] font-semibold leading-[1.1] tracking-tight text-[#2B2A28] sm:text-5xl lg:text-6xl dark:text-neutral-50">
+                Što tvoja koža pokušava reći?
+              </h1>
+
+              {/* 4 — Subtitle */}
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-[#6E6A63] sm:text-lg dark:text-neutral-300">
+                Učitaj fotografiju i dobij edukativnu AI analizu s jasnim
+                preporukama za njegu.
+              </p>
+
+              {/* 5 + 6 — CTAs */}
+              <div className="mt-8 flex w-full flex-col gap-3 sm:max-w-md sm:flex-row">
+                <Link
+                  href="/dashboard"
+                  className="inline-flex w-full items-center justify-center rounded-2xl bg-[#D9734E] px-7 py-3.5 text-sm font-semibold text-white shadow-[0_2px_12px_rgba(217,115,78,0.28)] hover:bg-[#C45F3D]"
+                >
+                  Pokreni besplatnu analizu
+                </Link>
+                <Link
+                  href="/auth/login"
+                  className="inline-flex w-full items-center justify-center rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] px-7 py-3.5 text-sm font-semibold text-[#2B2A28] hover:bg-[#F7DECF] sm:w-auto dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:bg-neutral-800"
+                >
+                  Prijava
+                </Link>
+              </div>
+
+              {/* 7 — Trust row */}
+              <ul className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-[#6E6A63] dark:text-neutral-400">
+                <li className="inline-flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
+                  Privatno i sigurno
+                </li>
+                <li className="inline-flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
+                  Bez medicinskih dijagnoza
+                </li>
+                <li className="inline-flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
+                  1 besplatna analiza
+                </li>
+              </ul>
+            </div>
+
+            {/* 8 — Product visual block */}
+            <div className="relative mx-auto w-full max-w-md lg:mx-0 lg:ml-auto">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-6 -z-10 rounded-[40px] bg-[#F3C9B3]/30 blur-2xl"
+              />
+              <div className="overflow-hidden rounded-[28px] border border-[#E7CDBC] bg-[#FBF4EC] shadow-[0_24px_60px_rgba(43,42,40,0.18)] dark:border-neutral-700">
                 <img
                   src="/assets/images/20_SKININTEL_MOBILE_ANALYSIS_HERO_V1.webp"
-                  alt="SkinIntel mobilna analiza kože"
-                  className="h-full w-full rounded-[2.25rem] object-cover"
+                  alt="SkinIntel analiza kože"
+                  className="aspect-[4/5] w-full object-cover"
                 />
               </div>
 
-              <div className="absolute -left-3 top-10 hidden rounded-2xl border border-[#ECE0D4] bg-white/90 px-4 py-3 shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm sm:-left-8 lg:flex lg:flex-col dark:border-neutral-700 dark:bg-neutral-900/90">
-                <span className="text-xl font-semibold text-[#D9734E]">92%</span>
-                <span className="text-[11px] font-medium text-[#6E6A63] dark:text-neutral-400">
-                  Razina pouzdanosti
+              <div className="absolute -left-2 top-6 rounded-2xl border border-[#ECE0D4] bg-white/95 px-3 py-2 shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm sm:-left-5 dark:border-neutral-700 dark:bg-neutral-900/95">
+                <span className="block text-base font-semibold text-[#D9734E]">
+                  92%
+                </span>
+                <span className="block text-[10px] font-medium text-[#6E6A63] dark:text-neutral-400">
+                  Pouzdanost
                 </span>
               </div>
 
-              <div className="absolute -right-3 top-1/2 hidden rounded-2xl border border-[#ECE0D4] bg-white/90 px-4 py-3 shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm sm:-right-8 lg:flex lg:flex-col dark:border-neutral-700 dark:bg-neutral-900/90">
-                <span className="text-xl font-semibold text-[#D9734E]">+48%</span>
-                <span className="text-[11px] font-medium text-[#6E6A63] dark:text-neutral-400">
-                  Napredak kože
+              <div className="absolute -right-2 top-6 rounded-2xl border border-[#ECE0D4] bg-white/95 px-3 py-2 text-right shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm sm:-right-5 dark:border-neutral-700 dark:bg-neutral-900/95">
+                <span className="block text-sm font-semibold text-[#D9734E]">
+                  Crvenilo
+                </span>
+                <span className="block text-[10px] font-medium text-[#6E6A63] dark:text-neutral-400">
+                  Smanjeno
                 </span>
               </div>
 
-              <div className="absolute -bottom-4 left-1/2 hidden -translate-x-1/2 rounded-2xl border border-[#ECE0D4] bg-white/90 px-4 py-3 text-center shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm lg:flex lg:flex-col lg:items-center dark:border-neutral-700 dark:bg-neutral-900/90">
-                <span className="text-xl font-semibold text-[#D9734E]">14 dana</span>
-                <span className="text-[11px] font-medium text-[#6E6A63] dark:text-neutral-400">
-                  Praćenje promjena
+              <div className="absolute -left-2 bottom-6 rounded-2xl border border-[#ECE0D4] bg-white/95 px-3 py-2 shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm sm:-left-5 dark:border-neutral-700 dark:bg-neutral-900/95">
+                <span className="block text-sm font-semibold text-[#D9734E]">
+                  Hidratacija
+                </span>
+                <span className="block text-[10px] font-medium text-[#6E6A63] dark:text-neutral-400">
+                  Poboljšana
                 </span>
               </div>
-            </div>
 
-            <div className="grid w-full max-w-sm grid-cols-3 gap-3 lg:hidden">
-              <div className="flex flex-col items-center rounded-2xl border border-[#ECE0D4] bg-white/90 px-2 py-3 text-center shadow-[0_4px_16px_rgba(43,42,40,0.08)] dark:border-neutral-700 dark:bg-neutral-900/90">
-                <span className="text-base font-semibold text-[#D9734E]">92%</span>
-                <span className="mt-0.5 text-[10px] font-medium leading-tight text-[#6E6A63] dark:text-neutral-400">
-                  Razina pouzdanosti
+              <div className="absolute -right-2 bottom-6 rounded-2xl border border-[#ECE0D4] bg-white/95 px-3 py-2 text-right shadow-[0_8px_30px_rgba(43,42,40,0.12)] backdrop-blur-sm sm:-right-5 dark:border-neutral-700 dark:bg-neutral-900/95">
+                <span className="block text-sm font-semibold text-[#D9734E]">
+                  Barijera kože
                 </span>
-              </div>
-              <div className="flex flex-col items-center rounded-2xl border border-[#ECE0D4] bg-white/90 px-2 py-3 text-center shadow-[0_4px_16px_rgba(43,42,40,0.08)] dark:border-neutral-700 dark:bg-neutral-900/90">
-                <span className="text-base font-semibold text-[#D9734E]">+48%</span>
-                <span className="mt-0.5 text-[10px] font-medium leading-tight text-[#6E6A63] dark:text-neutral-400">
-                  Napredak kože
-                </span>
-              </div>
-              <div className="flex flex-col items-center rounded-2xl border border-[#ECE0D4] bg-white/90 px-2 py-3 text-center shadow-[0_4px_16px_rgba(43,42,40,0.08)] dark:border-neutral-700 dark:bg-neutral-900/90">
-                <span className="text-base font-semibold text-[#D9734E]">14 dana</span>
-                <span className="mt-0.5 text-[10px] font-medium leading-tight text-[#6E6A63] dark:text-neutral-400">
-                  Praćenje promjena
+                <span className="block text-[10px] font-medium text-[#6E6A63] dark:text-neutral-400">
+                  Jača
                 </span>
               </div>
             </div>
