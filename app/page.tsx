@@ -214,11 +214,11 @@ export default function HomePage() {
             tjedne — bez nagađanja.
           </p>
         </div>
-        <div className="mt-12">
+        <div className="-mx-4 mt-14 sm:mx-0 sm:mt-16">
           <img
             src="/assets/images/skinintel-before-after-v1.webp"
             alt="SkinIntel prije i poslije praćenja stanja kože"
-            className="mx-auto w-full rounded-3xl border border-[#ECE0D4] shadow-[0_2px_4px_rgba(43,42,40,0.03),0_12px_40px_rgba(43,42,40,0.08)] dark:border-neutral-800"
+            className="mx-auto w-full rounded-3xl border border-[#ECE0D4] shadow-[0_4px_8px_rgba(43,42,40,0.04),0_24px_70px_rgba(43,42,40,0.12)] dark:border-neutral-800"
           />
         </div>
       </section>
