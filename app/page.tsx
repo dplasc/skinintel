@@ -293,7 +293,64 @@ export default function HomePage() {
                 }`}
               >
                 <div className="flex gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D9734E]" />
+                  <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#F7DECF]/80 bg-[#FBF6F0] text-[#D9734E] dark:border-neutral-700 dark:bg-neutral-900">
+                    {benefit.title === "Edukativan pristup" && (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.75"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M12 4v14.5" />
+                        <path d="M12 4C9.5 4 7 5.5 7 8v10.5c0-1.5 2.2-2.5 5-2.5s5 1 5 2.5V8c0-2.5-2.5-4-5-4z" />
+                        <path d="M7 8h10" />
+                        <path d="M17 3.5l1.2 1.2M17.5 2v2.5" />
+                      </svg>
+                    )}
+                    {benefit.title === "Praćenje napretka" && (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.75"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <circle cx="5" cy="12" r="2" />
+                        <circle cx="12" cy="12" r="2" />
+                        <circle cx="19" cy="12" r="2" />
+                        <path d="M7 12h3" />
+                        <path d="M14 12h3" />
+                        <path d="M5 12V8.5" />
+                        <path d="M19 12v-2.5" />
+                      </svg>
+                    )}
+                    {benefit.title === "Privatnost podataka" && (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.75"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M12 3.5 19 6.5v5c0 4.2-2.8 7.2-7 8.5-4.2-1.3-7-4.3-7-8.5v-5L12 3.5z" />
+                        <rect x="9" y="11" width="6" height="5" rx="1" />
+                        <path d="M11 11V9.5a1 1 0 0 1 2 0V11" />
+                      </svg>
+                    )}
+                  </span>
                   <div>
                     <h3 className="text-base font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
                       {benefit.title}
