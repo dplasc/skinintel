@@ -123,9 +123,101 @@ export default function HomePage() {
           </p>
         </div>
         <div className="-mx-4 mt-14 sm:mx-0 sm:mt-16">
-          <div className="rounded-3xl border border-[#ECE0D4] bg-[#FBF4EC] p-4 shadow-[0_4px_8px_rgba(43,42,40,0.04),0_24px_70px_rgba(43,42,40,0.12)] sm:p-6 dark:border-neutral-800 dark:bg-neutral-900">
-            <div className="grid grid-cols-1 items-center gap-3 sm:grid-cols-[1fr_auto_1fr] sm:gap-4">
-              <div className="rounded-2xl border border-[#ECE0D4] bg-[#FFFDFA] p-4 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_4px_16px_rgba(43,42,40,0.05)] sm:p-5 dark:border-neutral-700 dark:bg-neutral-950">
+          <div className="overflow-hidden rounded-3xl border border-[#ECE0D4] bg-[#FBF4EC] p-4 shadow-[0_4px_8px_rgba(43,42,40,0.04),0_24px_70px_rgba(43,42,40,0.12)] sm:p-6 dark:border-neutral-800 dark:bg-neutral-900">
+            <div className="relative rounded-2xl border border-[#ECE0D4]/80 bg-[#FFFDFA] px-4 py-6 sm:px-8 sm:py-8 dark:border-neutral-700 dark:bg-neutral-950">
+              <svg
+                viewBox="0 0 400 88"
+                fill="none"
+                className="mx-auto w-full max-w-lg"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient
+                    id="section2-progress"
+                    x1="48"
+                    y1="44"
+                    x2="352"
+                    y2="44"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stopColor="#ECE0D4" />
+                    <stop offset="0.45" stopColor="#E8B89A" />
+                    <stop offset="1" stopColor="#D9734E" />
+                  </linearGradient>
+                  <radialGradient
+                    id="section2-glow"
+                    cx="0"
+                    cy="0"
+                    r="1"
+                    gradientUnits="userSpaceOnUse"
+                    gradientTransform="translate(352 44) rotate(90) scale(18)"
+                  >
+                    <stop stopColor="#D9734E" stopOpacity="0.35" />
+                    <stop offset="1" stopColor="#D9734E" stopOpacity="0" />
+                  </radialGradient>
+                </defs>
+                <line
+                  x1="48"
+                  y1="44"
+                  x2="352"
+                  y2="44"
+                  stroke="#ECE0D4"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+                <line
+                  x1="48"
+                  y1="44"
+                  x2="352"
+                  y2="44"
+                  stroke="url(#section2-progress)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <circle cx="352" cy="44" r="18" fill="url(#section2-glow)" />
+                <circle
+                  cx="48"
+                  cy="44"
+                  r="7"
+                  fill="#FFFDFA"
+                  stroke="#D9734E"
+                  strokeWidth="2"
+                />
+                <circle cx="48" cy="44" r="2.5" fill="#D9734E" />
+                <circle
+                  cx="200"
+                  cy="44"
+                  r="8"
+                  fill="#FFFDFA"
+                  stroke="#E8B89A"
+                  strokeWidth="2"
+                />
+                <circle cx="200" cy="44" r="3" fill="#D9734E" fillOpacity="0.55" />
+                <circle
+                  cx="352"
+                  cy="44"
+                  r="9"
+                  fill="#D9734E"
+                  stroke="#FFFDFA"
+                  strokeWidth="2"
+                />
+                <circle cx="352" cy="44" r="3.5" fill="#FFFDFA" fillOpacity="0.9" />
+              </svg>
+              <div className="mx-auto mt-3 grid max-w-lg grid-cols-3 text-center">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6E6A63] dark:text-neutral-400">
+                  Dan 1
+                </span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6E6A63] dark:text-neutral-400">
+                  Dan 7
+                </span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#D9734E]">
+                  Dan 14
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-5 grid grid-cols-1 gap-4 sm:mt-6 sm:grid-cols-2 sm:gap-3">
+              <div className="rounded-2xl border border-[#ECE0D4] bg-[#FFFDFA] p-4 sm:p-5 dark:border-neutral-700 dark:bg-neutral-950">
                 <span className="inline-flex items-center rounded-full bg-[#F7DECF] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#B85C3A] sm:px-3 sm:text-[11px] dark:bg-neutral-800 dark:text-amber-300/90">
                   Prva analiza
                 </span>
@@ -144,26 +236,7 @@ export default function HomePage() {
                   </li>
                 </ul>
               </div>
-              <div
-                aria-hidden="true"
-                className="flex justify-center text-[#D9734E]/70 dark:text-neutral-500"
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="rotate-90 sm:rotate-0"
-                >
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </div>
-              <div className="rounded-2xl border border-[#ECE0D4] bg-[#FFFDFA] p-4 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_4px_16px_rgba(43,42,40,0.05)] sm:p-5 dark:border-neutral-700 dark:bg-neutral-950">
+              <div className="rounded-2xl border border-[#ECE0D4] bg-[#FFFDFA] p-4 sm:p-5 dark:border-neutral-700 dark:bg-neutral-950">
                 <span className="inline-flex items-center rounded-full bg-[#E3F0E6] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#3F7A54] sm:px-3 sm:text-[11px] dark:bg-neutral-800 dark:text-emerald-300/90">
                   Nakon 14 dana
                 </span>
