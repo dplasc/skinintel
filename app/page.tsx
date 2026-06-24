@@ -276,147 +276,235 @@ export default function HomePage() {
         </div>
         <div className="-mx-4 mt-14 sm:mx-0 sm:mt-16">
           <div className="overflow-hidden rounded-3xl border border-[#ECE0D4] bg-[#FBF4EC] p-4 shadow-[0_4px_8px_rgba(43,42,40,0.04),0_24px_70px_rgba(43,42,40,0.12)] sm:p-6 dark:border-neutral-800 dark:bg-neutral-900">
-            <div className="relative rounded-2xl border border-[#ECE0D4]/80 bg-[#FFFDFA] px-4 py-6 sm:px-8 sm:py-8 dark:border-neutral-700 dark:bg-neutral-950">
-              <svg
-                viewBox="0 0 400 88"
-                fill="none"
-                className="mx-auto w-full max-w-lg"
-                aria-hidden="true"
-              >
-                <defs>
-                  <linearGradient
-                    id="section2-progress"
-                    x1="48"
-                    y1="44"
-                    x2="352"
-                    y2="44"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stopColor="#ECE0D4" />
-                    <stop offset="0.45" stopColor="#E8B89A" />
-                    <stop offset="1" stopColor="#D9734E" />
-                  </linearGradient>
-                  <radialGradient
-                    id="section2-glow"
-                    cx="0"
-                    cy="0"
-                    r="1"
-                    gradientUnits="userSpaceOnUse"
-                    gradientTransform="translate(352 44) rotate(90) scale(18)"
-                  >
-                    <stop stopColor="#D9734E" stopOpacity="0.35" />
-                    <stop offset="1" stopColor="#D9734E" stopOpacity="0" />
-                  </radialGradient>
-                </defs>
-                <line
-                  x1="48"
-                  y1="44"
-                  x2="352"
-                  y2="44"
-                  stroke="#ECE0D4"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-                <line
-                  x1="48"
-                  y1="44"
-                  x2="352"
-                  y2="44"
-                  stroke="url(#section2-progress)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <circle cx="352" cy="44" r="18" fill="url(#section2-glow)" />
-                <circle
-                  cx="48"
-                  cy="44"
-                  r="7"
-                  fill="#FFFDFA"
-                  stroke="#D9734E"
-                  strokeWidth="2"
-                />
-                <circle cx="48" cy="44" r="2.5" fill="#D9734E" />
-                <circle
-                  cx="200"
-                  cy="44"
-                  r="8"
-                  fill="#FFFDFA"
-                  stroke="#E8B89A"
-                  strokeWidth="2"
-                />
-                <circle cx="200" cy="44" r="3" fill="#D9734E" fillOpacity="0.55" />
-                <circle
-                  cx="352"
-                  cy="44"
-                  r="9"
-                  fill="#D9734E"
-                  stroke="#FFFDFA"
-                  strokeWidth="2"
-                />
-                <circle cx="352" cy="44" r="3.5" fill="#FFFDFA" fillOpacity="0.9" />
-              </svg>
-              <div className="mx-auto mt-3 grid max-w-lg grid-cols-3 text-center">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6E6A63] dark:text-neutral-400">
-                  Dan 1
-                </span>
-                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6E6A63] dark:text-neutral-400">
-                  Dan 7
-                </span>
-                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#D9734E]">
-                  Dan 14
-                </span>
-              </div>
-            </div>
+            <div className="overflow-hidden rounded-2xl border border-[#ECE0D4]/80 bg-[#FFFDFA] dark:border-neutral-700 dark:bg-neutral-950">
+              {/* Tracking header */}
+              <div className="border-b border-[#ECE0D4]/80 px-4 py-4 sm:px-5 sm:py-5 dark:border-neutral-800">
+                <div className="flex flex-wrap items-center justify-between gap-2.5">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E7CDBC] bg-[#FBF6F0] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#D9734E] sm:text-[11px] dark:border-neutral-700 dark:bg-neutral-900">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
+                    SkinIntel praćenje
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#C8E0D0] bg-[#E3F0E6]/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#3F7A54] sm:text-[11px] dark:border-neutral-700 dark:bg-neutral-800/80 dark:text-emerald-300/90">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-[#4E9D6B] opacity-30" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4E9D6B]" />
+                    </span>
+                    Aktivno praćenje
+                  </span>
+                </div>
 
-            <div className="mt-5 grid grid-cols-1 gap-4 sm:mt-6 sm:grid-cols-2 sm:gap-3">
-              <div className="rounded-2xl border border-[#ECE0D4] bg-[#FFFDFA] p-4 sm:p-5 dark:border-neutral-700 dark:bg-neutral-950">
-                <span className="inline-flex items-center rounded-full bg-[#F7DECF] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#B85C3A] sm:px-3 sm:text-[11px] dark:bg-neutral-800 dark:text-amber-300/90">
-                  Prva analiza
-                </span>
-                <ul className="mt-4 space-y-2.5">
-                  <li className="flex items-start gap-2 text-sm leading-snug text-[#6E6A63] dark:text-neutral-400">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D9734E]" />
-                    Blaga crvenila
-                  </li>
-                  <li className="flex items-start gap-2 text-sm leading-snug text-[#6E6A63] dark:text-neutral-400">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D9734E]" />
-                    Neravnomjeran ton
-                  </li>
-                  <li className="flex items-start gap-2 text-sm leading-snug text-[#6E6A63] dark:text-neutral-400">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D9734E]" />
-                    Osjetljiva barijera
-                  </li>
-                </ul>
+                <div className="mt-4 sm:mt-5">
+                  <svg
+                    viewBox="0 0 400 56"
+                    fill="none"
+                    className="mx-auto w-full max-w-lg"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <linearGradient
+                        id="section2-progress"
+                        x1="40"
+                        y1="28"
+                        x2="360"
+                        y2="28"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop stopColor="#ECE0D4" />
+                        <stop offset="0.45" stopColor="#E8B89A" />
+                        <stop offset="1" stopColor="#D9734E" />
+                      </linearGradient>
+                      <radialGradient
+                        id="section2-glow"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(360 28) rotate(90) scale(14)"
+                      >
+                        <stop stopColor="#D9734E" stopOpacity="0.35" />
+                        <stop offset="1" stopColor="#D9734E" stopOpacity="0" />
+                      </radialGradient>
+                    </defs>
+                    <line
+                      x1="40"
+                      y1="28"
+                      x2="360"
+                      y2="28"
+                      stroke="#ECE0D4"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <line
+                      x1="40"
+                      y1="28"
+                      x2="360"
+                      y2="28"
+                      stroke="url(#section2-progress)"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    />
+                    <circle cx="360" cy="28" r="14" fill="url(#section2-glow)" />
+                    <circle
+                      cx="40"
+                      cy="28"
+                      r="6"
+                      fill="#FFFDFA"
+                      stroke="#D9734E"
+                      strokeWidth="2"
+                    />
+                    <circle cx="40" cy="28" r="2" fill="#D9734E" />
+                    <circle
+                      cx="200"
+                      cy="28"
+                      r="7"
+                      fill="#FFFDFA"
+                      stroke="#E8B89A"
+                      strokeWidth="2"
+                    />
+                    <circle cx="200" cy="28" r="2.5" fill="#D9734E" fillOpacity="0.55" />
+                    <circle
+                      cx="360"
+                      cy="28"
+                      r="8"
+                      fill="#D9734E"
+                      stroke="#FFFDFA"
+                      strokeWidth="2"
+                    />
+                    <circle cx="360" cy="28" r="3" fill="#FFFDFA" fillOpacity="0.9" />
+                  </svg>
+                  <div className="mx-auto mt-2 grid max-w-lg grid-cols-3 text-center">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6E6A63] sm:text-[11px] dark:text-neutral-400">
+                      Dan 1
+                    </span>
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6E6A63] sm:text-[11px] dark:text-neutral-400">
+                      Dan 7
+                    </span>
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#D9734E] sm:text-[11px]">
+                      Dan 14
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div className="rounded-2xl border border-[#ECE0D4] bg-[#FFFDFA] p-4 sm:p-5 dark:border-neutral-700 dark:bg-neutral-950">
-                <span className="inline-flex items-center rounded-full bg-[#E3F0E6] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#3F7A54] sm:px-3 sm:text-[11px] dark:bg-neutral-800 dark:text-emerald-300/90">
-                  Nakon 14 dana
-                </span>
-                <ul className="mt-4 space-y-2.5">
-                  <li className="flex items-start gap-2 text-sm leading-snug text-[#6E6A63] dark:text-neutral-400">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#4E9D6B]" />
-                    Manje crvenila
-                  </li>
-                  <li className="flex items-start gap-2 text-sm leading-snug text-[#6E6A63] dark:text-neutral-400">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#4E9D6B]" />
-                    Ujednačeniji ton
-                  </li>
-                  <li className="flex items-start gap-2 text-sm leading-snug text-[#6E6A63] dark:text-neutral-400">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#4E9D6B]" />
-                    Stabilnija koža
-                  </li>
-                </ul>
+
+              {/* Before / after result panels */}
+              <div className="relative grid grid-cols-1 sm:grid-cols-2">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-y-4 left-1/2 hidden w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-[#ECE0D4] to-transparent sm:block dark:via-neutral-700"
+                />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-1/2 top-1/2 z-10 hidden h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#ECE0D4] bg-[#FFFDFA] shadow-sm sm:flex dark:border-neutral-700 dark:bg-neutral-950"
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#D9734E"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="9 6 4 12 9 18" />
+                    <polyline points="15 6 20 12 15 18" />
+                  </svg>
+                </div>
+
+                <div className="border-b border-[#ECE0D4]/80 p-4 sm:border-b-0 sm:border-r sm:p-5 dark:border-neutral-800">
+                  <span className="inline-flex items-center rounded-full bg-[#F7DECF] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#B85C3A] sm:text-[11px] dark:bg-neutral-800 dark:text-amber-300/90">
+                    Prva analiza
+                  </span>
+                  <ul className="mt-4 space-y-3">
+                    <li className="flex items-center gap-3 rounded-xl border border-[#ECE0D4]/60 bg-[#FBF6F0]/50 px-3 py-2.5 dark:border-neutral-800 dark:bg-neutral-900/50">
+                      <span className="h-2 w-2 shrink-0 rounded-full bg-[#D9734E]" />
+                      <div className="min-w-0 flex-1">
+                        <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-[#6E6A63]/80 dark:text-neutral-500">
+                          Crvenila
+                        </span>
+                        <span className="block text-sm font-medium leading-snug text-[#2B2A28] dark:text-neutral-200">
+                          Blaga crvenila
+                        </span>
+                      </div>
+                    </li>
+                    <li className="flex items-center gap-3 rounded-xl border border-[#ECE0D4]/60 bg-[#FBF6F0]/50 px-3 py-2.5 dark:border-neutral-800 dark:bg-neutral-900/50">
+                      <span className="h-2 w-2 shrink-0 rounded-full bg-[#D9734E]" />
+                      <div className="min-w-0 flex-1">
+                        <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-[#6E6A63]/80 dark:text-neutral-500">
+                          Ton kože
+                        </span>
+                        <span className="block text-sm font-medium leading-snug text-[#2B2A28] dark:text-neutral-200">
+                          Neravnomjeran ton
+                        </span>
+                      </div>
+                    </li>
+                    <li className="flex items-center gap-3 rounded-xl border border-[#ECE0D4]/60 bg-[#FBF6F0]/50 px-3 py-2.5 dark:border-neutral-800 dark:bg-neutral-900/50">
+                      <span className="h-2 w-2 shrink-0 rounded-full bg-[#D9734E]" />
+                      <div className="min-w-0 flex-1">
+                        <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-[#6E6A63]/80 dark:text-neutral-500">
+                          Barijera
+                        </span>
+                        <span className="block text-sm font-medium leading-snug text-[#2B2A28] dark:text-neutral-200">
+                          Osjetljiva barijera
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="p-4 sm:p-5">
+                  <span className="inline-flex items-center rounded-full bg-[#E3F0E6] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#3F7A54] sm:text-[11px] dark:bg-neutral-800 dark:text-emerald-300/90">
+                    Nakon 14 dana
+                  </span>
+                  <ul className="mt-4 space-y-3">
+                    <li className="flex items-center gap-3 rounded-xl border border-[#ECE0D4]/60 bg-[#E3F0E6]/25 px-3 py-2.5 dark:border-neutral-800 dark:bg-neutral-900/50">
+                      <span className="h-2 w-2 shrink-0 rounded-full bg-[#4E9D6B]" />
+                      <div className="min-w-0 flex-1">
+                        <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-[#6E6A63]/80 dark:text-neutral-500">
+                          Crvenila
+                        </span>
+                        <span className="block text-sm font-medium leading-snug text-[#2B2A28] dark:text-neutral-200">
+                          Manje crvenila
+                        </span>
+                      </div>
+                    </li>
+                    <li className="flex items-center gap-3 rounded-xl border border-[#ECE0D4]/60 bg-[#E3F0E6]/25 px-3 py-2.5 dark:border-neutral-800 dark:bg-neutral-900/50">
+                      <span className="h-2 w-2 shrink-0 rounded-full bg-[#4E9D6B]" />
+                      <div className="min-w-0 flex-1">
+                        <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-[#6E6A63]/80 dark:text-neutral-500">
+                          Ton kože
+                        </span>
+                        <span className="block text-sm font-medium leading-snug text-[#2B2A28] dark:text-neutral-200">
+                          Ujednačeniji ton
+                        </span>
+                      </div>
+                    </li>
+                    <li className="flex items-center gap-3 rounded-xl border border-[#ECE0D4]/60 bg-[#E3F0E6]/25 px-3 py-2.5 dark:border-neutral-800 dark:bg-neutral-900/50">
+                      <span className="h-2 w-2 shrink-0 rounded-full bg-[#4E9D6B]" />
+                      <div className="min-w-0 flex-1">
+                        <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-[#6E6A63]/80 dark:text-neutral-500">
+                          Barijera
+                        </span>
+                        <span className="block text-sm font-medium leading-snug text-[#2B2A28] dark:text-neutral-200">
+                          Stabilnija koža
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div className="mt-4 flex justify-center sm:mt-6">
-              <div className="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-full border border-[#ECE0D4] bg-white/90 px-4 py-2.5 shadow-[0_4px_16px_rgba(43,42,40,0.06)] dark:border-neutral-700 dark:bg-neutral-900/90">
-                <span className="text-sm font-semibold text-[#4E9D6B]">
-                  +28% vidljiv napredak
-                </span>
-                <span className="hidden h-4 w-px bg-[#ECE0D4] sm:block dark:bg-neutral-700" />
-                <span className="text-sm font-medium text-[#6E6A63] dark:text-neutral-400">
-                  14 dana praćenja
-                </span>
+
+              {/* Metric footer */}
+              <div className="border-t border-[#ECE0D4]/80 bg-gradient-to-r from-[#FBF6F0]/80 via-[#FFFDFA] to-[#E3F0E6]/30 px-4 py-3 sm:px-5 sm:py-3.5 dark:border-neutral-800 dark:from-neutral-900/80 dark:via-neutral-950 dark:to-neutral-900/80">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-sm font-semibold text-[#4E9D6B]">
+                    +28% vidljiv napredak
+                  </span>
+                  <span className="text-sm font-medium text-[#6E6A63] dark:text-neutral-400">
+                    14 dana praćenja
+                  </span>
+                </div>
               </div>
             </div>
           </div>
