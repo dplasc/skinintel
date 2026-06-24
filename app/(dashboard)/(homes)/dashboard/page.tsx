@@ -641,15 +641,24 @@ export default function DashboardPage() {
             ) : null}
           </div>
           {scanResult ? (
-            <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+            <div className="space-y-6 rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-6 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
               <div className="flex items-center justify-between gap-3">
-                <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                  Rezultat analize
-                </p>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-8 w-8 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-[#D9734E] to-[#E0976F] shadow-[0_2px_8px_rgba(217,115,78,0.28)]">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-[17px] w-[17px] text-white">
+                      <path d="M7 4h7l3 3v13H7V4Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+                      <path d="M14 4v4h4" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+                      <path d="M9 12h6M9 16h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                    </svg>
+                  </span>
+                  <p className="text-base font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
+                    Rezultat AI analize
+                  </p>
+                </div>
                 <button
                   type="button"
                   onClick={handleSaveResult}
-                  className="rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800"
+                  className="inline-flex shrink-0 items-center rounded-lg border border-[#D9734E] px-3.5 py-2 text-xs font-semibold text-[#C45F3D] transition hover:bg-[#F7DECF] active:scale-[0.98] dark:border-[#E8916C] dark:text-[#E8916C] dark:hover:bg-neutral-800"
                 >
                   Spremi rezultat
                 </button>
