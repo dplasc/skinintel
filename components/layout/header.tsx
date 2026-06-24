@@ -3,9 +3,9 @@ import { SidebarTrigger } from '../ui/sidebar';
 
 const Header = () => {
     return (
-        <header className="dashboard-header flex items-center justify-between sm:h-18 h-13 shrink-0 gap-2 md:px-6 px-4 py-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-18 dark:bg-[#273142]">
+        <header className="dashboard-header flex h-13 shrink-0 items-center justify-between gap-2 border-b border-[#ECE0D4] bg-[#FFFDFA]/95 px-4 py-3 backdrop-blur-sm transition-[width,height] ease-linear sm:h-18 md:px-6 dark:border-neutral-800 dark:bg-neutral-900/95">
             <div className="flex items-center gap-4">
-                <SidebarTrigger className="-ms-1 p-0 size-[unset] cursor-pointer" />
+                <SidebarTrigger className="-ms-1 size-[unset] cursor-pointer p-0 text-[#6E6A63] hover:text-[#2B2A28] dark:text-neutral-400 dark:hover:text-neutral-100" />
             </div>
             <div className="flex items-center gap-3">
                 <ProfileDropdown />

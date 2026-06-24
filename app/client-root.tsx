@@ -27,7 +27,7 @@ export function ClientRoot({
           <SidebarInset>
             <Header />
           </SidebarInset>
-          <div className="dashboard-body bg-neutral-100 dark:bg-[#1e2734] md:p-6 p-4 flex-1">
+          <div className="dashboard-body flex-1 bg-[#FBF6F0] p-4 md:p-6 dark:bg-neutral-950">
             {children}
           </div>
         </main>

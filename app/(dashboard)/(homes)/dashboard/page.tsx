@@ -5,7 +5,7 @@ import { getProducts } from "@/lib/getProducts";
 import { scoreProduct } from "@/lib/ingredientScoring";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 
 type LatestAnalysis = {
   id?: string | number;
@@ -280,26 +280,59 @@ export default function DashboardPage() {
     : null;
   const statCards = [
     {
+      key: "total",
       label: "Ukupno analiza",
       value: latestAnalysisLoaded ? String(latestAnalysisTotal) : "—",
       hint: "Tvoj dosadašnji napredak",
+      compactValue: false,
     },
     {
+      key: "last",
       label: "Zadnja analiza",
       value: lastAnalysisDate ?? "Još nema",
       hint: lastAnalysisDate ? "Datum zadnje analize" : "Pokreni prvu analizu",
+      compactValue: true,
     },
     {
-      label: "Razina pouzdanosti",
+      key: "confidence",
+      label: "Pouzdanost",
       value: latestAnalysis?.confidence ?? "—",
       hint: "Iz zadnje analize",
+      compactValue: false,
     },
     {
+      key: "reminder",
       label: "Podsjetnik",
       value: reminderDays !== null ? `${reminderDays} dana` : "Nije postavljen",
       hint: "Sljedeća analiza",
+      compactValue: false,
     },
   ];
+
+  const statIcons: Record<string, ReactNode> = {
+    total: (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-4 w-4 text-[#D9734E]">
+        <path d="M4 18V8l4-2v12H4Zm8 0V4l4 2v12h-4Zm8 0V11l-4 1.5V18h4Z" fill="currentColor" opacity="0.9" />
+      </svg>
+    ),
+    last: (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-4 w-4 text-[#D9734E]">
+        <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="1.6" />
+        <path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      </svg>
+    ),
+    confidence: (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-4 w-4 text-[#D9734E]">
+        <path d="M12 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.8 7.2 18l.9-5.4L4.2 8.7l5.4-.8L12 3Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      </svg>
+    ),
+    reminder: (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-4 w-4 text-[#D9734E]">
+        <path d="M12 4a5 5 0 0 1 5 5v2.5c0 .6.2 1.2.6 1.7l.7.9H5.7l.7-.9c.4-.5.6-1.1.6-1.7V9a5 5 0 0 1 5-5Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+        <path d="M10 18.5a2 2 0 0 0 4 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      </svg>
+    ),
+  };
   return (
     <>
       <section className="relative overflow-hidden rounded-3xl border border-[#ECE0D4] bg-[#FBF4EC] px-6 py-9 shadow-[0_2px_4px_rgba(43,42,40,0.03),0_18px_50px_rgba(43,42,40,0.09)] sm:rounded-[36px] sm:px-14 sm:py-20 dark:border-neutral-800 dark:bg-neutral-900">
@@ -340,53 +373,44 @@ export default function DashboardPage() {
               </span>
             </span>
           </div>
-          <h1 className="mt-5 text-[34px] font-semibold leading-[1.08] tracking-tight text-[#2B2A28] sm:mt-7 sm:text-6xl dark:text-neutral-50">
-            Dobrodošla natrag
+          <h1 className="mt-5 text-[1.65rem] font-semibold leading-[1.12] tracking-tight text-[#2B2A28] sm:mt-7 sm:text-4xl sm:leading-[1.08] lg:text-5xl dark:text-neutral-50">
+            Dobrodošli u svoj AI dnevnik kože
           </h1>
           <p className="mt-3.5 max-w-xl text-base leading-relaxed text-[#6E6A63] sm:mt-6 sm:text-xl dark:text-neutral-300">
             Prati stanje svoje kože, uspoređuj rezultate i nastavi svoj ritual njege.
           </p>
 
-          <div className="mt-7 grid grid-cols-3 gap-2.5 sm:mt-9 sm:max-w-xl sm:gap-4">
-            {statCards.slice(0, 3).map((card) => (
+          <div className="mt-7 grid grid-cols-2 gap-2.5 sm:mt-9 sm:gap-3 lg:grid-cols-4 lg:gap-4">
+            {statCards.map((card) => (
               <div
-                key={card.label}
+                key={card.key}
                 className="rounded-xl border border-[#ECE0D4] bg-[#FBF6F0]/90 p-3 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm transition-shadow hover:shadow-[0_4px_16px_rgba(43,42,40,0.08)] sm:p-4 dark:border-neutral-800 dark:bg-neutral-950/70"
               >
                 <div className="flex items-center gap-1.5">
-                  <span className="h-1 w-1 flex-none rounded-full bg-[#D9734E]" />
-                  <p className="text-[10px] font-medium uppercase leading-tight tracking-wide text-[#9A938A] dark:text-neutral-500">
+                  <span className="flex h-6 w-6 flex-none items-center justify-center rounded-md bg-[#F7DECF]/60 dark:bg-neutral-800">
+                    {statIcons[card.key]}
+                  </span>
+                  <p className="min-w-0 text-[10px] font-medium uppercase leading-tight tracking-wide text-[#9A938A] dark:text-neutral-500">
                     {card.label}
                   </p>
                 </div>
-                <p className="mt-2 break-words text-sm font-semibold leading-tight text-[#2B2A28] sm:text-lg dark:text-neutral-100">
+                <p
+                  className={`mt-2 font-semibold leading-tight text-[#2B2A28] dark:text-neutral-100 ${
+                    card.compactValue
+                      ? "whitespace-nowrap text-[13px] tabular-nums sm:text-base"
+                      : "text-sm sm:text-lg"
+                  }`}
+                >
                   {card.value}
+                </p>
+                <p className="mt-1 text-[10px] leading-snug text-[#9A938A] dark:text-neutral-500">
+                  {card.hint}
                 </p>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      <div className="mt-6 mb-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {statCards.filter((card) => card.label === "Podsjetnik").map((card) => (
-          <div
-            key={card.label}
-            className="rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-5 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] transition-shadow hover:shadow-[0_4px_16px_rgba(43,42,40,0.08)] dark:border-neutral-800 dark:bg-neutral-900"
-          >
-            <div className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
-              <p className="text-xs font-medium uppercase tracking-wide text-[#6E6A63] dark:text-neutral-400">
-                {card.label}
-              </p>
-            </div>
-            <p className="mt-3 break-words text-2xl font-semibold leading-tight text-[#2B2A28] dark:text-neutral-100">
-              {card.value}
-            </p>
-            <p className="mt-1 text-xs text-[#9A938A] dark:text-neutral-500">{card.hint}</p>
-          </div>
-        ))}
-      </div>
 
       <div className="mt-8 rounded-[28px] border border-[#ECE0D4] bg-[#FBF6F0] px-6 py-9 sm:px-9 dark:border-neutral-800 dark:bg-neutral-950">
         <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 text-left">
