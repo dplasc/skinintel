@@ -417,27 +417,31 @@ export default function DashboardPage() {
           {savedScan ? (
             <div
               ref={savedAnalysisRef}
-              className="rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-6 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900"
+              className="rounded-xl border border-[#ECE0D4] bg-[#FBF4EC]/80 p-4 shadow-[0_1px_2px_rgba(43,42,40,0.03)] dark:border-neutral-800 dark:bg-neutral-900/60"
             >
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
-                <p className="text-xs font-medium uppercase tracking-wide text-[#6E6A63] dark:text-neutral-400">
-                  Spremljena analiza
-                </p>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-1 w-1 rounded-full bg-[#D9734E]" />
+                    <p className="text-[10px] font-medium uppercase tracking-wide text-[#9A938A] dark:text-neutral-500">
+                      Spremljena analiza
+                    </p>
+                  </div>
+                  <p className="mt-1.5 text-sm font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
+                    Nastavi prethodnu analizu
+                  </p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-[#6E6A63] dark:text-neutral-400">
+                    Možeš učitati zadnju spremljenu analizu ili nastaviti s novom.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleLoadLastResult}
+                  className="inline-flex shrink-0 items-center rounded-lg border border-[#D9734E] px-3.5 py-2 text-xs font-semibold text-[#C45F3D] transition hover:bg-[#F7DECF] active:scale-[0.98] dark:border-[#E8916C] dark:text-[#E8916C] dark:hover:bg-neutral-800 sm:self-center"
+                >
+                  Učitaj spremljenu analizu
+                </button>
               </div>
-              <p className="mt-3 text-xl font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
-                Imaš spremljenu analizu
-              </p>
-              <p className="mt-1.5 text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
-                Tvoja prethodna analiza kože spremna je za pregled. Učitaj je ili nastavi s novom.
-              </p>
-              <button
-                type="button"
-                onClick={handleLoadLastResult}
-                className="mt-4 inline-flex items-center rounded-xl border border-[#D9734E] px-4 py-2.5 text-sm font-semibold text-[#C45F3D] transition hover:bg-[#F7DECF] active:scale-[0.98] dark:border-[#E8916C] dark:text-[#E8916C] dark:hover:bg-neutral-800"
-              >
-                Učitaj spremljenu analizu
-              </button>
             </div>
           ) : null}
           <div className="flex items-start gap-3 sm:gap-3.5">
