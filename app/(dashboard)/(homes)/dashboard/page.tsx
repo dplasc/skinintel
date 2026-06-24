@@ -563,82 +563,89 @@ export default function DashboardPage() {
               {scanError}
             </div>
           ) : null}
-          {latestAnalysisLoaded ? (
-            <div className="rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-6 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
-                <p className="text-xs font-medium uppercase tracking-wide text-[#6E6A63] dark:text-neutral-400">
-                  Zadnja analiza
-                </p>
-              </div>
-              <p className="mt-3 text-sm text-[#6E6A63] dark:text-neutral-400">
-                Ukupno analiza:{" "}
-                <span className="font-semibold text-[#2B2A28] dark:text-neutral-100">{latestAnalysisTotal}</span>
-              </p>
-              {latestAnalysis ? (
-                <>
-                  <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[#9A938A] dark:text-neutral-500">
-                    <span>{formatCreatedAt(latestAnalysis.created_at)}</span>
-                    <span>Razina pouzdanosti: {latestAnalysis.confidence ?? "nepoznato"}</span>
-                  </div>
-                  <div className="mt-4 flex flex-wrap gap-3">
-                    <Link
-                      href={`/history/${latestAnalysis.id}`}
-                      className="inline-flex items-center rounded-xl bg-[#D9734E] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#C45F3D] active:scale-[0.98]"
-                    >
-                      Otvori analizu
-                    </Link>
-                    <Link
-                      href="/history"
-                      className="inline-flex items-center rounded-xl border border-[#ECE0D4] px-4 py-2 text-xs font-semibold text-[#2B2A28] transition hover:bg-[#F7DECF] active:scale-[0.98] dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
-                    >
-                      Povijest analiza
-                    </Link>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <p className="mt-3 text-sm text-[#6E6A63] dark:text-neutral-400">Još nema spremljenih analiza.</p>
-                  <Link
-                    href="/dashboard"
-                    className="mt-4 inline-flex items-center rounded-xl bg-[#D9734E] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#C45F3D] active:scale-[0.98]"
-                  >
-                    Pokreni prvu analizu
-                  </Link>
-                </>
-              )}
-            </div>
-          ) : null}
-          <div className="rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-6 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
+          <div className="rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-5 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_8px_24px_rgba(43,42,40,0.06)] sm:p-6 dark:border-neutral-800 dark:bg-neutral-900">
             <div className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
               <p className="text-xs font-medium uppercase tracking-wide text-[#6E6A63] dark:text-neutral-400">
-                Podsjetnik za novu analizu
+                Praćenje analiza
               </p>
             </div>
-            <div className="mt-4 flex flex-col gap-2.5">
-              {[7, 14, 30].map((days) => (
-                <label key={days} className="flex items-center gap-2.5 text-sm text-[#2B2A28] dark:text-neutral-200">
-                  <input
-                    type="radio"
-                    name="reminderDays"
-                    value={days}
-                    checked={reminderDays === days}
-                    onChange={() => handleReminderChange(days)}
-                    className="h-4 w-4 border-[#ECE0D4] accent-[#D9734E] transition focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 dark:border-neutral-600"
-                  />
-                  <span>{days} dana</span>
-                </label>
-              ))}
+            <div
+              className={`mt-4 grid gap-3 sm:gap-4 ${latestAnalysisLoaded ? "sm:grid-cols-2" : ""}`}
+            >
+              {latestAnalysisLoaded ? (
+                <div className="rounded-xl border border-[#ECE0D4]/80 bg-[#FBF6F0]/70 p-4 dark:border-neutral-800 dark:bg-neutral-950/50">
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-[#9A938A] dark:text-neutral-500">
+                    Zadnja analiza
+                  </p>
+                  {latestAnalysis ? (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <Link
+                        href={`/history/${latestAnalysis.id}`}
+                        className="inline-flex items-center rounded-lg bg-[#D9734E] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#C45F3D] active:scale-[0.98]"
+                      >
+                        Otvori analizu
+                      </Link>
+                      <Link
+                        href="/history"
+                        className="inline-flex items-center rounded-lg border border-[#ECE0D4] px-3.5 py-1.5 text-xs font-semibold text-[#2B2A28] transition hover:bg-[#F7DECF] active:scale-[0.98] dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
+                      >
+                        Povijest analiza
+                      </Link>
+                    </div>
+                  ) : (
+                    <>
+                      <p className="mt-2 text-xs leading-relaxed text-[#6E6A63] dark:text-neutral-400">
+                        Još nema spremljenih analiza.
+                      </p>
+                      <Link
+                        href="/dashboard"
+                        className="mt-3 inline-flex items-center rounded-lg bg-[#D9734E] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#C45F3D] active:scale-[0.98]"
+                      >
+                        Pokreni prvu analizu
+                      </Link>
+                    </>
+                  )}
+                </div>
+              ) : null}
+              <div
+                className={`rounded-xl border border-[#ECE0D4]/80 bg-[#FBF6F0]/70 p-4 dark:border-neutral-800 dark:bg-neutral-950/50 ${latestAnalysisLoaded ? "" : "sm:col-span-2"}`}
+              >
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-[#9A938A] dark:text-neutral-500">
+                  Podsjetnik
+                </p>
+                <p className="mt-1.5 text-xs leading-relaxed text-[#6E6A63] dark:text-neutral-400">
+                  Odaberi ritam praćenja kože.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {[7, 14, 30].map((days) => (
+                    <label
+                      key={days}
+                      className={`inline-flex cursor-pointer items-center rounded-full border px-3.5 py-1.5 text-xs font-semibold transition focus-within:ring-2 focus-within:ring-[#D9734E]/30 ${
+                        reminderDays === days
+                          ? "border-[#D9734E] bg-[#D9734E] text-white shadow-[0_2px_8px_rgba(217,115,78,0.25)]"
+                          : "border-[#ECE0D4] bg-[#FFFDFA] text-[#2B2A28] hover:border-[#D9734E]/40 hover:bg-[#F7DECF]/40 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:border-[#E8916C]/50"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="reminderDays"
+                        value={days}
+                        checked={reminderDays === days}
+                        onChange={() => handleReminderChange(days)}
+                        className="sr-only"
+                      />
+                      {days} dana
+                    </label>
+                  ))}
+                </div>
+                {reminderSaved ? (
+                  <p className="mt-2.5 text-xs font-medium text-[#5C7E59] dark:text-emerald-400/80">
+                    Podsjetnik je spremljen.
+                  </p>
+                ) : null}
+              </div>
             </div>
-            {reminderDays !== null ? (
-              <p className="mt-3 text-xs text-[#9A938A] dark:text-neutral-500">
-                Trenutno odabrano: {reminderDays} dana
-              </p>
-            ) : null}
-            {reminderSaved ? (
-              <p className="mt-2 text-xs font-medium text-[#5C7E59] dark:text-emerald-400/80">Postavka spremljena.</p>
-            ) : null}
           </div>
           {scanResult ? (
             <div className="space-y-6 rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-6 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
