@@ -704,13 +704,15 @@ export default function DashboardPage() {
                     .map((item, index) => (
                     <Fragment key={index}>
                       <div
-                        className={`space-y-2 rounded-md dark:border-neutral-700 ${
-                          index < 2 ? "border-2 border-blue-600 bg-blue-50 p-5" : "border border-gray-200 bg-white p-4"
+                        className={`space-y-2 rounded-xl ${
+                          index < 2
+                            ? "border-2 border-[#D9734E]/45 bg-[#FBF4EC] p-5 shadow-[0_1px_2px_rgba(43,42,40,0.04)] dark:border-[#E8916C]/40 dark:bg-neutral-900/60"
+                            : "border border-[#ECE0D4]/80 bg-[#FBF6F0]/70 p-4 dark:border-neutral-800 dark:bg-neutral-950/50"
                         }`}
                       >
                         {index < 2 ? (
-                          <p className="text-xs font-semibold text-blue-700">
-                            GLAVNI KORAK
+                          <p className="text-[11px] font-semibold tracking-wide text-[#C45F3D] dark:text-[#E8916C]">
+                            Glavni korak
                           </p>
                         ) : null}
                         <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{item.title}</p>
