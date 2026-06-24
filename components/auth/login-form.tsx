@@ -22,6 +22,9 @@ import { z } from 'zod'
 import { handleLoginAction } from './actions/login'
 import SocialLogin from './social-login'
 
+const inputClassName =
+  'ps-13 pe-12 h-14 rounded-xl border border-[#ECE0D4] bg-[#FFFDFA] text-sm text-[#2B2A28] transition placeholder:text-[#9A938A] focus:border-[#D9734E] focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 focus-visible:border-[#D9734E] focus-visible:ring-[#D9734E]/30 !shadow-none dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200 dark:placeholder:text-neutral-500'
+
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [isPending, startTransition] = useTransition()
@@ -87,13 +90,13 @@ const LoginForm = () => {
               <FormItem>
                 <FormControl>
                   <div className="relative">
-                    <Mail className="absolute start-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-700 dark:text-neutral-200" />
+                    <Mail className="absolute start-5 top-1/2 h-5 w-5 -translate-y-1/2 transform text-[#9A938A] dark:text-neutral-400" />
                     <Input
                       {...field}
                       type="email"
                       placeholder="Email adresa"
                       name="email"
-                      className="ps-13 pe-12 h-14 rounded-xl bg-neutral-100 dark:bg-slate-800 border border-neutral-300 dark:border-slate-700 focus:border-primary dark:focus:border-primary focus-visible:border-primary !shadow-none !ring-0"
+                      className={inputClassName}
                       disabled={loading}
                     />
                   </div>
@@ -111,24 +114,24 @@ const LoginForm = () => {
               <FormItem>
                 <FormControl>
                   <div className="relative">
-                    <Lock className="absolute start-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-700 dark:text-neutral-200" />
+                    <Lock className="absolute start-5 top-1/2 h-5 w-5 -translate-y-1/2 transform text-[#9A938A] dark:text-neutral-400" />
                     <Input
                       {...field}
                       type={showPassword ? 'text' : 'password'}
                       placeholder="Lozinka"
                       name="password"
-                      className="ps-13 pe-12 h-14 rounded-xl bg-neutral-100 dark:bg-slate-800 border border-neutral-300 dark:border-slate-700 focus:border-primary dark:focus:border-primary focus-visible:border-primary !shadow-none !ring-0"
+                      className={inputClassName}
                       disabled={loading}
                     />
                     <Button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 transform -translate-y-1/2 !p-0 bg-transparent hover:bg-transparent text-muted-foreground h-[unset]"
+                      className="absolute right-4 top-1/2 h-[unset] !transform -translate-y-1/2 !bg-transparent !p-0 text-[#9A938A] hover:!bg-transparent hover:text-[#6E6A63] dark:text-neutral-400 dark:hover:text-neutral-200"
                     >
                       {showPassword ? (
-                        <EyeOff className="w-5 h-5" />
+                        <EyeOff className="h-5 w-5" />
                       ) : (
-                        <Eye className="w-5 h-5" />
+                        <Eye className="h-5 w-5" />
                       )}
                     </Button>
                   </div>
@@ -139,13 +142,13 @@ const LoginForm = () => {
           />
 
           {/* Remember Me & Forgot Password */}
-          <div className="mt-2 flex justify-between items-center">
+          <div className="mt-2 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Checkbox
                 id="remember"
-                className="border border-neutral-500 w-4.5 h-4.5"
+                className="h-4.5 w-4.5 border border-[#ECE0D4] data-[state=checked]:!border-[#D9734E] data-[state=checked]:!bg-[#D9734E] dark:border-neutral-600"
               />
-              <label htmlFor="remember" className="text-sm">
+              <label htmlFor="remember" className="text-sm text-[#6E6A63] dark:text-neutral-300">
                 Zapamti me
               </label>
             </div>
@@ -154,12 +157,12 @@ const LoginForm = () => {
           {/* Submit Button */}
           <Button
             type="submit"
-            className="w-full rounded-lg h-[52px] text-sm mt-2"
+            className="mt-2 h-[52px] w-full rounded-2xl border-0 bg-[#D9734E] text-sm font-semibold text-white shadow-[0_8px_24px_rgba(217,115,78,0.32)] transition hover:!bg-[#C45F3D] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
             disabled={loading || isPending}
           >
             {isSubmitting || isPending ? (
               <>
-                <Loader2 className="animate-spin h-4.5 w-4.5 mr-2" />
+                <Loader2 className="mr-2 h-4.5 w-4.5 animate-spin" />
                 Prijava...
               </>
             ) : (
@@ -170,8 +173,8 @@ const LoginForm = () => {
       </Form>
 
       {/* Divider */}
-      <div className="mt-8 relative text-center before:absolute before:w-full before:h-px before:bg-neutral-300 dark:before:bg-slate-600 before:top-1/2 before:left-0">
-        <span className="relative z-10 px-4 bg-white dark:bg-slate-900 text-base">
+      <div className="relative mt-8 text-center before:absolute before:left-0 before:top-1/2 before:h-px before:w-full before:bg-[#ECE0D4] dark:before:bg-neutral-700">
+        <span className="relative z-10 bg-[#FFFDFA] px-4 text-sm text-[#9A938A] dark:bg-neutral-900 dark:text-neutral-400">
           Ili nastavite s
         </span>
       </div>

@@ -33,13 +33,13 @@ const SocialLogin = () => {
 
   return (
     <form
-      className="mt-8 flex items-center gap-3"
+      className="mt-6 flex items-center gap-3"
       action={doSocialLogin}
       onSubmit={handleFormSubmit}
     >
       {/* Google Button */}
       <Button
-        className="font-semibold text-neutral-600 hover:text-neutral-600 dark:text-neutral-200 py-6 px-2 w-full border border-neutral-600/50 rounded-xl text-sm flex items-center justify-center gap-3 line-height-1 hover:border-blue-400 hover:bg-primary/10 disabled:opacity-80"
+        className="flex w-full items-center justify-center gap-3 rounded-xl border border-[#ECE0D4] bg-[#FBF6F0] px-2 py-6 text-sm font-semibold text-[#2B2A28] shadow-[0_1px_2px_rgba(43,42,40,0.04)] transition hover:border-[#D9734E] hover:bg-[#F7DECF]/40 hover:!text-[#2B2A28] disabled:opacity-80 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200 dark:hover:border-[#E8916C] dark:hover:bg-neutral-800"
         variant="outline"
         type="submit"
         name="action"
@@ -48,8 +48,8 @@ const SocialLogin = () => {
       >
         {loadingButtonProvider === "google" ? (
           <>
-            <Loader2 className="animate-spin h-4.5 w-4.5" />
-            Loading...
+            <Loader2 className="h-4.5 w-4.5 animate-spin" />
+            Učitavanje...
           </>
         ) : (
           <>

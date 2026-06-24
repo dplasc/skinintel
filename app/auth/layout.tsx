@@ -13,7 +13,7 @@ export default function AuthLayout({
       enableSystem
       disableTransitionOnChange
     >
-      <main className="min-h-screen">{children}</main>
+      <main className="min-h-screen bg-[#FBF6F0] dark:bg-neutral-950">{children}</main>
       <Toaster position="top-center" reverseOrder={false} />
     </ThemeProvider>
   );
