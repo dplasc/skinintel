@@ -288,6 +288,156 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* FOOTER */}
+      <footer className="border-t border-[#ECE0D4] bg-[#FBF6F0] dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="mx-auto max-w-3xl px-6 py-10 sm:py-12">
+          <div>
+            <p className="text-lg font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-50">
+              SkinIntel
+            </p>
+            <p className="mt-2 max-w-sm text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
+              AI edukativna analiza kože za praćenje promjena kroz vrijeme.
+            </p>
+          </div>
+
+          <nav className="mt-8" aria-label="Pravne informacije">
+            <ul className="flex flex-col gap-3">
+              <li>
+                <Link
+                  href="/privacy"
+                  className="text-sm text-[#6E6A63] transition hover:text-[#2B2A28] dark:text-neutral-400 dark:hover:text-neutral-100"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className="text-sm text-[#6E6A63] transition hover:text-[#2B2A28] dark:text-neutral-400 dark:hover:text-neutral-100"
+                >
+                  Terms of Use
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className="text-sm text-[#6E6A63] transition hover:text-[#2B2A28] dark:text-neutral-400 dark:hover:text-neutral-100"
+                >
+                  Cookie Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/api/delete-request"
+                  className="text-sm text-[#6E6A63] transition hover:text-[#2B2A28] dark:text-neutral-400 dark:hover:text-neutral-100"
+                >
+                  Delete Request
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+          <div className="mt-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#6E6A63] dark:text-neutral-500">
+              Kontakt
+            </p>
+            <a
+              href="mailto:info@skinintel.ai"
+              className="mt-2 inline-block text-sm text-[#2B2A28] transition hover:text-[#D9734E] dark:text-neutral-200 dark:hover:text-[#D9734E]"
+            >
+              info@skinintel.ai
+            </a>
+          </div>
+
+          <div className="mt-8 flex items-center gap-3">
+            <Link
+              href="#"
+              aria-label="Instagram"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#ECE0D4] bg-[#FFFDFA] text-[#6E6A63] transition hover:border-[#D9734E] hover:text-[#D9734E] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:border-[#D9734E] dark:hover:text-[#D9734E]"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </Link>
+            <Link
+              href="#"
+              aria-label="Facebook"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#ECE0D4] bg-[#FFFDFA] text-[#6E6A63] transition hover:border-[#D9734E] hover:text-[#D9734E] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:border-[#D9734E] dark:hover:text-[#D9734E]"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+              </svg>
+            </Link>
+            <Link
+              href="#"
+              aria-label="TikTok"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#ECE0D4] bg-[#FFFDFA] text-[#6E6A63] transition hover:border-[#D9734E] hover:text-[#D9734E] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:border-[#D9734E] dark:hover:text-[#D9734E]"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+              </svg>
+            </Link>
+            <Link
+              href="#"
+              aria-label="LinkedIn"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#ECE0D4] bg-[#FFFDFA] text-[#6E6A63] transition hover:border-[#D9734E] hover:text-[#D9734E] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:border-[#D9734E] dark:hover:text-[#D9734E]"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </Link>
+          </div>
+
+          <p className="mt-8 border-t border-[#ECE0D4] pt-6 text-xs text-[#6E6A63] dark:border-neutral-800 dark:text-neutral-500">
+            © 2026 SkinIntel. Sva prava pridržana.
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }
