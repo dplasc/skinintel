@@ -123,11 +123,43 @@ export default function HomePage() {
           </p>
         </div>
         <div className="-mx-4 mt-14 sm:mx-0 sm:mt-16">
-          <img
-            src="/assets/images/skinintel-before-after-v1.webp"
-            alt="SkinIntel prije i poslije praćenja stanja kože"
-            className="mx-auto w-full rounded-3xl border border-[#ECE0D4] shadow-[0_4px_8px_rgba(43,42,40,0.04),0_24px_70px_rgba(43,42,40,0.12)] dark:border-neutral-800"
-          />
+          <div className="rounded-3xl border border-[#ECE0D4] bg-[#FBF4EC] p-4 shadow-[0_4px_8px_rgba(43,42,40,0.04),0_24px_70px_rgba(43,42,40,0.12)] sm:p-6 dark:border-neutral-800 dark:bg-neutral-900">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="overflow-hidden rounded-2xl border border-[#ECE0D4] bg-[#FFFDFA] dark:border-neutral-700 dark:bg-neutral-950">
+                <div
+                  aria-hidden="true"
+                  className="aspect-[4/5] bg-gradient-to-br from-[#F3C9B3] via-[#FBF6F0] to-[#E7CDBC] dark:from-neutral-800 dark:via-neutral-900 dark:to-neutral-800"
+                />
+                <div className="px-3 py-3 sm:px-4 sm:py-4">
+                  <span className="inline-flex items-center rounded-full bg-[#F7DECF] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#B85C3A] sm:px-3 sm:text-[11px] dark:bg-neutral-800 dark:text-amber-300/90">
+                    Prva analiza
+                  </span>
+                </div>
+              </div>
+              <div className="overflow-hidden rounded-2xl border border-[#ECE0D4] bg-[#FFFDFA] dark:border-neutral-700 dark:bg-neutral-950">
+                <div
+                  aria-hidden="true"
+                  className="aspect-[4/5] bg-gradient-to-br from-[#E3F0E6] via-[#FBF6F0] to-[#F3C9B3] dark:from-neutral-800 dark:via-neutral-900 dark:to-neutral-700"
+                />
+                <div className="px-3 py-3 sm:px-4 sm:py-4">
+                  <span className="inline-flex items-center rounded-full bg-[#E3F0E6] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#3F7A54] sm:px-3 sm:text-[11px] dark:bg-neutral-800 dark:text-emerald-300/90">
+                    Nova analiza
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 flex justify-center sm:mt-6">
+              <div className="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-full border border-[#ECE0D4] bg-white/90 px-4 py-2.5 shadow-[0_4px_16px_rgba(43,42,40,0.06)] dark:border-neutral-700 dark:bg-neutral-900/90">
+                <span className="text-sm font-semibold text-[#4E9D6B]">
+                  +28% vidljiv napredak
+                </span>
+                <span className="hidden h-4 w-px bg-[#ECE0D4] sm:block dark:bg-neutral-700" />
+                <span className="text-sm font-medium text-[#6E6A63] dark:text-neutral-400">
+                  14 dana praćenja
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
