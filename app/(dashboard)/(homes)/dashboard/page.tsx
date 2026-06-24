@@ -466,31 +466,51 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="space-y-5 rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-6 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
+          <div className="space-y-6 rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-6 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
             <p className="text-base font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">Detalji o tvojoj koži</p>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(event) => setImageFile(event.target.files?.[0] || null)}
-              className="w-full rounded-xl border border-[#ECE0D4] bg-[#FFFDFA] px-4 py-2.5 text-sm text-[#2B2A28] transition placeholder:text-[#9A938A] focus:border-[#D9734E] focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200"
-            />
-            <textarea
-              placeholder="Opiši probleme, simptome ili promjene koje si primijetio..."
-              rows={4}
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
-              className="w-full rounded-xl border border-[#ECE0D4] bg-[#FFFDFA] px-4 py-2.5 text-sm text-[#2B2A28] transition placeholder:text-[#9A938A] focus:border-[#D9734E] focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200"
-            />
-            <p className="text-xs text-neutral-500 dark:text-neutral-400">
-              Opcionalno (za naprednu analizu): zalijepi popis sastojaka s proizvoda
-            </p>
-            <textarea
-              placeholder="ZALIJEPI SASTOJKE (INCI) OVDJE — npr. niacinamid, salicilna kiselina, cink"
-              value={ingredientsInput}
-              onChange={(e) => setIngredientsInput(e.target.value)}
-              className="w-full rounded-xl border border-[#ECE0D4] bg-[#FFFDFA] px-4 py-2.5 text-sm text-[#2B2A28] transition placeholder:text-[#9A938A] focus:border-[#D9734E] focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200"
-            />
-            <div className="flex flex-col gap-2 pt-1">
+            <div className="space-y-6">
+              <div className="space-y-2.5">
+                <p className="text-[11px] font-semibold leading-snug text-[#C45F3D] dark:text-[#E8916C]">
+                  <span className="uppercase tracking-[0.14em]">Korak 1</span>
+                  <span className="font-medium normal-case tracking-normal text-[#6E6A63] dark:text-neutral-400"> — Fotografija kože</span>
+                </p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(event) => setImageFile(event.target.files?.[0] || null)}
+                  className="w-full rounded-xl border border-[#ECE0D4] bg-[#FFFDFA] px-4 py-2.5 text-sm text-[#2B2A28] transition placeholder:text-[#9A938A] focus:border-[#D9734E] focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200"
+                />
+              </div>
+              <div className="space-y-2.5 border-t border-[#ECE0D4] pt-6 dark:border-neutral-800">
+                <p className="text-[11px] font-semibold leading-snug text-[#C45F3D] dark:text-[#E8916C]">
+                  <span className="uppercase tracking-[0.14em]">Korak 2</span>
+                  <span className="font-medium normal-case tracking-normal text-[#6E6A63] dark:text-neutral-400"> — Što primjećuješ?</span>
+                </p>
+                <textarea
+                  placeholder="Opiši probleme, simptome ili promjene koje si primijetio..."
+                  rows={4}
+                  value={description}
+                  onChange={(event) => setDescription(event.target.value)}
+                  className="w-full rounded-xl border border-[#ECE0D4] bg-[#FFFDFA] px-4 py-2.5 text-sm text-[#2B2A28] transition placeholder:text-[#9A938A] focus:border-[#D9734E] focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200"
+                />
+              </div>
+              <div className="space-y-2.5 border-t border-[#ECE0D4] pt-6 dark:border-neutral-800">
+                <p className="text-[11px] font-semibold leading-snug text-[#C45F3D] dark:text-[#E8916C]">
+                  <span className="uppercase tracking-[0.14em]">Korak 3</span>
+                  <span className="font-medium normal-case tracking-normal text-[#6E6A63] dark:text-neutral-400"> — Sastojci koje koristiš (opcionalno)</span>
+                </p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  Opcionalno (za naprednu analizu): zalijepi popis sastojaka s proizvoda
+                </p>
+                <textarea
+                  placeholder="ZALIJEPI SASTOJKE (INCI) OVDJE — npr. niacinamid, salicilna kiselina, cink"
+                  value={ingredientsInput}
+                  onChange={(e) => setIngredientsInput(e.target.value)}
+                  className="w-full rounded-xl border border-[#ECE0D4] bg-[#FFFDFA] px-4 py-2.5 text-sm text-[#2B2A28] transition placeholder:text-[#9A938A] focus:border-[#D9734E] focus:outline-none focus:ring-2 focus:ring-[#D9734E]/30 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-2 border-t border-[#ECE0D4] pt-6 dark:border-neutral-800">
               <label className="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-200">
                 <input
                   type="checkbox"
