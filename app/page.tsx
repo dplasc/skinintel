@@ -85,22 +85,174 @@ export default function HomePage() {
                   className="h-full w-full rounded-[24px] object-cover"
                 />
 
-                <div className="absolute left-3 top-3 rounded-2xl border border-white/60 bg-white/85 px-3 py-2 shadow-[0_8px_24px_rgba(43,42,40,0.14)] backdrop-blur-sm sm:left-5 sm:top-5 sm:px-4 sm:py-2.5 dark:border-white/10 dark:bg-neutral-900/80">
+                {/* AI scan glow + dotted overlay */}
+                <svg
+                  viewBox="0 0 200 200"
+                  fill="none"
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-1/2 top-[42%] h-[46%] max-h-[180px] w-[46%] max-w-[180px] -translate-x-1/2 -translate-y-1/2 sm:max-h-[220px] sm:max-w-[220px]"
+                >
+                  <defs>
+                    <radialGradient
+                      id="hero-scan-glow"
+                      cx="0"
+                      cy="0"
+                      r="1"
+                      gradientUnits="userSpaceOnUse"
+                      gradientTransform="translate(100 100) rotate(90) scale(100)"
+                    >
+                      <stop stopColor="#D9734E" stopOpacity="0.28" />
+                      <stop offset="0.55" stopColor="#D9734E" stopOpacity="0.08" />
+                      <stop offset="1" stopColor="#D9734E" stopOpacity="0" />
+                    </radialGradient>
+                  </defs>
+                  <circle cx="100" cy="100" r="88" fill="url(#hero-scan-glow)" />
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="72"
+                    stroke="#D9734E"
+                    strokeOpacity="0.45"
+                    strokeWidth="1"
+                    strokeDasharray="3 7"
+                  />
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="52"
+                    stroke="#FFFDFA"
+                    strokeOpacity="0.35"
+                    strokeWidth="0.75"
+                    strokeDasharray="2 5"
+                  />
+                  <line
+                    x1="28"
+                    y1="100"
+                    x2="172"
+                    y2="100"
+                    stroke="#D9734E"
+                    strokeOpacity="0.25"
+                    strokeWidth="0.75"
+                    strokeDasharray="4 6"
+                  />
+                  <line
+                    x1="100"
+                    y1="28"
+                    x2="100"
+                    y2="172"
+                    stroke="#D9734E"
+                    strokeOpacity="0.18"
+                    strokeWidth="0.75"
+                    strokeDasharray="4 6"
+                  />
+                  <circle cx="100" cy="100" r="4" fill="#D9734E" fillOpacity="0.7" />
+                  <circle cx="100" cy="100" r="8" stroke="#D9734E" strokeOpacity="0.35" strokeWidth="1" />
+                </svg>
+
+                {/* Before / after divider */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-y-3 left-1/2 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/80 to-transparent shadow-[0_0_12px_rgba(255,255,255,0.45)] sm:inset-y-4"
+                />
+
+                {/* Divider handle */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-1/2 top-1/2 z-10 flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/90 bg-white/95 shadow-[0_4px_16px_rgba(43,42,40,0.18)] backdrop-blur-sm sm:h-8 sm:w-8 dark:border-white/20 dark:bg-neutral-900/90"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#D9734E"
+                    strokeWidth="2.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="9 6 4 12 9 18" />
+                    <polyline points="15 6 20 12 15 18" />
+                  </svg>
+                </div>
+
+                <div className="absolute left-3 top-3 rounded-2xl border border-white/70 bg-gradient-to-br from-white/95 to-white/80 px-3 py-2 shadow-[0_8px_28px_rgba(43,42,40,0.16)] backdrop-blur-md sm:left-5 sm:top-5 sm:px-4 sm:py-2.5 dark:border-white/10 dark:from-neutral-900/90 dark:to-neutral-900/75">
                   <span className="block text-[8px] font-semibold uppercase tracking-[0.18em] text-[#6E6A63] sm:text-[10px] dark:text-neutral-400">
                     Pouzdanost analize
                   </span>
-                  <span className="block text-lg font-semibold text-[#D9734E] sm:text-2xl">
+                  <span className="mt-0.5 block text-lg font-semibold leading-none text-[#D9734E] sm:text-2xl">
                     92%
                   </span>
                 </div>
 
-                <div className="absolute bottom-3 right-3 rounded-2xl border border-white/60 bg-white/85 px-3 py-2 shadow-[0_8px_24px_rgba(43,42,40,0.14)] backdrop-blur-sm sm:bottom-5 sm:right-5 sm:px-4 sm:py-2.5 dark:border-white/10 dark:bg-neutral-900/80">
+                <div className="absolute bottom-11 right-3 rounded-2xl border border-white/70 bg-gradient-to-br from-white/95 to-white/80 px-3 py-2 shadow-[0_8px_28px_rgba(43,42,40,0.16)] backdrop-blur-md sm:bottom-14 sm:right-5 sm:px-4 sm:py-2.5 dark:border-white/10 dark:from-neutral-900/90 dark:to-neutral-900/75">
                   <span className="block text-[8px] font-semibold uppercase tracking-[0.18em] text-[#6E6A63] sm:text-[10px] dark:text-neutral-400">
                     Praćenje promjena
                   </span>
-                  <span className="block text-lg font-semibold text-[#D9734E] sm:text-2xl">
+                  <span className="mt-0.5 block text-lg font-semibold leading-none text-[#D9734E] sm:text-2xl">
                     14 dana
                   </span>
+                </div>
+
+                {/* Mini feature strip */}
+                <div className="absolute inset-x-0 bottom-0 border-t border-white/30 bg-gradient-to-t from-[#2B2A28]/55 to-[#2B2A28]/30 px-3 py-2 backdrop-blur-sm sm:px-4 sm:py-2.5">
+                  <ul className="flex items-center justify-around gap-1">
+                    <li className="flex items-center gap-1.5">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#F7DECF"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                      </svg>
+                      <span className="text-[10px] font-semibold tracking-wide text-white/95 sm:text-[11px]">
+                        Brzo
+                      </span>
+                    </li>
+                    <li className="flex items-center gap-1.5">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#F7DECF"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                      </svg>
+                      <span className="text-[10px] font-semibold tracking-wide text-white/95 sm:text-[11px]">
+                        Privatno
+                      </span>
+                    </li>
+                    <li className="flex items-center gap-1.5">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#F7DECF"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                      </svg>
+                      <span className="text-[10px] font-semibold tracking-wide text-white/95 sm:text-[11px]">
+                        Praćenje
+                      </span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
