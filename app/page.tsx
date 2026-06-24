@@ -78,7 +78,7 @@ export default function HomePage() {
             </div>
 
             <div className="mt-8 overflow-hidden rounded-[28px] px-3 pb-3 sm:mt-10 sm:px-4 sm:pb-4">
-              <div className="relative overflow-hidden rounded-[24px]">
+              <div className="relative max-h-[460px] overflow-hidden rounded-[24px] sm:max-h-none">
                 <img
                   src="/assets/images/SkinIntel Hero Background V1.webp"
                   alt="SkinIntel AI analiza kože"
