@@ -209,21 +209,27 @@ export default function HomePage() {
               Tvoj mirni put razumijevanja kože
             </h2>
           </div>
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {benefits.map((benefit) => (
+          <div className="mx-auto mt-8 max-w-2xl overflow-hidden rounded-[28px] border border-[#E7D9C4] bg-[#FFFDFA] shadow-[0_2px_4px_rgba(43,42,40,0.03),0_8px_32px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-950">
+            {benefits.map((benefit, index) => (
               <div
                 key={benefit.title}
-                className="rounded-3xl border border-[#ECE0D4] bg-[#FBF6F0] p-8 dark:border-neutral-800 dark:bg-neutral-950"
+                className={`px-6 py-5 sm:px-8 sm:py-6${
+                  index < benefits.length - 1
+                    ? " border-b border-[#ECE0D4] dark:border-neutral-800"
+                    : ""
+                }`}
               >
-                <div className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
-                  <h3 className="text-lg font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
-                    {benefit.title}
-                  </h3>
+                <div className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D9734E]" />
+                  <div>
+                    <h3 className="text-base font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
+                      {benefit.title}
+                    </h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
+                      {benefit.desc}
+                    </p>
+                  </div>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
-                  {benefit.desc}
-                </p>
               </div>
             ))}
           </div>
