@@ -286,14 +286,14 @@ export default function HomePage() {
             {benefits.map((benefit, index) => (
               <div
                 key={benefit.title}
-                className={`px-6 py-5 sm:px-8 sm:py-6${
+                className={`px-6 py-6 sm:px-8 sm:py-7${
                   index < benefits.length - 1
                     ? " border-b border-[#ECE0D4] dark:border-neutral-800"
                     : ""
                 }`}
               >
-                <div className="flex gap-3">
-                  <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#F7DECF]/80 bg-[#FBF6F0] text-[#D9734E] dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex items-start gap-4">
+                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#F7DECF]/80 bg-[#FBF6F0] text-[#D9734E] dark:border-neutral-700 dark:bg-neutral-900">
                     {benefit.title === "Edukativan pristup" && (
                       <svg
                         width="18"
@@ -355,7 +355,7 @@ export default function HomePage() {
                     <h3 className="text-base font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
                       {benefit.title}
                     </h3>
-                    <p className="mt-1.5 text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
+                    <p className="mt-2 text-sm leading-6 text-[#6E6A63] dark:text-neutral-400">
                       {benefit.desc}
                     </p>
                   </div>
