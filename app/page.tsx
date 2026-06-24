@@ -78,11 +78,11 @@ export default function HomePage() {
             </div>
 
             <div className="mt-8 overflow-hidden rounded-[28px] px-3 pb-3 sm:mt-10 sm:px-4 sm:pb-4">
-              <div className="relative max-h-[460px] overflow-hidden rounded-[24px] sm:max-h-none">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] sm:aspect-[3/4]">
                 <img
                   src="/assets/images/SkinIntel Hero Background V1.webp"
                   alt="SkinIntel AI analiza kože"
-                  className="h-full w-full rounded-[24px] object-cover"
+                  className="absolute inset-0 h-full w-full object-cover object-[center_32%]"
                 />
 
                 {/* AI scan glow + dotted overlay */}
@@ -90,7 +90,7 @@ export default function HomePage() {
                   viewBox="0 0 200 200"
                   fill="none"
                   aria-hidden="true"
-                  className="pointer-events-none absolute left-1/2 top-[42%] h-[46%] max-h-[180px] w-[46%] max-w-[180px] -translate-x-1/2 -translate-y-1/2 sm:max-h-[220px] sm:max-w-[220px]"
+                  className="pointer-events-none absolute left-1/2 top-[38%] h-[50%] max-h-[200px] w-[50%] max-w-[200px] -translate-x-1/2 -translate-y-1/2 sm:top-[36%] sm:max-h-[240px] sm:max-w-[240px]"
                 >
                   <defs>
                     <radialGradient
@@ -148,33 +148,6 @@ export default function HomePage() {
                   <circle cx="100" cy="100" r="4" fill="#D9734E" fillOpacity="0.7" />
                   <circle cx="100" cy="100" r="8" stroke="#D9734E" strokeOpacity="0.35" strokeWidth="1" />
                 </svg>
-
-                {/* Before / after divider */}
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-y-3 left-1/2 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/80 to-transparent shadow-[0_0_12px_rgba(255,255,255,0.45)] sm:inset-y-4"
-                />
-
-                {/* Divider handle */}
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute left-1/2 top-1/2 z-10 flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/90 bg-white/95 shadow-[0_4px_16px_rgba(43,42,40,0.18)] backdrop-blur-sm sm:h-8 sm:w-8 dark:border-white/20 dark:bg-neutral-900/90"
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#D9734E"
-                    strokeWidth="2.25"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <polyline points="9 6 4 12 9 18" />
-                    <polyline points="15 6 20 12 15 18" />
-                  </svg>
-                </div>
 
                 <div className="absolute left-3 top-3 rounded-2xl border border-white/70 bg-gradient-to-br from-white/95 to-white/80 px-3 py-2 shadow-[0_8px_28px_rgba(43,42,40,0.16)] backdrop-blur-md sm:left-5 sm:top-5 sm:px-4 sm:py-2.5 dark:border-white/10 dark:from-neutral-900/90 dark:to-neutral-900/75">
                   <span className="block text-[8px] font-semibold uppercase tracking-[0.18em] text-[#6E6A63] sm:text-[10px] dark:text-neutral-400">
