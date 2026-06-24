@@ -440,13 +440,30 @@ export default function DashboardPage() {
               </button>
             </div>
           ) : null}
-          <div>
-            <h3 className="text-xl font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
-              Analiza kože
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
-              Učitaj slike kože i opiši svoje probleme kako bi dobio AI analizu.
-            </p>
+          <div className="flex items-start gap-3 sm:gap-3.5">
+            <span className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-[#D9734E] to-[#E0976F] shadow-[0_2px_8px_rgba(217,115,78,0.28)] sm:h-9 sm:w-9">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-[17px] w-[17px] text-white sm:h-[18px] sm:w-[18px]">
+                <path d="M12 3l1.2 3.6L16.8 8l-3.6 1.2L12 13l-1.2-3.8L7.2 8l3.6-1.4L12 3Z" fill="currentColor" />
+                <path d="M5 14l.7 2.1L7.8 17l-2.1.7L5 20l-.7-2.3L2.2 17l2.1-.9L5 14Z" fill="currentColor" opacity="0.85" />
+                <path d="M18 15l.6 1.8 1.8.6-1.8.6L18 20l-.6-1.8-1.8-.6 1.8-.6L18 15Z" fill="currentColor" opacity="0.85" />
+              </svg>
+            </span>
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+                <h3 className="text-xl font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
+                  Nova analiza kože
+                </h3>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E7CDBC] bg-[#FBF4EC]/90 px-2.5 py-0.5 shadow-[0_1px_2px_rgba(43,42,40,0.04)] dark:border-neutral-700 dark:bg-neutral-900/70">
+                  <span className="h-1 w-1 rounded-full bg-[#D9734E]" />
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#C45F3D] dark:text-[#E8916C]">
+                    AI radni prostor
+                  </span>
+                </span>
+              </div>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#6E6A63] dark:text-neutral-400">
+                Učitaj fotografiju kože, opiši što primjećuješ i pokreni edukativnu AI analizu.
+              </p>
+            </div>
           </div>
 
           <div className="space-y-5 rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-6 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
