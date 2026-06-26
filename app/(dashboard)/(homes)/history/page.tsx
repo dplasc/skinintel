@@ -171,7 +171,7 @@ export default async function HistoryPage() {
                 </div>
               ) : null}
             </div>
-            <div className="space-y-6 border-l border-gray-200 pl-6 dark:border-neutral-700">
+            <div className="space-y-6 border-l border-[#ECE0D4] pl-6 dark:border-neutral-800">
               {analyses.map((analysis) => {
                 const createdAt = formatCreatedAt(analysis?.created_at);
                 const confidence = analysis?.confidence ?? "nepoznato";
@@ -182,17 +182,24 @@ export default async function HistoryPage() {
                     : "Sažetak nije dostupan.";
                 return (
                   <div key={analysis?.id ?? `${createdAt}-${model}`} className="relative">
-                    <span className="absolute -left-[30px] top-1 h-2.5 w-2.5 rounded-full border-2 border-white bg-blue-600 dark:border-neutral-900" />
-                    <Link href={`/history/${analysis?.id}`} className="block">
-                      <p className="text-xs font-medium text-neutral-700 dark:text-neutral-200">{createdAt}</p>
-                      <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                    <span className="absolute -left-[30px] top-5 h-3 w-3 rounded-full border-2 border-[#FBF6F0] bg-[#D9734E] shadow-[0_0_0_1px_#ECE0D4] dark:border-neutral-950 dark:shadow-[0_0_0_1px_#404040]" />
+                    <div className="rounded-xl border border-[#ECE0D4] bg-[#FBF6F0]/90 p-4 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm transition-shadow hover:shadow-[0_4px_16px_rgba(43,42,40,0.08)] dark:border-neutral-800 dark:bg-neutral-950/70">
+                      <p className="text-xs font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
+                        {createdAt}
+                      </p>
+                      <p className="mt-1 text-xs text-[#6E6A63] dark:text-neutral-400">
                         Razina pouzdanosti: {confidence}
                       </p>
-                      <p className="mt-2 text-sm leading-6 text-neutral-700 dark:text-neutral-200">
+                      <p className="mt-2 text-sm leading-6 text-[#6E6A63] dark:text-neutral-300">
                         {intro}
                       </p>
-                      <p className="mt-2 text-xs font-medium text-blue-600">Otvori cijelu analizu</p>
-                    </Link>
+                      <Link
+                        href={`/history/${analysis?.id}`}
+                        className="mt-3 inline-flex items-center rounded-lg border border-[#D9734E] px-3.5 py-1.5 text-xs font-semibold text-[#C45F3D] transition hover:bg-[#F7DECF] active:scale-[0.98] dark:border-[#E8916C] dark:text-[#E8916C] dark:hover:bg-neutral-800"
+                      >
+                        Otvori cijelu analizu
+                      </Link>
+                    </div>
                   </div>
                 );
               })}
