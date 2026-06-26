@@ -649,35 +649,63 @@ export default function DashboardPage() {
           </div>
           {scanResult ? (
             <div className="space-y-6 rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] p-6 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_2px_10px_rgba(43,42,40,0.05)] dark:border-neutral-800 dark:bg-neutral-900">
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-8 w-8 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-[#D9734E] to-[#E0976F] shadow-[0_2px_8px_rgba(217,115,78,0.28)]">
-                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-[17px] w-[17px] text-white">
-                      <path d="M7 4h7l3 3v13H7V4Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-                      <path d="M14 4v4h4" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-                      <path d="M9 12h6M9 16h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-                    </svg>
-                  </span>
-                  <p className="text-base font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
-                    Rezultat AI analize
-                  </p>
+              <div className="relative overflow-hidden rounded-2xl border border-[#ECE0D4] bg-[#FBF6F0] px-5 py-5 shadow-[0_1px_2px_rgba(43,42,40,0.04),0_8px_24px_rgba(43,42,40,0.06)] sm:px-6 sm:py-6 dark:border-neutral-800 dark:bg-neutral-950/70">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 dark:opacity-50"
+                  style={{
+                    background:
+                      "radial-gradient(120% 120% at 0% 0%, #FBF4EC 0%, rgba(251,244,236,0) 55%), radial-gradient(90% 90% at 100% 0%, rgba(217,115,78,0.14) 0%, rgba(217,115,78,0) 50%)",
+                  }}
+                />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#F3C9B3]/35 blur-3xl"
+                />
+                <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex min-w-0 items-start gap-3.5 sm:items-center">
+                    <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-[#D9734E] to-[#E0976F] shadow-[0_2px_8px_rgba(217,115,78,0.28)]">
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-[18px] w-[18px] text-white">
+                        <path d="M7 4h7l3 3v13H7V4Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+                        <path d="M14 4v4h4" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+                        <path d="M9 12h6M9 16h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                      </svg>
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-lg font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
+                        Rezultat AI analize
+                      </p>
+                      {confidence ? (
+                        <span className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-[#E7CDBC] bg-[#FBF4EC]/90 px-3 py-1 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-900/70">
+                          <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
+                          <span className="text-[11px] font-semibold uppercase tracking-wide text-[#6E6A63] dark:text-neutral-400">
+                            Pouzdanost
+                          </span>
+                          <span className="text-[11px] font-semibold uppercase tracking-wide text-[#D9734E] dark:text-[#E8916C]">
+                            {confidence}
+                          </span>
+                        </span>
+                      ) : null}
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleSaveResult}
+                    className="inline-flex shrink-0 items-center justify-center rounded-xl border border-[#D9734E] bg-[#FBF4EC]/80 px-4 py-2.5 text-xs font-semibold text-[#C45F3D] shadow-[0_1px_2px_rgba(43,42,40,0.04)] transition hover:bg-[#F7DECF] active:scale-[0.98] dark:border-[#E8916C] dark:bg-neutral-900/60 dark:text-[#E8916C] dark:hover:bg-neutral-800 sm:self-center"
+                  >
+                    Spremi rezultat
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={handleSaveResult}
-                  className="inline-flex shrink-0 items-center rounded-lg border border-[#D9734E] px-3.5 py-2 text-xs font-semibold text-[#C45F3D] transition hover:bg-[#F7DECF] active:scale-[0.98] dark:border-[#E8916C] dark:text-[#E8916C] dark:hover:bg-neutral-800"
-                >
-                  Spremi rezultat
-                </button>
               </div>
               {intro ? (
-                <div className="space-y-2">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                    Uvod
-                  </p>
-                  <div className="rounded-md bg-gray-50 p-3">
-                    <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-200">{intro}</p>
+                <div className="rounded-xl border border-[#ECE0D4] bg-[#FBF6F0]/90 p-4 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm sm:p-5 dark:border-neutral-800 dark:bg-neutral-950/50">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-1 w-1 rounded-full bg-[#D9734E]" />
+                    <p className="text-[10px] font-medium uppercase tracking-wide text-[#6E6A63] dark:text-neutral-500">
+                      Sažetak
+                    </p>
                   </div>
+                  <p className="mt-2.5 text-sm leading-relaxed text-[#2B2A28] dark:text-neutral-200">{intro}</p>
                 </div>
               ) : null}
               {assessment && Array.isArray(assessment) && assessment.length > 0 ? (
