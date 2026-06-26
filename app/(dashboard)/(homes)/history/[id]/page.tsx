@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { createClient } from "@supabase/supabase-js";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 type Top5Item = {
@@ -77,18 +78,22 @@ export default async function HistoryDetailPage({
 
   if (!analysis) {
     return (
-      <>
-        <div className="mb-6">
-          <h6 className="text-2xl font-semibold">Povijest analiza</h6>
+      <div className="rounded-[28px] border border-[#ECE0D4] bg-[#FBF6F0] px-6 py-9 sm:px-9 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 text-left">
+          <Link
+            href="/history"
+            className="inline-flex items-center text-sm font-semibold text-[#6E6A63] transition hover:text-[#C45F3D] dark:text-neutral-400 dark:hover:text-[#E8916C]"
+          >
+            ← Povijest analiza
+          </Link>
+          <p className="text-sm text-gray-500">Analiza nije pronađena.</p>
         </div>
-        <p className="text-sm text-gray-500">Analiza nije pronađena.</p>
-      </>
+      </div>
     );
   }
 
   const createdAt = formatCreatedAt(analysis.created_at);
   const confidence = analysis.confidence ?? "nepoznato";
-  const model = analysis.model ?? "nepoznato";
   const result = analysis.result ?? {};
   const intro = typeof result.intro === "string" ? result.intro : "";
   const assessment = Array.isArray(result.assessment) ? result.assessment : [];
@@ -98,17 +103,71 @@ export default async function HistoryDetailPage({
     typeof result.medical_disclaimer === "string" ? result.medical_disclaimer : "";
 
   return (
-    <>
-      <div className="mb-6">
-        <h6 className="text-2xl font-semibold">Povijest analiza</h6>
-        <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-neutral-500 dark:text-neutral-400">
-          <span>{createdAt}</span>
-          <span>Razina pouzdanosti: {confidence}</span>
-          <span>Model: {model}</span>
-        </div>
-      </div>
+    <div className="rounded-[28px] border border-[#ECE0D4] bg-[#FBF6F0] px-6 py-9 sm:px-9 dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 text-left">
+        <Link
+          href="/history"
+          className="inline-flex items-center text-sm font-semibold text-[#6E6A63] transition hover:text-[#C45F3D] dark:text-neutral-400 dark:hover:text-[#E8916C]"
+        >
+          ← Povijest analiza
+        </Link>
 
-      <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+        <section className="relative overflow-hidden rounded-2xl border border-[#ECE0D4] bg-[#FBF4EC] px-6 py-8 shadow-[0_2px_4px_rgba(43,42,40,0.03),0_18px_50px_rgba(43,42,40,0.09)] sm:rounded-3xl sm:px-8 sm:py-10 dark:border-neutral-800 dark:bg-neutral-900">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 dark:opacity-50"
+            style={{
+              background:
+                "radial-gradient(130% 130% at 0% 0%, #FBF6F0 0%, rgba(251,246,240,0) 55%), radial-gradient(95% 95% at 100% 0%, rgba(217,115,78,0.12) 0%, rgba(217,115,78,0) 48%), radial-gradient(85% 85% at 100% 100%, rgba(243,201,179,0.22) 0%, rgba(243,201,179,0) 52%)",
+            }}
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-[#F3C9B3]/30 blur-3xl sm:-right-16 sm:-top-16 sm:h-52 sm:w-52"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-16 left-1/4 h-36 w-36 rounded-full bg-[#D9734E]/10 blur-3xl sm:-bottom-20 sm:h-44 sm:w-44"
+          />
+
+          <div className="relative">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2.5">
+              <span className="inline-flex items-center gap-2.5">
+                <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-gradient-to-br from-[#D9734E] to-[#E0976F] shadow-[0_2px_8px_rgba(217,115,78,0.3)]">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-[18px] w-[18px] text-white">
+                    <path d="M12 3.2c-3.6 3.8-5.6 6.9-5.6 10.1a5.6 5.6 0 0 0 11.2 0c0-3.2-2-6.3-5.6-10.1Z" fill="currentColor" />
+                    <path d="M9.4 13.9c0 1.6 1.1 2.7 2.6 2.9" stroke="#FBF4EC" strokeWidth="1.4" strokeLinecap="round" />
+                  </svg>
+                </span>
+                <span className="text-base font-semibold tracking-tight text-[#2B2A28] dark:text-neutral-100">
+                  SkinIntel
+                </span>
+              </span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#E7CDBC] bg-[#FBF6F0]/80 px-3 py-1 shadow-[0_1px_2px_rgba(43,42,40,0.04)] backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-800/70">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#D9734E]" />
+                <span className="bg-gradient-to-r from-[#D9734E] to-[#E0976F] bg-clip-text text-[10px] font-semibold uppercase tracking-[0.28em] text-transparent sm:text-[11px] sm:tracking-[0.32em]">
+                  AI dnevnik kože
+                </span>
+              </span>
+            </div>
+            <h1 className="mt-5 text-[1.65rem] font-semibold leading-[1.12] tracking-tight text-[#2B2A28] sm:text-3xl sm:leading-[1.08] dark:text-neutral-50">
+              Rezultat analize
+            </h1>
+            <p className="mt-3 max-w-xl text-base leading-relaxed text-[#6E6A63] sm:mt-4 dark:text-neutral-300">
+              Pregled spremljene AI analize kože.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <span className="inline-flex items-center rounded-full border border-[#ECE0D4] bg-[#FBF6F0]/90 px-3 py-1 text-xs font-semibold text-[#2B2A28] shadow-[0_1px_2px_rgba(43,42,40,0.04)] dark:border-neutral-700 dark:bg-neutral-950/70 dark:text-neutral-100">
+                {createdAt}
+              </span>
+              <span className="inline-flex items-center rounded-full border border-[#E7CDBC] bg-[#FBF6F0]/90 px-3 py-1 text-xs font-semibold text-[#C45F3D] shadow-[0_1px_2px_rgba(43,42,40,0.04)] dark:border-neutral-700 dark:bg-neutral-950/70 dark:text-[#E8916C]">
+                Razina pouzdanosti: {confidence}
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
         {intro ? (
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
@@ -211,7 +270,8 @@ export default async function HistoryDetailPage({
             </p>
           </div>
         ) : null}
+        </div>
       </div>
-    </>
+    </div>
   );
 }
