@@ -1863,6 +1863,74 @@ Confidence Taxonomy must not define medical certainty, diagnostic probability, o
 
 ---
 
+## User Correction Governance
+
+User Correction Governance defines how user corrections, confirmations, rejections, clarifications, and feedback enter the Personal Evidence Base. Corrections are not informal edits scattered across the platform—they are governed evidence events with scope, lineage, and downstream consequence. User correction is personal evidence: authoritative for what the user experienced, reported, or rejected—but not automatically global truth, not medical diagnosis, and not permission to silently overwrite historical records.
+
+Corrections create governed correction records, superseding records, or feedback signals. Historical AI inference and prior platform interpretation remain traceable where Deletion and Retention Governance permits. Current state may prefer corrected or superseding records for reasoning and presentation, but historical reasoning is not erased. User correction may trigger AI Knowledge Object supersession, confidence downgrade, confidence upgrade, or uncertainty change. It may inform Outcome Intelligence and Personal Threshold Learning. Every correction must be scoped: what is being corrected, which object or output it affects, and which correction category applies.
+
+### Correction scope categories
+
+**1. User-observable evidence**
+
+User-observable evidence corrections address what the user directly experienced or can attest. Examples include symptom presence or absence, perceived severity, duration, discomfort, product use confirmation, routine adherence, whether a recommendation was followed, and perceived improvement, worsening, stability, or no change.
+
+User correction in this category is authoritative as personal experience evidence. The platform treats the user's report of their experience as primary evidence for that user—not as a universal rule for all users, and not as medical diagnosis. A user who corrects severity or denies a symptom the platform suggested does not rewrite immutable Scan Record capture; they add governed correction evidence that current intelligence must respect while preserving what was originally captured at time T.
+
+**2. Platform interpretation**
+
+Platform interpretation corrections challenge how the platform classified, mapped, matched, or inferred—not necessarily what the user experienced. Examples include symptom classification, body area mapping, product match, ingredient recognition, formulation interpretation, routine structure interpretation, AI Knowledge Object inference, and recommendation relevance.
+
+User correction may reject or refine platform interpretation, but resolution must occur through evidence, confidence, and supersession—not blind overwrite of historical objects. The platform does not delete what it inferred; it supersedes or limits interpretation while linking the correction event. Confidence Taxonomy posture may change; AI Knowledge Objects may enter supersession chains; Outcome Intelligence may re-evaluate comparisons affected by the correction—but governed status and audit lineage remain intact.
+
+**3. Platform-only governed outputs**
+
+Some outputs are governed system state that users may feedback upon but do not directly edit. Examples include confidence posture, safety boundary escalation status, model or provider provenance, object verification status, formulation verification, audit lineage, and deletion or retention status.
+
+User feedback about these outputs becomes evidence that may trigger review, supersession, downgrade, or correction workflow—but users do not mutate provenance, verification flags, or governance status by assertion alone. A user who disagrees with an escalation recommendation contributes feedback and personal experience evidence; Recommendation Engine and Confidence Layer resolve whether posture changes through governed reasoning, not by treating user disagreement as direct edit of system audit fields.
+
+### Conflict handling
+
+When user correction conflicts with AI inference or platform interpretation, the conflict must be represented explicitly—not hidden, not silently resolved by choosing one side without status.
+
+User-reported experience carries strong authority for personal experience scope: if the user states they did not experience a suggested symptom or that severity differed, that evidence governs personal experience reasoning. Platform interpretation remains governed by evidence density, verification status, and Confidence Taxonomy dimensions. When experience and interpretation diverge, both signals persist with explicit conflict status until resolved through additional evidence, supersession, or governed downgrade to low or insufficient confidence.
+
+Unresolved conflict may produce low or insufficient confidence posture rather than false precision. Repeated corrections in consistent directions may inform Personal Threshold Learning or engine calibration for this user—adjusting weighting, sensitivity signals, or interpretation reuse policy. Corrections must not become global rules propagated to other users as universal truth; learning remains personal and evidence-scoped.
+
+Conflict representation protects Outcome Intelligence integrity: outcome evaluations that depended on contested interpretation must be re-evaluable or confidence-limited when correction arrives, without retroactively pretending the prior evaluation never occurred.
+
+### Boundaries
+
+User corrections must not introduce medical diagnosis into platform truth, force disease labels, force treatment claims, overwrite immutable evidence, bypass Deletion and Retention Governance, silently rewrite AI Knowledge Objects, falsify provider or model provenance, remove audit lineage, inflate confidence for commercial reasons, teach unsafe personalization, or propagate to other users as universal truth.
+
+Corrections that attempt to assert clinical conditions exceed cosmetic and educational scope. They may be recorded as user-reported language within feedback context, but must not enter domain models as authoritative medical labels. Corrections cannot restore evidence removed under governance rules or create ungoverned replicas of deleted content. Supersession Semantics apply: correction adjusts current authority through lineage, not mutation of historical truth in place.
+
+Safety Boundary Escalation status is not overridden by user disagreement alone. User feedback that cosmetic guidance was sufficient does not silently remove escalation when evidence patterns still warrant caution; conversely, user concern beyond cosmetic scope may contribute evidence toward escalation review—always through governed engines, not direct user edit of escalation audit state.
+
+### Relationship to platform concepts
+
+User Correction Governance connects explicitly to adjacent Data Model and platform concepts:
+
+- **Personal Evidence Base** — Corrections enter as governed evidence events alongside Scan Records, usage events, and feedback. They extend the longitudinal record without replacing immutable capture.
+
+- **AI Knowledge Objects** — User rejection or refinement of inference triggers supersession per Supersession Semantics. Original inference remains in lineage; superseding objects reference correction evidence.
+
+- **Supersession Semantics** — Correction is a primary supersession cause. Downstream artifacts that depended on superseded interpretation must be marked stale, re-evaluated, or confidence-downgraded as governance requires.
+
+- **Confidence Taxonomy** — Corrections may upgrade, downgrade, or reshape confidence posture and uncertainty drivers. Conflict without resolution tends toward low or insufficient posture.
+
+- **Outcome Intelligence** — Corrections affecting before/after comparability, symptom scope, or exposure context may require outcome re-evaluation or confidence limitation on prior outcome objects.
+
+- **Personal Threshold Learning** — Repeated consistent corrections inform personal calibration hypotheses—reversible, evidence-linked, and scoped to the individual user.
+
+- **Deletion and Retention Governance** — Corrections cannot bypass withdrawal or deletion rules. Governed unavailability limits inspectability without fabricating replacement evidence.
+
+- **Safety Boundary Escalation** — User concern contributes personal evidence; escalation status remains governed output qualified by Confidence Layer and Recommendation Engine boundaries.
+
+User Correction Governance ensures the platform listens without amnesia: the user's voice strengthens personal evidence, challenges interpretation through accountable supersession, and calibrates learning—while historical truth, audit lineage, and safety boundaries remain governed rather than overwritten.
+
+---
+
 ## Future Expansion
 
 Future Expansion defines how the SkinIntel Data Model should support future growth without breaking the core architecture. It is not a feature wishlist. It does not enumerate roadmap deliverables or prioritize product backlog items. It defines architectural extension principles: how new objects, capabilities, intelligence layers, and integrations may enter the platform while preserving the conceptual integrity, traceability, and separation of concerns established throughout this document.
