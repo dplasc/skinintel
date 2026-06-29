@@ -14,7 +14,17 @@ Draft V1
 
 ## Architecture First
 
-(placeholder)
+Architecture decisions precede implementation. No feature, module, or integration may be designed or built until its place in the accepted architecture is defined, reviewed, and recorded in the governing architecture documents.
+
+Cursor and AI-assisted tooling are implementation accelerators. They are not architectural authorities. They do not define platform structure, layer boundaries, object responsibilities, or data flow. Implementation must follow accepted architecture documents—not inferred patterns, convenience shortcuts, or generated suggestions that conflict with documented design.
+
+Every capability must respect the platform pipeline:
+
+**Evidence → Knowledge → Intelligence → Learning → Experience**
+
+No feature may bypass this sequence. No layer may absorb responsibilities belonging to another. No shortcut reasoning is permitted: conclusions must flow through the defined stages, not leap across them. Object responsibility collapse—merging evidence storage with presentation logic, conflating knowledge with intelligence output, or embedding learning inside experience—is prohibited.
+
+When architecture and implementation conflict, architecture wins. Implementation must stop, the conflict must be surfaced, and the architecture must be explicitly revised through the documented review process before work continues. Silent deviation is not acceptable.
 
 ---
 
@@ -92,25 +102,51 @@ One source of truth means one knowledge representation, many presentation surfac
 
 ## Data Before AI
 
-(placeholder)
+The Personal Evidence Base is the durable asset of the SkinIntel Intelligence Platform. AI is a processing capability applied to that asset—not a substitute for it.
+
+AI must not invent, infer, or fabricate missing user evidence. Every AI output must be grounded in structured evidence that exists within the platform's data model. When evidence is absent, the platform must acknowledge the gap—not fill it with plausible generation.
+
+Data objects must remain traceable and explainable at every stage. Where applicable, current state must be derived from history rather than overwritten without lineage. AI provider output must be normalized into platform-defined artifacts before it enters the Knowledge Layer or Intelligence Engines. Raw model responses are not platform truth.
+
+The AI provider is replaceable. The Data Model and Personal Evidence Base are not. Architectural decisions must preserve evidence integrity, normalization boundaries, and auditability regardless of which AI capability is invoked. No implementation may treat model output as authoritative without passing through the platform's evidence and normalization requirements.
 
 ---
 
 ## Explainability Requirements
 
-(placeholder)
+Every major conclusion the platform produces must be explainable. Explainability is not optional presentation polish; it is a binding requirement of the Intelligence Platform.
+
+Recommendations must reference the evidence that supports them, the user context that shaped them, the uncertainty present in the underlying data, and the confidence posture applied to the conclusion. Confidence must not mask weak evidence. When evidence is incomplete, uncertain, or conflicting, that condition must be visible to the user—not smoothed over by authoritative tone or high-confidence labeling.
+
+Explanations must remain educational and within cosmetic scope. The platform does not diagnose disease, assign medical labels, or claim treatment outcomes. No engine output may cross into medical diagnosis, disease labeling, or treatment claims.
+
+Every engine output must be auditable back to evidence. A reviewer—or the user—must be able to trace how a conclusion was reached, which evidence objects contributed, and where uncertainty entered the reasoning chain. Intelligence that cannot be traced is not acceptable intelligence.
 
 ---
 
 ## Privacy Requirements
 
-(placeholder)
+Privacy and consent are architectural requirements—not UI details, not post-launch compliance patches, and not optional enhancements.
+
+User consent must govern how the platform stores evidence, performs reasoning, applies learning, exports data, and executes deletion. Withdrawal of consent must be respected with defined platform behavior. Delete requests and retention policies are platform obligations, not discretionary features.
+
+Immutable history does not mean ignoring deletion rights. Architectural immutability serves traceability and audit integrity; it does not override the user's right to request deletion or restrict processing. Deletion and retention behavior must preserve architectural integrity through explicit governance—defined policies, auditable processes, and documented handling of sensitive records—not through ad hoc erasure that breaks platform structure.
+
+Skin images and symptom descriptions are sensitive by nature and require heightened care in storage, access, processing, and presentation boundaries.
+
+No marketing profile, commercial segment, or webshop profile may be silently derived from the Personal Evidence Base. Evidence collected for skin intelligence must not be repurposed for unrelated commercial profiling without explicit, separate consent governed by architecture—not by implicit data reuse.
 
 ---
 
 ## Review Process
 
-(placeholder)
+Work proceeds one step at a time. Each change must be deliberate, scoped, and reviewable before it becomes part of the platform.
+
+Every Cursor diff must be reviewed before acceptance. No commit, push, or deploy may occur without explicit review approval. Scope creep is prohibited. Breaking changes are prohibited unless explicitly authorized and documented. Undocumented architectural decisions are prohibited.
+
+Placeholder architecture must not be implemented as if it were final. If a gap is discovered during implementation, work stops. The architectural decision must be documented and accepted before implementation resumes. Accepted architecture sections must not be rewritten casually; changes require deliberate review and explicit approval.
+
+Cleanup must be targeted and minimal. Refactoring for its own sake, broad rewrites of stable sections, and opportunistic scope expansion are not permitted under the guise of improvement.
 
 ---
 
