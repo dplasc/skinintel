@@ -368,11 +368,10 @@ The Intelligence Layer operates on knowledge, not on raw evidence directly. Its 
 
 **Purpose:** Improve the platform over time.
 
-The Learning Layer closes the loop between what the platform infers and what actually occurs. It observes outcomes, incorporates feedback, and refines how the platform interprets, reasons, and guides—always in service of the individual user's evolving skin journey and, where architecturally appropriate, of platform-wide refinement.
+The Learning Layer closes the loop between what the platform infers and what actually occurs. It consumes Outcome Intelligence outputs from the Intelligence Layer—evidence-linked outcome evaluations, change assessments, and uncertainty-qualified outcome judgments—and uses them to incorporate feedback and refine how the platform interprets, reasons, and guides. It does not perform outcome evaluation itself; Intelligence evaluates outcomes, and Learning learns from evaluated outcomes.
 
 This layer includes:
 
-- **Outcome Intelligence** — Systematic evaluation of whether predicted or recommended outcomes align with observed results
 - **Personal Threshold Learning** — Adaptation to individual tolerance, sensitivity, and response patterns that differ from population norms
 - **Feedback loops** — Mechanisms by which user corrections, confirmations, and new evidence flow back into knowledge and intelligence refinement
 - **Continuous improvement** — Sustained refinement of reasoning quality, relevance, and calibration as evidence accumulates over time
@@ -485,13 +484,17 @@ The engines below are listed in approximate processing order. In practice, engin
 
 ### Outcome Intelligence
 
+**Architectural classification:** Intelligence Layer engine.
+
+Outcome Intelligence belongs to the Intelligence Layer, not the Learning Layer. It evaluates what changed after time, product exposure, routine changes, recommendations, or other governed interventions. It produces outcome evaluations, change assessments, intervention effect assessments, uncertainty-qualified outcome judgments, and evidence-linked outcome artifacts. Uncertain outcome remains a first-class outcome state. It does not perform personal threshold learning by itself, does not own the Learning Layer, and does not mutate user memory or learning state directly. The Learning Layer consumes its outputs to support feedback loops, personal threshold learning, future recommendation calibration, and long-term adaptation—preserving the dependency direction: Evidence → Knowledge → Intelligence → Learning → Experience.
+
 **Purpose:** Evaluate what changed after interventions, routine adjustments, product introductions, or elapsed time—classifying improvement, stability, worsening, partial change, or uncertain change within defined evidence windows.
 
 **Reads:** Scan records before and after anchor events, user-reported feedback, symptom references by body area, product and routine context, prior recommendations, and time-bounded Longitudinal Timeline segments.
 
-**Produces:** Structured outcome evaluation objects scoped to symptoms, body areas, and time windows, linked to evidence references and expressed with explicit confidence—including uncertain change as a valid result.
+**Produces:** Structured outcome evaluation objects scoped to symptoms, body areas, and time windows—change assessments, intervention effect assessments, and evidence-linked outcome artifacts expressed with explicit confidence. Every output remains explainable, confidence-qualified, and auditable back to supporting evidence.
 
-**Must not:** Diagnose conditions or claim therapeutic outcomes. Outcome Intelligence evaluates observable presentation change and user-reported experience; it does not assign clinical diagnoses or replace professional evaluation.
+**Must not:** Diagnose disease, label medical conditions, claim treatment effects, or perform personal threshold learning. Outcome Intelligence evaluates observable presentation change and user-reported experience; it does not assign clinical diagnoses or replace professional evaluation.
 
 ### Recommendation Engine
 
@@ -680,7 +683,7 @@ When the user confirms, corrects, rejects, or refines platform inference—or wh
 
 **10. Learning Layer improves future interpretation and recommendations**
 
-The Learning Layer observes evaluated outcomes, incorporates feedback, and calibrates personal thresholds, tolerance patterns, and recommendation weighting. Learning produces superseding calibration artifacts that reference prior state without rewriting historical evidence. Future Correlation Engine, Outcome Intelligence, Prediction Engine, and Recommendation Engine runs consume this calibration—making the platform more attuned to the individual over time while remaining anchored to documented experience.
+The Learning Layer consumes outcome evaluations produced by Outcome Intelligence in the Intelligence Layer, incorporates feedback, and calibrates personal thresholds, tolerance patterns, and recommendation weighting. Learning produces superseding calibration artifacts that reference prior state without rewriting historical evidence. Future Correlation Engine, Outcome Intelligence, Prediction Engine, and Recommendation Engine runs consume this calibration—making the platform more attuned to the individual over time while remaining anchored to documented experience.
 
 ---
 
@@ -729,7 +732,7 @@ The Intelligence Flow enforces non-negotiable boundaries that protect trust and 
 
 ### Flow across layers and engines
 
-The Intelligence Flow maps directly onto the five platform layers and the Intelligence Engines defined elsewhere in this document. Input Intelligence and Memory Engine span the boundary between capture and retrieval. Product, Ingredient, Formulation, and Routine Intelligence operate within the Knowledge Layer. Correlation Engine, Outcome Intelligence, Prediction Engine, Recommendation Engine, and Personal Threshold Learning operate within the Intelligence and Learning Layers. Confidence Layer applies across all stages. The Experience Layer terminates the forward path and re-initiates the loop through user action and feedback.
+The Intelligence Flow maps directly onto the five platform layers and the Intelligence Engines defined elsewhere in this document. Input Intelligence and Memory Engine span the boundary between capture and retrieval. Product, Ingredient, Formulation, and Routine Intelligence operate within the Knowledge Layer. Correlation Engine, Outcome Intelligence, Prediction Engine, and Recommendation Engine operate within the Intelligence Layer. Personal Threshold Learning operates within the Learning Layer, which consumes Outcome Intelligence outputs rather than executing outcome evaluation itself. Confidence Layer applies across all stages. The Experience Layer terminates the forward path and re-initiates the loop through user action and feedback.
 
 Implementation teams, product designers, and engine specifications must preserve this flow. Features that capture no durable signal, bypass enrichment or reasoning, present untraceable conclusions, or overwrite history for convenience violate the architecture—regardless of short-term product appeal. The Intelligence Flow is the contract through which SkinIntel earns longitudinal trust: every interaction strengthens a personal record that grows more connected, more explainable, and more useful over time.
 
@@ -924,7 +927,7 @@ Outcome Intelligence evaluates change within defined windows: improvement, stabi
 
 **9. Learning Layer updates personal thresholds and future interpretation**
 
-The Learning Layer calibrates personal thresholds, tolerance patterns, recommendation weighting, and interpretation sensitivity from evaluated outcomes and accumulated feedback. Personal Threshold Learning produces superseding calibration artifacts that reference prior state without rewriting immutable evidence. Low-confidence history produces tentative calibration; repeated patterns produce narrower personal thresholds with explicit evidence support.
+The Learning Layer consumes outcome evaluations produced by Outcome Intelligence in the Intelligence Layer and calibrates personal thresholds, tolerance patterns, recommendation weighting, and interpretation sensitivity from those evaluations and accumulated feedback. Personal Threshold Learning produces superseding calibration artifacts that reference prior state without rewriting immutable evidence. Low-confidence history produces tentative calibration; repeated patterns produce narrower personal thresholds with explicit evidence support.
 
 **10. Future recommendations become more personal and evidence-aware**
 
