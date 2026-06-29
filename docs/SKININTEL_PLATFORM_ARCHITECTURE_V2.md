@@ -525,13 +525,19 @@ The engines below are listed in approximate processing order. In practice, engin
 
 ### Confidence Layer
 
-**Purpose:** Govern certainty expression across all engines—evaluating evidence density, signal alignment, completeness of context, and epistemic limits before intelligence outputs are committed or presented.
+**Architectural classification:** cross-cutting governance capability.
 
-**Reads:** Evidence references attached to any engine output, scan frequency, user-platform signal divergence, confounding change indicators, and domain-specific confidence rules per object type.
+Confidence Layer is not a sequential engine and not an independent pipeline layer. It holds no standalone position between Evidence, Knowledge, Intelligence, Learning, and Experience. It is a governance capability that attaches confidence posture and confidence metadata to outputs produced by other engines—qualifying those outputs without assuming the responsibility of the engine that produced them. An engine that generates a correlation, prediction, recommendation, or outcome remains accountable for that artifact; Confidence Layer governs how strongly that artifact may be acted upon, propagated, or presented.
 
-**Produces:** Confidence posture metadata bound to intelligence artifacts—explicit certainty levels, uncertainty flags, and qualification requirements that downstream engines and the Experience Layer must honor.
+**Purpose:** Govern certainty expression across the platform by evaluating the evidential basis of every intelligence artifact before it is committed, propagated, or presented. Confidence Layer assesses evidence quality, evidence completeness, evidence recency, signal consistency, source reliability, residual uncertainty, and confidence limitations. Its assessments apply uniformly across Input Intelligence outputs, Knowledge Layer enrichments, correlation candidates, predictions, recommendations, outcome evaluations, learning signals, and user-facing explanations—not as a stage that follows or precedes those outputs, but as a cross-cutting qualification applied wherever intelligence artifacts are produced or consumed.
 
-**Must not:** Degrade into a decorative UI badge disconnected from evidence. Confidence Layer is an architectural governance capability; its assessments must trace to evidence and propagate through every engine output.
+**Reads:** Evidence references attached to any engine output, scan frequency and temporal coverage, user-platform signal divergence, confounding change indicators, source reliability context, and domain-specific confidence rules per object type.
+
+**Produces:** Confidence posture metadata bound to intelligence artifacts—explicit certainty levels, uncertainty flags, qualification requirements, and auditable uncertainty drivers that downstream engines and the Experience Layer must honor. Every confidence posture must be traceable back to the evidence records and uncertainty factors that produced it; confidence without an auditable evidence chain is architecturally invalid.
+
+**Action strength:** Confidence posture directly influences how strongly the platform may act on an inference. High confidence may support stronger guidance where evidence is dense, aligned, and recent. Low confidence must lead to monitoring suggestions, evidence collection, cautious next steps, or explicit uncertainty—not to conclusions presented with false precision. Confidence must never hide weak evidence.
+
+**Must not:** Degrade into a decorative presentation badge disconnected from evidence. Confidence Layer must not create medical certainty, diagnose conditions, label disease, or imply treatment certainty. It must not substitute for the reasoning engine that produced an output, nor bypass the governed sequence: Evidence → Knowledge → Intelligence → Learning → Experience. No confidence assessment may elevate thin, stale, or conflicting evidence into authoritative guidance.
 
 ### Cross-engine obligations
 
@@ -656,9 +662,9 @@ The Knowledge Layer transforms evidence into reasoning-ready knowledge. Product 
 
 Before and during reasoning, Memory Engine assembles longitudinal context from the Personal Evidence Base. It retrieves ordered history by body area, symptom trajectory, product usage periods, routine evolution, prior recommendations, and prior intelligence outputs with their evidence chains. Memory does not rewrite history; it retrieves and connects. Intelligence without memory is session-bound and architecturally incomplete.
 
-**6. Intelligence Engines evaluate patterns, correlations, outcomes, confidence, and possible next actions**
+**6. Intelligence Engines evaluate patterns, correlations, outcomes, and possible next actions**
 
-Multiple Intelligence Engines reason over enriched knowledge and retrieved history. Correlation Engine identifies evidence-based associations among products, ingredients, routines, symptoms, and outcomes. Outcome Intelligence evaluates what changed after interventions or elapsed time. Prediction Engine projects plausible trajectories qualified by available evidence. Confidence Layer governs certainty expression at every stage—evaluating evidence density, signal alignment, completeness of context, and epistemic limits. No engine consumes raw evidence in isolation from knowledge structuring; no engine commits outputs without confidence posture.
+Multiple Intelligence Engines reason over enriched knowledge and retrieved history. Correlation Engine identifies evidence-based associations among products, ingredients, routines, symptoms, and outcomes. Outcome Intelligence evaluates what changed after interventions or elapsed time. Prediction Engine projects plausible trajectories qualified by available evidence. Confidence Layer is not a stage within this sequence; as a cross-cutting governance capability, it qualifies outputs at every stage of the flow—evaluating evidence quality, completeness, recency, signal consistency, source reliability, and epistemic limits—without replacing the engines that produced those outputs. No engine consumes raw evidence in isolation from knowledge structuring; no engine commits outputs without confidence posture.
 
 **7. Recommendation Engine produces guidance**
 
