@@ -1782,6 +1782,87 @@ By confining AI contributions to normalized, accountable AI Knowledge Objects, S
 
 ---
 
+## Confidence Taxonomy
+
+Confidence Taxonomy is the shared vocabulary for representing uncertainty, evidence strength, and action strength across the SkinIntel Data Model. It applies wherever objects or outputs carry epistemic posture—not as decoration, not as medical certainty, not as diagnosis, and not as a mechanism to hide weak evidence behind polished presentation. Confidence is a structured posture attached to objects and outputs where uncertainty matters: evidence-linked, explainable, and auditable back to the evidence and uncertainty drivers that shaped it.
+
+The Data Model defines what confidence means conceptually and which dimensions objects may declare. The Confidence Layer governs how confidence is expressed, qualified, and propagated across platform reasoning—but the taxonomy here is the stable vocabulary those expressions must use. Objects across Scan Records, domain models, AI Knowledge Objects, outcomes, and recommendations share this vocabulary so intelligence layers, learning loops, and user-facing surfaces speak consistently about what the platform knows, suspects, or cannot yet conclude.
+
+### Confidence posture
+
+Confidence posture is the summary category—user-facing or engine-facing—that communicates how strongly the platform may act on an object or output given available evidence. Posture is derived from confidence dimensions; it is not an arbitrary label assigned for presentation convenience.
+
+The preferred conceptual posture values are:
+
+- **high** — Evidence is dense, recent, consistent, and aligned enough for stronger cosmetic guidance within scope. High posture does not mean certainty, medical confidence, or guaranteed outcome—it means the platform has sufficient personal evidence to reason with reduced qualification.
+- **medium** — Evidence is useful but incomplete or partly uncertain. Guidance and interpretation should remain qualified; assumptions must be visible; monitoring and follow-up evidence collection remain appropriate.
+- **low** — Evidence is thin, conflicting, stale, or weak. Outputs should focus on cautious next steps, monitoring, evidence collection, or explicitly limited interpretation—not on confident product or routine direction.
+- **insufficient** — The platform should not draw a substantive conclusion from available evidence. Outputs should ask for more evidence, limit scope, defer strong guidance, or—when safety boundary relevance applies—support escalation rather than cosmetic optimization.
+
+Posture summarizes dimensions; it does not replace them. Two objects with the same posture may differ in which dimensions limited confidence and therefore in what action strength mapping permits.
+
+### Confidence dimensions
+
+Confidence is structured, not only a single label. Dimensions describe why a posture was assigned and which aspects of evidence quality matter for a given object. The taxonomy defines the following conceptual dimensions:
+
+- **Evidence density** — How much relevant evidence exists within the applicable window: scan frequency, feedback depth, usage logging completeness.
+- **Evidence recency** — How current the supporting evidence is relative to the question being answered; stale evidence may warrant downgrade even when historically dense.
+- **Evidence consistency** — Alignment among scans, user reports, routine context, and structured observations over time; conflicting signals reduce consistency.
+- **Source reliability** — Trustworthiness of how evidence or object data entered the platform: user attestation, catalog verification, OCR quality, admin confirmation.
+- **User-platform signal alignment** — Agreement between user-described experience and platform-structured interpretation; divergence widens uncertainty.
+- **Object verification status** — Whether identity, composition, formulation version, or classification is verified, provisional, or uncertain.
+- **Temporal coverage** — Whether the evidence window spans enough time to support the claim: single-point capture versus sustained observation across an exposure period.
+- **Uncertainty drivers** — Explicit documentation of what is missing, conflicting, or limiting: sparse scans, reformulation mid-window, simultaneous routine changes, deleted evidence under governance.
+- **Safety boundary relevance** — Whether evidence patterns suggest cosmetic guidance may be insufficient or inappropriate regardless of other dimensions; may override normal action strength toward escalation.
+
+Not every object requires every dimension. Every object that carries confidence must declare conceptually which dimensions apply and which uncertainty drivers limited posture. Undeclared confidence—posture without dimensional rationale—violates the taxonomy contract.
+
+### Object-specific confidence
+
+Confidence applies differently across object types. The taxonomy is unified; the emphasis shifts by domain:
+
+- **Scan Record** — Capture quality and user context completeness: image clarity where relevant, symptom selection completeness, session context, and attestation level—not a judgment that the user's experience is untrue.
+- **Symptom Model references** — Confidence in classification and mapping to platform vocabulary, not in whether the user experienced the symptom.
+- **Product Model** — Product identity match certainty and source reliability: catalog match versus manual entry versus uncertain OCR linkage.
+- **Ingredient Model** — Ingredient recognition certainty, synonym and alias resolution, and canonical link quality—not universal safety judgment.
+- **Formulation Model** — Formulation version certainty, composition verification, and concentration awareness where available; reformulation mid-exposure lowers temporal confidence for cross-window comparison.
+- **Routine Model** — Routine structure completeness, adherence confidence, and clarity of change-event timing—not prescription of what the user should do.
+- **AI Knowledge Objects** — Inference confidence and evidence linkage strength; hypothesis objects carry lower default posture than outcome-confirmed interpretations.
+- **Outcome Model** — Before/after comparability and outcome certainty: window integrity, confounding changes, scan density, and alignment between user report and structured trajectory.
+- **Recommendation Model** — Action strength appropriate to evidence and uncertainty limits; escalation recommendations carry their own posture tied to safety boundary relevance.
+- **Personal Threshold Learning** — Hypothesis strength and reversibility of learned calibration; learning signals are provisional until outcome evaluation confirms or contradicts them.
+
+Object-specific confidence preserves separation of concerns: product identity confidence is not outcome confidence; inference confidence is not recommendation action strength—though downstream mapping connects them through governed propagation rules.
+
+### Action strength mapping
+
+Confidence posture maps conceptually to how strongly the platform may guide, interpret, or act within cosmetic scope:
+
+- **High confidence** may support stronger cosmetic guidance—product direction, routine adjustment, or monitoring with defined evaluation windows—always within scope and never as medical certainty.
+- **Medium confidence** supports qualified guidance: explicit assumptions, narrower scope, and expectation of follow-up evidence before treating conclusions as durable.
+- **Low confidence** supports cautious next steps: monitoring, simplified routines, evidence collection prompts, and limited interpretation without strong directional pressure.
+- **Insufficient confidence** should avoid substantive conclusions; the platform collects evidence, limits output scope, or defers to safety boundary escalation when relevant—not silent continuation of confident-sounding guidance.
+
+Safety boundary relevance may override normal action strength. When evidence patterns indicate cosmetic guidance may be inadequate or unsafe, posture may be insufficient for routine optimization even if some dimensions appear moderate; Recommendation Engine may produce escalation-type guidance governed separately from product suggestion strength. Personal Threshold Learning must not suppress this override: personalization calibrates weighting within safe scope; it does not inflate action strength when safety boundaries apply.
+
+### Auditability and propagation
+
+Confidence must propagate through downstream artifacts with accountability. When a correlation candidate feeds a prediction, a prediction informs a recommendation, or an AI Knowledge Object supports an outcome evaluation, downstream objects inherit or explicitly re-evaluate confidence—they do not silently inherit high posture without dimensional review.
+
+Downstream objects must not increase confidence without new evidence. A recommendation must not present as high confidence when its supporting correlation was medium and no additional evidence arrived. Propagation rules require either explicit re-assessment of dimensions at each layer or documented inheritance with unchanged posture and visible lineage.
+
+Confidence may be downgraded when evidence becomes stale, when Deletion and Retention Governance removes or restricts supporting evidence, when AI Knowledge Objects are superseded, when formulation version changes invalidate prior composition context, or when user feedback conflicts with prior interpretation. Downgrade must update posture and uncertainty drivers—not mutate historical records to match the new posture retroactively.
+
+Confidence posture must remain auditable: what posture was assigned, which dimensions applied, which uncertainty drivers limited it, and which evidence objects supported the assessment. Users who ask why guidance was cautious must receive answers grounded in taxonomy dimensions, not regenerated narratives.
+
+The Confidence Layer governs expression and qualification at runtime; the Data Model defines the taxonomy objects use. Extensions to the platform must use this vocabulary or extend it through governed additive change—not introduce parallel confidence schemes that fragment accountability.
+
+### Boundary rules
+
+Confidence Taxonomy must not define medical certainty, diagnostic probability, or clinical authority. It must not hide weak evidence, convert uncertainty into false authority, let personalization override safety boundaries, permit recommendations without evidence linkage, or allow confidence inflation for commercial reasons. Confidence describes epistemic posture within a cosmetic and educational platform—not a license to speak with clinical precision the evidence does not support.
+
+---
+
 ## Future Expansion
 
 Future Expansion defines how the SkinIntel Data Model should support future growth without breaking the core architecture. It is not a feature wishlist. It does not enumerate roadmap deliverables or prioritize product backlog items. It defines architectural extension principles: how new objects, capabilities, intelligence layers, and integrations may enter the platform while preserving the conceptual integrity, traceability, and separation of concerns established throughout this document.
