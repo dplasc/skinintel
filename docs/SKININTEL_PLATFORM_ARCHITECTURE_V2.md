@@ -454,13 +454,21 @@ The engines below are listed in approximate processing order. In practice, engin
 
 ### Formulation Intelligence
 
-**Purpose:** Understand how ingredients are structured inside a product: roles, functional categories, formulation version, concentration awareness where available, overlap, gap, and composition context.
+**Architectural classification:** Knowledge Layer intelligence capability.
 
-**Reads:** Product Model, Ingredient Model, Formulation Model, product composition, source confidence, verification status, user routine context, outcomes, and recommendation context.
+Formulation Intelligence in V2 is a Knowledge Layer capability—not an Intelligence Layer decision engine, not a recommendation system, and not a custom-formulation system. Its responsibility is composition analysis: understanding how ingredients are structured inside a product. It enriches Product and Ingredient Knowledge so downstream Correlation, Prediction, Recommendation, and Outcome Intelligence can reason about product exposure more accurately. It does not decide what the user should use, create personalized recommendations, propose custom formulas, or claim treatment effects. It does not replace Product Intelligence, Ingredient Intelligence, Recommendation Engine, or Outcome Intelligence.
 
-**Produces:** Formulation analysis artifacts such as functional coverage, overlap detection, duplicate active exposure, formulation confidence, product comparison context, and formulation gap analysis inputs.
+Prior V1 terminology referred to a **Formulation Engine** oriented toward gap-filling and custom formulation proposals. That capability is not active in V2 architecture. Until a future capability is explicitly defined with its own architectural boundary, "Formulation Engine" must be interpreted as superseded terminology—not as a collapsed alias for Formulation Intelligence. Any future gap-filling or custom formulation proposal capability remains a separate future concern and must not be silently merged into Formulation Intelligence.
 
-**Must not:** Make treatment claims, assert therapeutic efficacy, invent missing ingredients, or treat provisional formulation data as verified.
+**Purpose:** Analyze how ingredients are structured within a product—roles, functional categories, likely purpose, concentration awareness where available, formulation version, reformulation awareness, irritancy and support potential based on composition context, overlap, and composition-level functional coverage. Formulation Intelligence adds structured composition meaning to Product and Ingredient Knowledge without prescribing use or proposing custom formulas.
+
+Historical product exposure must remain linked to the formulation version that existed during that exposure window. Reformulation awareness protects longitudinal integrity: outcomes tied to an older formulation cannot be silently treated as outcomes for a newer formulation.
+
+**Reads:** Product Model, Ingredient Model, Formulation Model, product composition structures, source confidence, verification status, formulation version history, and usage-period context that anchors exposure to a specific formulation snapshot.
+
+**Produces:** Composition analysis artifacts: functional role mappings, category coverage, overlap and duplicate-active exposure signals, concentration-qualified structure where data permits, formulation version and reformulation change markers, irritancy and support context derived from composition, formulation confidence posture, and structured inputs that Correlation, Prediction, Recommendation, and Outcome Intelligence consume for exposure-accurate reasoning.
+
+**Must not:** Make treatment claims, assert therapeutic efficacy, invent missing ingredients, or treat provisional formulation data as verified; decide what the user should use; create personalized recommendations; propose custom formulas; replace Product Intelligence, Ingredient Intelligence, Recommendation Engine, or Outcome Intelligence; or silently conflate outcomes across formulation versions after reformulation.
 
 ### Routine Intelligence
 
