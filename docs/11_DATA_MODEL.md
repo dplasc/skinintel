@@ -1694,6 +1694,56 @@ Silent overwrite destroys auditability and learning integrity. If yesterday's in
 
 User corrections follow the same pattern. A corrected interpretation creates a new object or governed correction record referencing the original—not deletion of what the AI suggested before correction.
 
+### Supersession Semantics
+
+AI Knowledge Objects are normalized, platform-defined artifacts produced from AI provider output. They are not raw AI responses. They are not final truth by themselves. Each object represents what the platform inferred or assessed at a point in time—structured, evidence-linked, traceable, explainable, provider-independent, and version-aware. Supersession semantics govern how those objects evolve when evidence improves, inputs are corrected, models change, or governance requires knowledge to be retired or limited without destroying historical accountability.
+
+**Core supersession rules**
+
+AI Knowledge Objects must not be silently overwritten. Reprocessing creates a new object or a superseding object—not an invisible replacement of what existed before. Superseded objects may remain historically inspectable where Deletion and Retention Governance permits. The current reasoning view may prefer the most recent valid superseding object, but preference for current use is not erasure of prior state.
+
+Supersession must preserve lineage. Every supersession chain must be able to answer, conceptually: what was the original object; what object superseded it; why supersession occurred; what evidence supported the change; which provider or model contributed where relevant; what confidence posture applied at each stage; and what timestamp or version context bounded each object's validity. Lineage is the platform's record of intellectual evolution—not a convenience for debugging, but a requirement for longitudinal integrity.
+
+Downstream intelligence that depended on a superseded object must not continue unchanged as if nothing happened. Artifacts derived from superseded knowledge—correlation candidates extended into predictions, recommendation rationale built on retired hypotheses, learning signals calibrated from invalidated inference—may need to be marked stale, limited, invalidated, re-evaluated, confidence-downgraded, or excluded from future learning. Supersession propagates accountability: when upstream knowledge changes status, downstream consumers must respect that change through governed object status, not through implicit assumption that the latest scan re-run fixed everything silently.
+
+**When supersession occurs**
+
+Supersession may happen because of better evidence, corrected user input, model reprocessing, provider change, improved normalization, formulation update, deletion or retention governance action, or confidence downgrade. Each cause must be representable in supersession lineage so auditors and users can distinguish *we learned more* from *we were wrong* from *evidence is no longer available* from *the model improved*.
+
+User correction should be treated as personal evidence and may trigger supersession. When a user rejects or corrects an AI interpretation, the correction enters the Personal Evidence Base as governed evidence; the superseding AI Knowledge Object references both the original inference and the correction event. Supersession must not erase historical reasoning context—the platform must remain able to explain what it inferred before correction and why that inference was reasonable given evidence available at that time.
+
+Formulation update illustrates temporal sensitivity. When a product's verified composition changes, inference objects tied to prior formulation context may be superseded by objects scoped to the new formulation version. Exposure history remains anchored to the formulation version active during each usage window; supersession preserves that distinction rather than collapsing reformulation into a single undifferentiated product narrative.
+
+**Supersession is not deletion**
+
+Supersession and deletion are distinct governance mechanisms that must interact explicitly. Supersession governs knowledge evolution: a newer object replaces the current authority of an older one while lineage remains inspectable. Deletion and Retention Governance governs evidence availability: when evidence is withdrawn, expired, or removed under policy, knowledge objects that depended on that evidence may be superseded, limited, or marked unavailable—not preserved through hidden copies or ungoverned replicas.
+
+AI Knowledge Objects must not preserve sensitive deleted evidence through shadow retention. If primary evidence is no longer available under governance rules, superseding objects must reflect reduced confidence, explicit unavailability, or retirement—not silent continuation as if the evidence still exists. Conversely, supersession must not be used as a workaround for deletion: retiring an object because evidence was deleted is a governed supersession with deletion as the stated reason, not a mutation that leaves deleted content recoverable through supersession chains without authorization.
+
+Conflicting objects must not coexist without relationship or status. Two interpretations of the same evidence window cannot both present as current authority. Current state must be derived from governed object status—active, superseded, limited, retired, stale—not by mutating historical truth in place. Historical objects remain readable; current reasoning selects among governed statuses.
+
+**Boundary rules**
+
+AI Knowledge Objects must not diagnose disease, create medical labels, claim treatment effects, invent missing evidence, overwrite user evidence, bypass Data Model objects, become provider-specific blobs, silently train future personalization after deletion or withdrawal restrictions, or act as recommendations unless converted into Recommendation Model objects by the proper engine. Supersession does not relax these boundaries—a superseding object is subject to the same constraints as the object it replaces.
+
+**Relationship to platform layers**
+
+AI Knowledge Objects sit between raw AI contribution and durable platform reasoning. Their supersession semantics connect explicitly to adjacent architectural layers:
+
+- **Evidence Layer** — AI Knowledge Objects interpret evidence; they do not replace it. Supersession triggered by new or corrected evidence must reference the Evidence Layer objects that motivated the change. User corrections and Scan Records remain authoritative inputs; supersession adjusts inference, not captured fact.
+
+- **Personal Evidence Base** — Normalized AI Knowledge Objects persist within the user's longitudinal record as intelligence artifacts, not as vendor transcripts. Supersession chains are part of that base's accountability structure: what the platform believed, when, and what replaced it.
+
+- **Knowledge Layer** — Product Intelligence, Ingredient Intelligence, Formulation Intelligence, and Routine Intelligence produce structured knowledge that AI Knowledge Objects may reference or enrich. Supersession in AI Knowledge Objects must respect Knowledge Layer object boundaries; inference supersession does not silently rewrite Product Model or Formulation Model truth—it supersedes interpretation of those objects.
+
+- **Intelligence Engines** — Correlation, Prediction, Recommendation, and Outcome Intelligence produce and consume AI Knowledge Objects. When supersession retires an upstream object, engines that consumed it must re-evaluate or downgrade dependent outputs rather than propagate stale reasoning. Intelligence Engines initiate supersession through reprocessing; they do not mutate historical objects in place.
+
+- **Confidence Layer** — Confidence posture is part of supersession lineage. A superseding object may carry higher or lower confidence than its predecessor; confidence downgrade alone may justify supersession without implying the prior inference was negligent—only that current epistemic posture has changed. The Confidence Layer qualifies both superseded and superseding objects for presentation and downstream use.
+
+- **Deletion and Retention Governance** — When governance removes or restricts evidence, affected AI Knowledge Objects enter supersession or retirement paths governed by explicit reason codes. Deletion may make superseded objects non-inspectable under policy; supersession records that limitation rather than preserving forbidden content. Governance and supersession together ensure knowledge evolution remains lawful, traceable, and honest about what can no longer be shown or learned from.
+
+Supersession semantics complete the contract begun in Historical accountability: AI Knowledge Objects evolve, but they evolve in the open—with lineage, governed status, downstream consequence, and layer-appropriate boundaries preserved across the platform lifecycle.
+
 ### What does not belong in AI Knowledge Objects
 
 Architectural discipline requires explicit boundaries. AI Knowledge Objects are intelligence artifacts only. The following must not be embedded as core AI Knowledge Object semantics:
