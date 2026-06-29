@@ -804,6 +804,42 @@ These properties are structural requirements. Compromising them accelerates shor
 
 ---
 
+### Deletion and Retention Governance
+
+Deletion and retention are architectural governance requirements—not legal policy text, not UI afterthoughts, and not operational patches applied after launch. The Personal Evidence Base is designed for longitudinal integrity, but longitudinal integrity does not mean indefinite retention of all sensitive content in fully usable form. Governance must define what is retained, what is removed, what is anonymized or minimized, and how long evidence remains usable for reasoning—before any implementation proceeds.
+
+Immutable history and append-only truth are structural commitments. They ensure that what was captured, recommended, or evaluated at a point in time remains inspectable when permitted. They do not override user deletion rights. The user retains the right to request erasure, restrict processing, and withdraw consent. Architectural immutability serves traceability and audit integrity within governed boundaries; it does not grant the platform indefinite authority to retain, reuse, or reason over all evidence without limit or without consent alignment.
+
+Deletion must be explicit, governed, and auditable. No silent deletion behavior is permitted: every removal, tombstone, minimization, or invalidation must be attributable to defined governance rules and consent posture at the time of action. No silent orphan references are permitted. When evidence content is removed or becomes unavailable, references to it must not pretend the evidence still fully exists. Dependent artifacts must be reconciled according to governed rules—not left to degrade inconsistently across engines and layers.
+
+The platform must distinguish five categories of record. Each category may be governed differently, but all behavior must be explicitly defined—not inferred at implementation time or resolved through silent defaults:
+
+**Evidence content** — The substantive payload: scan observations, symptom descriptions, skin images, user attestation, and comparable capture data. This category carries the highest sensitivity and the strictest governance. Deletion or minimization of evidence content must be deliberate, consent-aligned, and auditable. Sensitive evidence such as skin images and symptom descriptions requires stricter handling than general metadata: heightened access boundaries, accelerated erasure paths, and minimization policies must be architecturally anticipated for this category.
+
+**Evidence references** — Pointers, identifiers, and structural links that connect the chronological spine and tie intelligence artifacts to their sources. References may be retained in reduced form when governance allows—for example, through retention markers or tombstones that preserve structural integrity without preserving sensitive content—but only through explicit rules. References must not become covert stores of usable personal data.
+
+**Derived intelligence** — Recommendations, correlations, predictions, normalized AI Knowledge Objects, and comparable outputs produced from evidence. When underlying evidence is deleted or becomes unavailable, derived intelligence must not continue as if the source evidence remains fully present. Downstream outputs may need to be marked **limited**, **stale**, or **invalidated**; downgraded in confidence; excluded from active reasoning paths; or withheld from future learning—according to governed rules for each artifact type.
+
+**Learning signals** — Calibration inputs, personal threshold adjustments, and comparable learning artifacts that reference prior evidence and outcomes. Learning must not silently absorb deleted or withdrawn evidence as if it were still authoritative. Withdrawal of consent may restrict future reasoning, learning, export, or reuse even when historical markers remain for structural integrity.
+
+**User-facing history** — What the Experience Layer presents as the user's skin journey narrative. Presentation must respect privacy boundaries and deletion outcomes. User-facing history must not surface deleted sensitive content, must not imply conclusions unsupported by available evidence, and must acknowledge when portions of history are limited, unavailable, or governed by retention policy.
+
+User erasure requests must be reconciled with longitudinal integrity. The platform cannot choose between user rights and architectural coherence; it must resolve both through governance. That resolution may preserve non-sensitive structural markers, anonymized continuity, or tombstoned references where policy permits—but it must never preserve silent access to sensitive content or allow downstream intelligence to behave as if deletion did not occur.
+
+Withdrawal of consent is a first-class architectural event. It may restrict future storage, reasoning, learning, export, or reuse without requiring destruction of every structural artifact, depending on governed retention policy—but restriction must be enforced at every layer that would otherwise consume withdrawn evidence. Consent posture governs behavior across the platform, not merely visibility in the user interface.
+
+Retention rules must answer four questions for every evidence type and artifact category: what is retained, what is removed, what is anonymized or minimized, and how long evidence remains usable for personalization, correlation, prediction, and learning. Deleted evidence must not remain silently usable for personalization, learning, marketing, or commercial profiling. No marketing profile or commercial segment may be derived from evidence the user has deleted, withdrawn, or restricted—directly or through residual learning signals treated as if consent still applied.
+
+Downstream artifacts that depended on deleted or unavailable evidence must be governed consistently across Intelligence Engines and the Learning Layer. Correlation results, recommendations, outcome evaluations, and calibrations that lose evidentiary foundation must not propagate into future intelligence unchecked. They must be invalidated, downgraded, excluded from active learning, or presented with explicit limitation—never left operating at full confidence on evidence that no longer exists or is no longer permitted.
+
+Retention markers and tombstones may preserve structural integrity without preserving sensitive content, where governance explicitly allows. Their purpose is chronological coherence and audit traceability within privacy boundaries—not indefinite full data retention dressed as metadata.
+
+The Personal Evidence Base must remain traceable without violating privacy boundaries. Within permitted scope, a reviewer or user must be able to understand how conclusions were formed and what evidence contributed—but traceability must not require indefinite retention of all sensitive payloads, must not circumvent deletion rights through duplicate storage or ungoverned derived replicas, and must not expose content the user has legitimately removed or restricted.
+
+Deletion and retention behavior must be designed before implementation, not patched later. Every Intelligence Engine, Learning Layer contract, and Experience Layer presentation path must declare how it behaves when evidence is deleted, minimized, tombstoned, or subject to withdrawn consent. Gaps discovered during implementation require architectural documentation and acceptance before work continues. Until governance is defined, deletion-sensitive behavior must not be assumed, improvised, or deferred as a compliance exercise.
+
+---
+
 ### What the Personal Evidence Base is not
 
 Architectural discipline requires explicit boundaries. The Personal Evidence Base must not be confused with adjacent but distinct concepts:
