@@ -8,7 +8,7 @@ Draft V1
 
 ## Purpose
 
-The purpose of the SkinIntel Data Model is to define every knowledge object used by the Intelligence Engine. It is the authoritative conceptual description of what the platform knows, how that knowledge is organized, and how distinct pieces of information relate to one another across a user's skin journey. Every intelligence layer—Input Intelligence, Memory, Knowledge, Product Intelligence, Ingredient Intelligence, Correlation, Prediction, Recommendation, and Formulation—depends on a shared understanding of these objects. Without a common model, layers would speak different languages, memory would fragment, and personalization would collapse into isolated feature data.
+The purpose of the SkinIntel Data Model is to define every knowledge object used by the Intelligence Engine. It is the authoritative conceptual description of what the platform knows, how that knowledge is organized, and how distinct pieces of information relate to one another across a user's skin journey. Every intelligence layer depends on a shared understanding of these objects. The Data Model serves Input Intelligence, Memory Engine, Product Intelligence, Ingredient Intelligence, Formulation Intelligence, Routine Intelligence, Correlation Engine, Outcome Intelligence, Prediction Engine, Recommendation Engine, Personal Threshold Learning, and cross-cutting confidence governance. Product, Ingredient, Formulation, and Routine Intelligence operate as Knowledge Layer capabilities; Correlation, Outcome, Prediction, and Recommendation operate as Intelligence Layer engines; Personal Threshold Learning operates in the Learning Layer; confidence governance is cross-cutting, not a sequential engine. Without a common model, layers would speak different languages, memory would fragment, and personalization would collapse into isolated feature data.
 
 This document defines that shared language.
 
@@ -22,9 +22,7 @@ Confusing the conceptual model with a storage schema is an architectural error. 
 
 ### Common Read and Write Surface
 
-Every Intelligence Engine reads from and writes to this common model. Input Intelligence writes structured signals derived from user interaction. Memory Engine preserves and retrieves longitudinal records. Product Intelligence enriches product knowledge. Ingredient Intelligence decomposes composition. Correlation Engine connects objects across time and context. Prediction Engine projects from accumulated patterns. Recommendation Engine produces guidance grounded in model truth. Formulation Engine addresses gaps the model exposes.
-
-No layer maintains a private shadow model for the same concept. If two layers need to reference a product, they reference the same product object as defined here—not parallel definitions that drift apart over time. The Data Model is the contract between layers: what exists, what it means, and how it connects.
+Every Intelligence Engine reads from and writes to this common model. Input Intelligence writes structured signals derived from user interaction. Memory Engine preserves and retrieves longitudinal records. Product Intelligence, Ingredient Intelligence, Formulation Intelligence, and Routine Intelligence enrich Knowledge Layer context. Correlation Engine connects objects across time and context. Outcome Intelligence evaluates change after interventions and elapsed time. Prediction Engine projects from accumulated patterns. Recommendation Engine produces guidance grounded in model truth. Personal Threshold Learning calibrates from evaluated outcomes and feedback. Cross-cutting confidence governance qualifies certainty expression across all artifacts. No layer maintains a private shadow model for the same concept. If two layers need to reference a product, they reference the same product object as defined here—not parallel definitions that drift apart over time. The Data Model is the contract between layers: what exists, what it means, and how it connects.
 
 This shared surface enables auditability. A recommendation can be traced to the scan records, product history, symptom classifications, and outcomes that produced it—because all layers operate on the same objects with the same semantics.
 
@@ -48,9 +46,9 @@ The Data Model encompasses the full scope of personal skin intelligence. It repr
 - **Products** — skincare items understood in context: composition, routine role, application area, usage period, and verification status.
 - **Ingredients** — component-level knowledge linked to products and personal exposure history.
 - **Routines** — the structure and sequence of care steps through which products are applied over time.
-- **Outcomes** — user-reported results connecting actions to experience: improvement, stability, reaction, or failure.
+- **Outcomes** — user-reported outcomes and platform-observed outcome evaluations connecting actions to experience: improvement, stability, worsening, partial change, or uncertain change.
 - **Recommendations** — explainable guidance produced from personal history, linked to the evidence that supports it.
-- **Formulation concepts** — advanced proposals when existing products do not satisfy documented need, distinct from catalog recommendation.
+- **Formulation concepts** — composition structure inside products: roles, functional categories, formulation version, reformulation awareness, and verification context—distinct from product identity and catalog recommendation.
 - **Longitudinal history** — the continuous thread connecting all objects above across weeks, months, and years into a personal timeline.
 
 Together these represent the complete domain of what SkinIntel must know to deliver Personal Skin Intelligence—not as disconnected data points, but as interconnected knowledge.
@@ -152,6 +150,24 @@ This aligns with the platform's multilingual architecture and ensures that geogr
 SkinIntel is not a session-based application that forgets yesterday. It is a longitudinal platform expected to hold personal skin evidence across years—through product changes, seasonal variation, life events, and evolving skin conditions. That horizon demands a Data Model that treats every record as permanent, every relationship as meaningful, and every conclusion as accountable to evidence.
 
 Technology will change. Languages will expand. AI providers will be replaced. Intelligence will improve. Through all of that, the user's history must remain intact, traceable, and explainable. These design principles are the architectural guarantee that SkinIntel can accumulate trust over time—not merely data.
+
+---
+
+## Taxonomy Reconciliation with Platform Architecture V2
+
+**docs/11_DATA_MODEL.md** remains the source of truth for conceptual object definitions: what objects mean, how they relate, and what each domain model owns.
+
+**docs/SKININTEL_PLATFORM_ARCHITECTURE_V2.md** is authoritative for current platform layers, engine taxonomy, and layer assignment. If engine naming or layer assignment differs between this Data Model and V2, V2 wins.
+
+Older V1 terms such as **Knowledge Engine** and **Formulation Engine** must not be treated as active V2 engines. Where this document still uses legacy names in historical context, interpret them through V2 taxonomy unless explicitly marked as future capability.
+
+The Data Model defines what objects mean; V2 defines where engines belong and how they interact. Data Model object references must be interpreted through the current canonical pipeline:
+
+**Evidence → Knowledge → Intelligence → Learning → Experience**
+
+**Formulation Intelligence** in V2 is a Knowledge Layer composition-analysis capability—roles, functional categories, formulation version, reformulation awareness, concentration awareness where available, and support or irritancy context based on composition. It does not propose custom formulas, decide what the user should use, create recommendations, or act as a gap-filling or unmet-need product proposal engine. Any future gap-filling or custom formulation proposal capability is a separate future concern requiring its own architectural boundary before implementation—not a silent alias for Formulation Intelligence.
+
+When reconciling this document against V2, prefer Formulation Intelligence for composition analysis contexts; remove or defer active gap-filling or custom proposal behavior from current architecture descriptions.
 
 ---
 
@@ -316,7 +332,7 @@ The Skin Profile exists to serve intelligence across the platform. Each engine b
 
 **Outcome Intelligence** — Evaluates whether outcomes align with expectations set by baseline and goals: improvement relative to this user's tendency profile, not generic population norms.
 
-**Formulation Engine** — Identifies gaps between baseline needs, long-term concerns, and what existing products satisfy—using baseline body-area patterns and tolerance history to orient formulation proposals.
+**Formulation Intelligence** — Supplies baseline-aware composition context for Knowledge Layer analysis: how documented products structurally relate to baseline body-area patterns and tolerance history—without proposing custom formulas, gap-filling recommendations, or unmet-need product proposals.
 
 In each case, the Skin Profile is a read-oriented baseline reference. Engines write evidence, outcomes, and intelligence outputs elsewhere. Baseline updates flow only through governed recalibration, preserving the object's stability and traceability over years of use.
 
@@ -742,7 +758,7 @@ The Product Model is designed to enable current platform behavior and planned pr
 - **Outcome correlation** — Reference surface enabling Outcome objects to evaluate change in context of product introduction, continuation, or discontinuation.
 - **Recommendation targeting** — Reference surface enabling Recommendation objects to suggest, avoid, or replace specific products based on personal evidence.
 - **Future product comparison** — Stable identity enabling side-by-side comparison of similar products, alternatives, and substitutes across composition and personal history.
-- **Future formulation gap analysis** — Reference surface for Formulation Engine to identify unmet needs relative to what existing products in the user's history provide.
+- **Future formulation gap analysis** — Reserved reference surface for a potential future gap-identification capability; not active in current V2 architecture. Any gap-filling or custom formulation proposal capability requires its own architectural boundary before implementation.
 
 These capabilities depend on treating the product as a first-class knowledge object with clear boundaries—not as a catalog row augmented with user notes.
 
@@ -791,7 +807,7 @@ The division of responsibility across models is explicit and must be preserved:
 - **Outcome Model** — *What* changed after use (defined later in this document).
 - **Recommendation Model** — *What* to do next (defined later in this document).
 
-Intelligence Engines consume product identifiers as identity context. Input Intelligence normalizes user product reference from catalog, search, manual entry, photo, or pasted composition into Product Model objects—verified or provisional. Product Intelligence enriches identity and composition linkage. Memory Engine assembles product history across usage periods. Correlation Engine links product introduction and exposure to symptom and outcome patterns. Recommendation Engine targets, avoids, or substitutes products based on personal evidence. Formulation Engine identifies gaps relative to products the user already uses or has used.
+Intelligence Engines consume product identifiers as identity context. Input Intelligence normalizes user product reference from catalog, search, manual entry, photo, or pasted composition into Product Model objects—verified or provisional. Product Intelligence enriches identity and composition linkage. Formulation Intelligence attaches composition structure, formulation version, and reformulation context to product exposure. Memory Engine assembles product history across usage periods. Correlation Engine links product introduction and exposure to symptom and outcome patterns. Recommendation Engine targets, avoids, or substitutes products based on personal evidence.
 
 By confining the Product Model to product identity and product knowledge, SkinIntel preserves separation of concerns: product definitions remain stable and verifiable while usage, composition detail, routines, outcomes, and recommendations evolve in their own domains—always linkable through traceable, explainable references to the same universal understanding of what the user puts on their skin.
 
@@ -920,7 +936,7 @@ The division of responsibility across models is explicit and must be preserved:
 - **Outcome Model** — *What* changed after exposure (defined later in this document).
 - **Recommendation Model** — *What* to do next (defined later in this document).
 
-Intelligence Engines consume canonical ingredient identifiers as composition context. Input Intelligence and Product Intelligence normalize extracted and declared composition text into canonical links—verified or uncertain. Ingredient Intelligence enriches general knowledge and supports exposure aggregation. Memory Engine assembles ingredient exposure history across products and time. Correlation Engine evaluates personal associations between exposure windows and symptom or outcome patterns. Recommendation Engine suggests monitoring, reduction, or alternatives based on personal evidence grounded in canonical identity. Formulation Engine addresses composition gaps relative to ingredients present or absent in the user's routine context.
+Intelligence Engines consume canonical ingredient identifiers as composition context. Input Intelligence and Product Intelligence normalize extracted and declared composition text into canonical links—verified or uncertain. Ingredient Intelligence enriches general knowledge and supports exposure aggregation. Formulation Intelligence analyzes ingredient roles, overlap, and functional coverage within product composition. Memory Engine assembles ingredient exposure history across products and time. Correlation Engine evaluates personal associations between exposure windows and symptom or outcome patterns. Recommendation Engine suggests monitoring, reduction, or alternatives based on personal evidence grounded in canonical identity.
 
 By confining the Ingredient Model to ingredient identity and general ingredient knowledge, SkinIntel preserves separation of concerns: canonical composition vocabulary remains stable and neutral while products, usage, routines, personal correlations, outcomes, and recommendations evolve in their own domains—always linkable through traceable, explainable references to the same universal understanding of what the user's skin encounters.
 
@@ -1463,7 +1479,7 @@ The division of responsibility across models is explicit and must be preserved:
 - **Outcome Model** — *What* changed after exposure.
 - **Recommendation Model** — *What* to do next.
 
-Intelligence Engines consume formulation context as composition input. Product Intelligence and Input Intelligence normalize raw INCI and label extraction into formulation structure—verified or provisional. Formulation Intelligence analyzes overlap, gap, functional coverage, and pattern similarity. Ingredient Intelligence aggregates canonical exposure through formulation links. Correlation Engine evaluates formulation patterns against symptom and outcome trajectories. Recommendation Engine proposes gap-fill, overlap reduction, and alternatives grounded in formulation analysis and personal evidence. Formulation Engine addresses unmet needs when existing product formulations do not satisfy documented requirements.
+Intelligence Engines consume formulation context as composition input. Product Intelligence and Input Intelligence normalize raw INCI and label extraction into formulation structure—verified or provisional. Formulation Intelligence analyzes functional roles, overlap, functional coverage, formulation version, reformulation context, and composition-level pattern similarity as Knowledge Layer composition analysis. Ingredient Intelligence aggregates canonical exposure through formulation links. Correlation Engine evaluates formulation patterns against symptom and outcome trajectories. Recommendation Engine may propose overlap reduction and alternatives grounded in formulation analysis and personal evidence within cosmetic scope. Custom formulation proposal or unmet-need gap-filling is not an active V2 capability; any future capability of that kind requires its own architectural boundary before implementation.
 
 By confining the Formulation Model to formulation composition context, SkinIntel preserves separation of concerns: product identity and ingredient catalogs remain stable while composition structure, verification, and functional analysis evolve with enrichment—always linkable through traceable, explainable references to how each product is formulated and with what confidence the platform knows it.
 
