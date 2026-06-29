@@ -894,6 +894,57 @@ Deletion and retention behavior must be designed before implementation, not patc
 
 ---
 
+### Consent Scope Governance
+
+Consent Scope Governance is the architecture-level rule for how user consent governs evidence storage, reasoning, learning, export, reuse, and withdrawal within the Personal Evidence Base. Consent is not a checkbox-only UI concern. It is an architectural state that governs what the platform may store, process, reason over, learn from, export, or reuse—and that state must be traceable and auditable across the user's journey.
+
+Consent applies to Personal Evidence Base behavior holistically, not only to scan submission. A user may consent to capture at one moment while restricting learning, export, or reuse at another. Consent posture must be knowable to every layer that would consume evidence: Intelligence Engines, Learning Layer, Experience Layer, and export behavior. Consent must not be silently bypassed through derived objects, AI Knowledge Objects, learning signals, cached summaries, or presentation layers that treat withdrawn permission as still active.
+
+Sensitive evidence—skin images, symptom descriptions, discomfort reports, product reaction history—requires explicit consent boundaries appropriate to its sensitivity. No marketing profile, webshop profile, commercial segment, or unrelated personalization may be derived from the Personal Evidence Base without separate explicit consent. Analysis consent does not imply marketing permission; storage consent does not imply reuse for aggregate improvement; reasoning consent does not imply exportable packaging.
+
+**Conceptual consent scopes**
+
+Consent is scoped, not monolithic. The platform recognizes distinct conceptual scopes that may be granted, restricted, or withdrawn independently:
+
+**1. Storage consent** — Permission to store user evidence as part of the Personal Evidence Base: images, descriptions, selected symptoms, product usage, routine data, feedback, outcomes, and comparable capture where applicable. Without storage consent for a given evidence type, the platform must not persist that content as durable personal evidence beyond governed transient processing boundaries.
+
+**2. Reasoning consent** — Permission for the platform to reason over stored evidence to produce analysis, correlations, predictions, recommendations, or explanations. Evidence may exist under storage consent but remain excluded from active reasoning if reasoning consent is restricted—producing limited or insufficient-confidence outputs rather than silent use of restricted evidence.
+
+**3. Learning consent** — Permission for personal learning loops, Personal Threshold Learning, calibration, and future recommendation adaptation. Evidence may support current reasoning while excluded from future adaptation. Learning signals must not incorporate evidence beyond learning consent scope; withdrawn learning consent restricts future calibration without retroactively pretending prior learning never occurred—governed supersession and limitation apply per Deletion and Retention Governance reconciliation rules.
+
+**4. Export consent** — Permission to package or present user data outside normal in-app display: downloadable reports, shareable summaries, or comparable external presentation. Export requires separate explicit consent where in-app viewing alone is permitted. Export behavior must respect scope boundaries and must not include evidence categories the user has restricted.
+
+**5. Reuse consent** — Permission for evidence or derived signals to be reused beyond the immediate analysis context—including aggregate improvement or future platform refinement if ever introduced. Reuse beyond personal service must not be assumed. Default posture is personal-service scope only; broader reuse requires explicit separate consent and governed architectural approval.
+
+Scopes may differ simultaneously: a user may allow storage and current reasoning but restrict learning; allow in-app history but restrict export; permit personal analysis but deny reuse for platform-wide refinement. The platform must honor the most restrictive applicable scope at each consumption point—not infer broader permission from narrower grants.
+
+**Withdrawal as a first-class event**
+
+Consent withdrawal is a first-class architectural event, not a UI reset. Withdrawal may restrict future storage, reasoning, learning, export, personalization, or reuse according to which scopes are withdrawn. Withdrawal does not automatically mean every historical structural marker disappears: Deletion and Retention Governance defines how privacy rights and longitudinal integrity are reconciled—through tombstones, limitation markers, confidence downgrade, and governed unavailability rather than silent full erasure of all chronological structure where policy permits markers without sensitive payload.
+
+When consent changes, downstream artifacts may become limited, unavailable, stale, invalidated, or excluded from future learning. Intelligence outputs must know whether supporting evidence remains permitted for reasoning. Learning signals must know whether evidence remains permitted for learning. AI Knowledge Objects must not retain or reuse evidence beyond consent scope. User-facing history must respect consent restrictions in presentation. Confidence may be downgraded if consent withdrawal removes key supporting evidence—honest epistemic posture rather than false precision on restricted foundations.
+
+**Downstream enforcement**
+
+Consent restrictions must be respected consistently:
+
+- **Intelligence Engines** — Correlation, prediction, recommendation, and outcome reasoning must not consume evidence outside permitted scopes; outputs derived from subsequently restricted evidence must be limited or re-evaluated.
+- **Learning Layer** — Personal Threshold Learning and calibration must not absorb withdrawn evidence; future adaptation excludes restricted content without hidden retention in learning state.
+- **Experience Layer** — History, reports, and explanations must reflect consent limitations; users must not see restricted content presented as fully available intelligence.
+- **AI Knowledge Objects** — Inference artifacts must not preserve or propagate use of evidence beyond consent scope through derived summaries or ungoverned replicas.
+
+Consent withdrawal and Deletion and Retention Governance interact explicitly. Withdrawal restricts future use; deletion or erasure removes or minimizes content per governed rules. Neither mechanism may be used to circumvent the other: withdrawal must not leave hidden usable copies; deletion must not erase consent audit lineage required for accountability within policy bounds.
+
+**Boundary rules**
+
+Consent Scope Governance must not treat consent as a one-time checkbox only, assume consent for all future purposes, use deleted or withdrawn evidence for hidden personalization, infer marketing permission from analysis consent, override Deletion and Retention Governance, permit commercial profiling without separate explicit consent, weaken cosmetic-scope safety boundaries, or hide consent limitations from explanations where they affect output quality.
+
+When consent limitation reduces evidence available for reasoning, the platform must explain reduced confidence or scope honestly—not present outputs as if full evidence still supports them. Safety Boundary Escalation remains governed by evidence patterns and Recommendation Engine boundaries; consent restrictions do not suppress escalation when permitted evidence still warrants caution, and consent posture does not substitute for safety evaluation.
+
+Consent Scope Governance ensures the Personal Evidence Base earns trust: the user controls what the platform may remember, reason over, learn from, export, and reuse—while longitudinal integrity, audit traceability, and governed reconciliation with deletion rights remain architecturally explicit rather than assumed.
+
+---
+
 ### What the Personal Evidence Base is not
 
 Architectural discipline requires explicit boundaries. The Personal Evidence Base must not be confused with adjacent but distinct concepts:

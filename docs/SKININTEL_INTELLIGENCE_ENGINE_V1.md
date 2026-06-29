@@ -92,6 +92,20 @@ These principles apply across all Intelligence Layers and all future expansion. 
 
 The SkinIntel Intelligence Engine is organized as a set of cooperating intelligence layers. Each layer performs a distinct role within a shared pipeline. Together they transform raw user experience into personal skin intelligence—remembered, enriched, connected, and returned as guidance the user can understand and trust. The architecture is deliberate: no single layer carries the full burden of reasoning, and no layer is permitted to absorb responsibilities that belong elsewhere.
 
+### Taxonomy reconciliation with Platform Architecture V2
+
+This document remains a philosophical and conceptual foundation for the SkinIntel Intelligence Engine. It establishes vision, principles, and the enduring idea that intelligence—not interface or model novelty—is the product core. For current platform layers and current engine taxonomy, **docs/SKININTEL_PLATFORM_ARCHITECTURE_V2.md** is the authoritative source.
+
+V1 uses earlier terminology such as "intelligence layers" to describe conceptual capabilities and a flat processing composition. V2 supersedes that taxonomy with a five-layer platform architecture:
+
+**Evidence → Knowledge → Intelligence → Learning → Experience**
+
+Where terminology, layer assignment, naming, or dependency direction differ between this document and V2, V2 wins. V1 concepts remain valuable for understanding purpose and reasoning philosophy, but their placement in the platform must be interpreted through V2. Do not use V1's layer list below as a competing authoritative engine registry or as the basis for implementation boundaries when V2 defines a more precise boundary.
+
+When translating V1 concepts into platform design, assign each capability to the appropriate V2 layer: capture and evidence structuring to Evidence; enrichment to Knowledge; correlation, prediction, recommendation, and outcome evaluation to Intelligence; personal threshold learning and calibration to Learning; presentation and user interaction to Experience. Cross-cutting governance capabilities defined in V2 apply across stages rather than occupying a sequential slot in either document's older lists.
+
+Future implementation planning, engine specifications, and architectural governance must follow V2 taxonomy. Readers should treat the nine intelligence layers documented in the sections that follow as historical conceptual grouping—not as the current canonical map of platform layers or Intelligence Engine membership.
+
 ### Layered Composition
 
 The engine comprises nine intelligence layers:
