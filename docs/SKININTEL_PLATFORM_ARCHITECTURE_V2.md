@@ -514,6 +514,43 @@ Outcome Intelligence belongs to the Intelligence Layer, not the Learning Layer. 
 
 **Must not:** Create treatment plans, prescribe medical interventions, or issue guidance that exceeds cosmetic and educational scope. Recommendations serve informed personal care decisions; they do not substitute clinical judgment.
 
+#### Safety Boundary Escalation
+
+Safety Boundary Escalation is a governed recommendation boundary within the cosmetic-scope platform—not diagnosis, not medical triage, not disease classification, and not treatment planning. Its purpose is to prevent the platform from giving cosmetic guidance when available evidence indicates that cosmetic guidance may be insufficient, inappropriate, or unsafe. When the safety boundary is reached, Recommendation Engine may produce an escalation recommendation type—such as seeking professional evaluation—without naming a disease, claiming a condition, or asserting that the user has a specific medical problem.
+
+Escalation recommendations remain educational, neutral, and non-alarming. They are evidence-linked, confidence-qualified, and explainable: the user should understand which evidence pattern triggered caution, what uncertainty limited cosmetic guidance, and why professional input may be appropriate—not receive fear-based messaging or implied clinical authority the platform does not possess.
+
+**What escalation is not**
+
+Safety Boundary Escalation does not assign diagnostic labels, prioritize clinical urgency unless explicitly governed elsewhere, prescribe treatment, suggest medication, or pretend that routine cosmetic optimization remains adequate when evidence suggests otherwise. The platform may recommend seeking professional evaluation; it must not tell the user what they have, what they must do clinically, or how urgently they must act beyond governed escalation scope.
+
+**Escalation trigger categories (conceptual)**
+
+Escalation may be considered when evidence patterns suggest cosmetic guidance alone may be inadequate. Conceptual trigger categories include:
+
+- Persistent worsening over time within the user's documented trajectory
+- Severe or rapidly changing presentation relative to the user's baseline and history
+- User-reported pain, bleeding, swelling, infection-like concern, or unusual reaction
+- Unclear presentation where confidence is too low for responsible cosmetic guidance
+- Repeated failure of prior cosmetic recommendations within evaluated outcome windows
+- Reaction after product use that appears outside normal cosmetic tolerance for this user
+- Mismatch between user description and platform confidence in cosmetic interpretation
+- User explicitly stating concern that goes beyond cosmetic care scope
+
+These categories describe evidence posture and scope limits—not clinical thresholds, medical conditions, or diagnostic criteria. Recommendation Engine evaluates whether available personal evidence supports continuing cosmetic guidance; when it does not, escalation is the governed alternative to overconfident cosmetic advice.
+
+**Platform behavior at the safety boundary**
+
+When the safety boundary is reached, Recommendation Engine may produce an escalation-type recommendation: seek professional evaluation, pause self-directed product experimentation pending professional input, or maintain monitoring without further cosmetic optimization—each scoped to body areas, symptoms, and evidence referenced in the rationale. Recommendation Engine must not continue routine optimization as if no safety boundary exists, must not substitute escalation with generic product suggestions, and must not downgrade escalation posture through presentation that minimizes the underlying evidence pattern.
+
+Confidence Layer qualifies every escalation recommendation—evaluating evidence completeness, recency, consistency, and residual uncertainty before the escalation is committed or presented. Personal Threshold Learning must not suppress safety boundaries: personal tolerance calibration adjusts cosmetic guidance weighting; it does not override escalation when evidence indicates cosmetic scope may be exceeded. A user who historically tolerates strong actives may still receive escalation when new evidence patterns warrant caution.
+
+**Timeline and evidence accountability**
+
+Escalation events should be recorded as part of the Personal Evidence Base conceptually—linked to the evidence pattern, confidence posture, and uncertainty drivers that motivated the boundary decision. Later outcomes may show that escalation was unnecessary or that it was appropriate; either way, the historical escalation decision remains traceable. Outcome Intelligence may evaluate subsequent change without retroactively erasing why escalation was recommended at the time. Deletion and Retention Governance applies to escalation evidence and linked artifacts like other sensitive personal evidence: governance may limit inspectability without silently removing the fact that escalation occurred.
+
+Safety Boundary Escalation preserves platform integrity within cosmetic scope: when personal evidence says cosmetic guidance is not enough, Recommendation Engine says so clearly, calmly, and accountably—without diagnosing, without disease labels, and without pretending the platform is something it is not.
+
 ### Prediction Engine
 
 **Purpose:** Project plausible near-term trajectories from observed patterns—likely presentation shifts, exposure risks, or stability scenarios—always qualified by available evidence and baseline context.
