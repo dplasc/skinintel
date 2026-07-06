@@ -119,11 +119,13 @@ Per **docs/PHASE_1_SLICE_1_DUAL_WRITE_VERIFICATION_V1.md** and **docs/SCAN_RECOR
 Intended write order extension after Slice 1 steps, aligned with **docs/SCAN_RECORD_V2_TRANSITIONAL_MAPPING_V1.md**:
 
 1. Validate auth and consent (unchanged).
-2. Create Consent Snapshot (unchanged).
-3. Create Scan Record V2 (unchanged).
+2. Create Scan Record V2 (unchanged).
+3. Create Consent Snapshot (unchanged).
 4. **If user provided description text and `description_processing_consent` is active → create User Description Evidence linked to Scan Record V2**, preserving original user text.
 5. Run AI analysis using evidence links (AI flow unchanged in outcome; description remains available as governed input).
 6. Write `analyses` compatibility row (unchanged read model; response shape unchanged).
+
+Physical ordering follows the verified Slice 1 implementation because Consent Snapshot requires scan_record_id. This reconciles the conceptual model with the implemented foreign-key dependency documented in the Slice 1 Dual-Write Code Design.
 
 **Read path:** Dashboard and history continue reading `analyses` only. User Description Evidence is written for Personal Evidence Base foundation; it is not exposed through new UI or API surfaces in Slice 2.
 
