@@ -72,6 +72,10 @@ export async function POST(request: Request) {
   }
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
   const userEmail = session.user.email;
+  if (!userEmail) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const authenticatedEmail = userEmail;
 
   const { data: scanRecord, error: scanRecordError } = await supabase
     .from("scan_records")
@@ -137,6 +141,72 @@ export async function POST(request: Request) {
   }
 
   const imageBuffer = Buffer.from(await image.arrayBuffer());
+  const imageEvidenceId = crypto.randomUUID();
+  const ownerSegment = encodeURIComponent(authenticatedEmail.trim().toLowerCase());
+  const storageObjectRef = `image-evidence/${ownerSegment}/${scanRecordId}/${imageEvidenceId}`;
+
+  const { error: imageEvidenceUploadError } = await supabase.storage
+    .from("image-evidence")
+    .upload(storageObjectRef, imageBuffer, {
+      contentType: image.type,
+      upsert: false,
+    });
+
+  if (imageEvidenceUploadError) {
+    console.error(
+      "[scan] failure_stage=image_evidence_upload scan_record_id=",
+      scanRecordId,
+      imageEvidenceUploadError
+    );
+    return NextResponse.json(
+      {
+        error: "Image evidence upload failed",
+        failure_stage: "image_evidence_upload",
+      },
+      { status: 500 }
+    );
+  }
+
+  const { error: imageEvidenceInsertError } = await supabase
+    .from("image_evidence")
+    .insert([
+      {
+        id: imageEvidenceId,
+        scan_record_id: scanRecordId,
+        user_email: userEmail,
+        storage_object_ref: storageObjectRef,
+        content_type: image.type,
+        byte_size: image.size,
+        capture_source: "web_scan",
+        evidence_status: "active",
+      },
+    ]);
+
+  if (imageEvidenceInsertError) {
+    console.error(
+      "[scan] failure_stage=image_evidence scan_record_id=",
+      scanRecordId,
+      imageEvidenceInsertError
+    );
+    const { error: cleanupError } = await supabase.storage
+      .from("image-evidence")
+      .remove([storageObjectRef]);
+    if (cleanupError) {
+      console.error(
+        "[scan] failure_stage=image_evidence_cleanup scan_record_id=",
+        scanRecordId,
+        cleanupError
+      );
+    }
+    return NextResponse.json(
+      {
+        error: "Image evidence persistence failed",
+        failure_stage: "image_evidence",
+      },
+      { status: 500 }
+    );
+  }
+
   const base64Image = imageBuffer.toString("base64");
   const imageDataUrl = `data:${image.type};base64,${base64Image}`;
   const ingredients = formData.get("ingredients");
