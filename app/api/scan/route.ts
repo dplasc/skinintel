@@ -109,10 +109,36 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 
+  const descriptionRaw = formData.get("description");
+  const trimmedDescription =
+    typeof descriptionRaw === "string" ? descriptionRaw.trim() : "";
+
+  if (trimmedDescription.length > 0) {
+    const { error: userDescriptionEvidenceError } = await supabase
+      .from("user_description_evidence")
+      .insert([
+        {
+          scan_record_id: scanRecordId,
+          user_email: userEmail,
+          original_text: trimmedDescription,
+          capture_source: "web_scan",
+          evidence_status: "active",
+        },
+      ]);
+
+    if (userDescriptionEvidenceError) {
+      console.error(
+        "[scan] failure_stage=user_description_evidence scan_record_id=",
+        scanRecordId,
+        userDescriptionEvidenceError
+      );
+      return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    }
+  }
+
   const imageBuffer = Buffer.from(await image.arrayBuffer());
   const base64Image = imageBuffer.toString("base64");
   const imageDataUrl = `data:${image.type};base64,${base64Image}`;
-  const description = formData.get("description");
   const ingredients = formData.get("ingredients");
   const ingredientsString =
     typeof ingredients === "string"
@@ -219,7 +245,7 @@ STRICT RULES:
             text: `Analyze this cosmetic skincare case and return JSON only.
 
 Description:
-${description || "No description provided"}
+${trimmedDescription || "No description provided"}
 
 Ingredients mentioned by user:
 ${ingredientsString || "None provided"}
@@ -274,16 +300,12 @@ Instruction:
       return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
     return NextResponse.json(normalizedResponse);
-  } catch {}
-  const aiIntro = aiText;
-  const aiAssessment = ["Vaš unos kože je analiziran. Na temelju dostavljenih informacija, ovo su ključna zapažanja i preporuke."];
-
-  return Response.json({
-    intro: aiIntro,
-    assessment: aiAssessment,
-    top5: [],
-    next_steps: ["Pregledajte rezultate u sučelju"],
-    confidence: "low",
-    medical_disclaimer: "Ovo je edukativna kozmetička analiza, a ne medicinska dijagnoza."
-  });
+  } catch (parseError) {
+    console.error(
+      "[scan] failure_stage=ai_response_parse scan_record_id=",
+      scanRecordId,
+      parseError
+    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
 }
