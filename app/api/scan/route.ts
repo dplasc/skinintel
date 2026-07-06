@@ -145,7 +145,7 @@ export async function POST(request: Request) {
   const ownerSegment = encodeURIComponent(authenticatedEmail.trim().toLowerCase());
   const storageObjectRef = `image-evidence/${ownerSegment}/${scanRecordId}/${imageEvidenceId}`;
 
-  console.info("[scan] image_evidence_upload_start", {
+  console.error("[scan] image_evidence_upload_start", {
     scanRecordId,
     storageObjectRef,
     contentType: image.type,
@@ -174,12 +174,12 @@ export async function POST(request: Request) {
     );
   }
 
-  console.info("[scan] image_evidence_upload_success", {
+  console.error("[scan] image_evidence_upload_success", {
     scanRecordId,
     storageObjectRef,
   });
 
-  console.info("[scan] image_evidence_insert_start", {
+  console.error("[scan] image_evidence_insert_start", {
     scanRecordId,
     imageEvidenceId,
   });
@@ -224,7 +224,7 @@ export async function POST(request: Request) {
     );
   }
 
-  console.info("[scan] image_evidence_insert_success", {
+  console.error("[scan] image_evidence_insert_success", {
     scanRecordId,
     imageEvidenceId,
   });
