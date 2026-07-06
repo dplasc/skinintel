@@ -269,16 +269,39 @@ Instruction:
   });
   const aiText = completion.choices[0].message.content || "";
   try {
-    const parsedAiResponse = JSON.parse(aiText);
+    const parsedAiResponse = JSON.parse(aiText) as Record<string, unknown>;
+    const {
+      intro,
+      assessment,
+      top5,
+      next_steps,
+      confidence,
+      medical_disclaimer,
+    } = parsedAiResponse;
+    if (
+      typeof intro !== "string" ||
+      !Array.isArray(assessment) ||
+      !Array.isArray(top5) ||
+      top5.length !== 5 ||
+      !Array.isArray(next_steps) ||
+      typeof confidence !== "string" ||
+      !["low", "medium", "high"].includes(confidence) ||
+      typeof medical_disclaimer !== "string"
+    ) {
+      console.error(
+        "[scan] failure_stage=ai_response_parse scan_record_id=",
+        scanRecordId,
+        "error=invalid normalized output"
+      );
+      return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    }
     const normalizedResponse = {
-      intro: typeof (parsedAiResponse as any).intro === "string" ? (parsedAiResponse as any).intro : "",
-      assessment: Array.isArray((parsedAiResponse as any).assessment) ? (parsedAiResponse as any).assessment : ["Vaš unos kože je analiziran. Na temelju dostavljenih informacija, ovo su ključna zapažanja i preporuke."],
-      top5: Array.isArray((parsedAiResponse as any).top5) ? (parsedAiResponse as any).top5 : [],
-      next_steps: Array.isArray((parsedAiResponse as any).next_steps) ? (parsedAiResponse as any).next_steps : ["Pregledajte rezultate u sučelju"],
-      confidence: ["low", "medium", "high"].includes((parsedAiResponse as any).confidence) ? (parsedAiResponse as any).confidence : "low",
-      medical_disclaimer: typeof (parsedAiResponse as any).medical_disclaimer === "string"
-        ? (parsedAiResponse as any).medical_disclaimer
-        : "Ovo je edukativna kozmetička analiza, a ne medicinska dijagnoza."
+      intro,
+      assessment,
+      top5,
+      next_steps,
+      confidence,
+      medical_disclaimer,
     };
     const { error: persistError } = await supabase.from("analyses").insert([
       {
