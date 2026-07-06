@@ -145,13 +145,6 @@ export async function POST(request: Request) {
   const ownerSegment = encodeURIComponent(authenticatedEmail.trim().toLowerCase());
   const storageObjectRef = `image-evidence/${ownerSegment}/${scanRecordId}/${imageEvidenceId}`;
 
-  console.error("[scan] image_evidence_upload_start", {
-    scanRecordId,
-    storageObjectRef,
-    contentType: image.type,
-    byteSize: image.size,
-  });
-
   const { error: imageEvidenceUploadError } = await supabase.storage
     .from("image-evidence")
     .upload(storageObjectRef, imageBuffer, {
@@ -173,16 +166,6 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-
-  console.error("[scan] image_evidence_upload_success", {
-    scanRecordId,
-    storageObjectRef,
-  });
-
-  console.error("[scan] image_evidence_insert_start", {
-    scanRecordId,
-    imageEvidenceId,
-  });
 
   const { error: imageEvidenceInsertError } = await supabase
     .from("image_evidence")
@@ -223,11 +206,6 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-
-  console.error("[scan] image_evidence_insert_success", {
-    scanRecordId,
-    imageEvidenceId,
-  });
 
   const base64Image = imageBuffer.toString("base64");
   const imageDataUrl = `data:${image.type};base64,${base64Image}`;
