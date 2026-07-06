@@ -11,6 +11,26 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+function resolveConsentScopes(
+  consentMedical: FormDataEntryValue | null,
+  consentPrivacy: FormDataEntryValue | null
+): string[] {
+  const scopes: string[] = [];
+  if (consentMedical === "true") {
+    scopes.push("cosmetic_analysis_acknowledgement");
+  }
+  if (consentPrivacy === "true") {
+    scopes.push(
+      "image_processing_consent",
+      "description_processing_consent",
+      "evidence_storage_consent",
+      "reasoning_consent",
+      "retention_tracking_consent"
+    );
+  }
+  return scopes;
+}
+
 export async function POST(request: Request) {
   const session = await auth();
   if (!session?.user) {
@@ -42,6 +62,51 @@ export async function POST(request: Request) {
       { error: "Image too large. Please upload an image under 5 MB." },
       { status: 413 }
     );
+  }
+
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !supabaseServiceRoleKey) {
+    console.error("[scan] failure_stage=scan_record error=missing Supabase configuration");
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+  const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
+  const userEmail = session.user.email;
+
+  const { data: scanRecord, error: scanRecordError } = await supabase
+    .from("scan_records")
+    .insert([{ user_email: userEmail }])
+    .select("id")
+    .single();
+
+  if (scanRecordError || !scanRecord) {
+    console.error("[scan] failure_stage=scan_record", scanRecordError);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+
+  const scanRecordId = scanRecord.id;
+  const consentScopes = resolveConsentScopes(consentMedical, consentPrivacy);
+
+  const { data: consentSnapshot, error: consentSnapshotError } = await supabase
+    .from("consent_snapshots")
+    .insert([
+      {
+        scan_record_id: scanRecordId,
+        user_email: userEmail,
+        consent_scopes: consentScopes,
+        capture_source: "web_scan",
+      },
+    ])
+    .select("id")
+    .single();
+
+  if (consentSnapshotError || !consentSnapshot) {
+    console.error(
+      "[scan] failure_stage=consent_snapshot scan_record_id=",
+      scanRecordId,
+      consentSnapshotError
+    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 
   const imageBuffer = Buffer.from(await image.arrayBuffer());
@@ -189,29 +254,24 @@ Instruction:
         ? (parsedAiResponse as any).medical_disclaimer
         : "Ovo je edukativna kozmetička analiza, a ne medicinska dijagnoza."
     };
-    try {
-      const supabaseUrl = process.env.SUPABASE_URL;
-      const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-      if (supabaseUrl && supabaseServiceRoleKey) {
-        const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
-        const { error: persistError } = await supabase.from("analyses").insert([
-          {
-            user_email: session.user.email,
-            result: normalizedResponse,
-            confidence: normalizedResponse.confidence,
-            consent_medical: true,
-            consent_privacy: true,
-            model: "gpt-4o-mini",
-          },
-        ]);
-        if (persistError) {
-          console.error("Analysis persistence failed:", persistError);
-        }
-      } else {
-        console.error("Analysis persistence skipped: missing Supabase configuration");
-      }
-    } catch (persistException) {
-      console.error("Analysis persistence threw:", persistException);
+    const { error: persistError } = await supabase.from("analyses").insert([
+      {
+        user_email: session.user.email,
+        result: normalizedResponse,
+        confidence: normalizedResponse.confidence,
+        consent_medical: true,
+        consent_privacy: true,
+        model: "gpt-4o-mini",
+        scan_record_id: scanRecordId,
+      },
+    ]);
+    if (persistError) {
+      console.error(
+        "[scan] failure_stage=analyses scan_record_id=",
+        scanRecordId,
+        persistError
+      );
+      return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
     return NextResponse.json(normalizedResponse);
   } catch {}
