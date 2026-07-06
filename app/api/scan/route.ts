@@ -207,15 +207,40 @@ export async function POST(request: Request) {
     );
   }
 
+  const ingredientsRaw = formData.get("ingredients");
+  const ingredientsString =
+    typeof ingredientsRaw === "string"
+      ? ingredientsRaw
+      : typeof ingredientsRaw?.toString === "function"
+      ? ingredientsRaw.toString()
+      : "";
+
+  if (ingredientsString.trim().length > 0) {
+    const { error: productMentionEvidenceError } = await supabase
+      .from("product_mention_evidence")
+      .insert([
+        {
+          id: crypto.randomUUID(),
+          scan_record_id: scanRecordId,
+          user_email: userEmail,
+          raw_mention_text: ingredientsString,
+          source_type: "user_input",
+          evidence_status: "active",
+        },
+      ]);
+
+    if (productMentionEvidenceError) {
+      console.error(
+        "[scan] failure_stage=product_mention_evidence scan_record_id=",
+        scanRecordId,
+        productMentionEvidenceError
+      );
+      return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    }
+  }
+
   const base64Image = imageBuffer.toString("base64");
   const imageDataUrl = `data:${image.type};base64,${base64Image}`;
-  const ingredients = formData.get("ingredients");
-  const ingredientsString =
-    typeof ingredients === "string"
-      ? ingredients
-      : typeof ingredients?.toString === "function"
-      ? ingredients.toString()
-      : "";
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
