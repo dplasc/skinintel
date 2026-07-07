@@ -167,13 +167,13 @@ END;
 $$;
 
 COMMENT ON FUNCTION public.exclude_evidence_row(text, uuid, text) IS
-  'Phase 1 Slice 8 governed child-level exclusion primitive. Transitions exactly one evidence row active -> excluded in one of the closed-whitelist tables (user_description_evidence, image_evidence, product_mention_evidence, ai_analysis_evidence), recording status_reason and a transaction-stable status_changed_at. Caller reasons: user_deletion_request | consent_withdrawal | administrative_invalidation; session_propagated_exclusion is reserved and rejected as caller input. Source must be active; excluded is terminal; superseded is untouched. Missing row, non-active source, invalid reason, or unknown table each raise and write nothing. No dynamic SQL; static per-table dispatch. Never touches the session anchor, sibling evidence, consent_snapshots, or analyses. Service-role only; dormant.';
+  'Phase 1 Slice 8 governed child-level exclusion primitive. Transitions exactly one evidence row (active -> excluded) in one of the closed-whitelist tables (user_description_evidence, image_evidence, product_mention_evidence, ai_analysis_evidence), recording status_reason and a transaction-stable status_changed_at. Caller reasons: user_deletion_request | consent_withdrawal | administrative_invalidation; session_propagated_exclusion is reserved and rejected as caller input. Source must be active; excluded is terminal; superseded is untouched. A missing row, non-active source, invalid reason, or unknown table each raises an exception and writes nothing. Uses static per-table dispatch; no dynamic SQL. Never touches the session anchor, sibling evidence, consent_snapshots, or analyses. Service-role only; dormant.';
 
 -- ---------------------------------------------------------------------------
 -- 2. Session-level governed exclusion primitive (with child propagation)
 -- ---------------------------------------------------------------------------
 -- Locks the scan_records row first (FOR UPDATE), rejects a non-active session,
--- propagates exclusion to active children first (reason session_propagated_exclusion),
+-- propagates exclusion to active children first (reason: session_propagated_exclusion),
 -- then transitions the session anchor last. All rows in one invocation share a
 -- single transaction-stable timestamp. Already-excluded children are skipped
 -- (WHERE evidence_status = 'active'), preserving their original metadata.
@@ -271,7 +271,7 @@ END;
 $$;
 
 COMMENT ON FUNCTION public.exclude_scan_record(uuid, text) IS
-  'Phase 1 Slice 8 governed session-level exclusion primitive. Locks the target scan_records row FOR UPDATE first, rejects a non-active session (re-invocation writes nothing), propagates exclusion to active children (user_description_evidence, image_evidence, product_mention_evidence, ai_analysis_evidence) with reserved reason session_propagated_exclusion, then transitions the scan_records anchor last, all within one all-or-nothing transaction sharing a single transaction-stable status_changed_at. Caller reasons: user_deletion_request | consent_withdrawal | administrative_invalidation; session_propagated_exclusion is rejected as caller input. Already-excluded children are skipped with original metadata preserved. superseded is untouched; consent_snapshots and analyses are never read or written. Service-role only; dormant.';
+  'Phase 1 Slice 8 governed session-level exclusion primitive. Locks the target scan_records row FOR UPDATE first. Rejects a non-active session; re-invocation writes nothing. Propagates exclusion to active children (user_description_evidence, image_evidence, product_mention_evidence, ai_analysis_evidence) with reserved reason: session_propagated_exclusion, then transitions the scan_records anchor last. All updates occur within one all-or-nothing transaction sharing a single transaction-stable status_changed_at. Caller reasons: user_deletion_request | consent_withdrawal | administrative_invalidation; session_propagated_exclusion is rejected as caller input. Already-excluded children are skipped; original metadata is preserved. Superseded is untouched. consent_snapshots and analyses are never read or written. Service-role only; dormant.';
 
 -- ---------------------------------------------------------------------------
 -- 3. Execution privilege posture (same migration unit; no transient exposure)
