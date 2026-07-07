@@ -24,6 +24,7 @@ type AnalysisRow = {
   confidence?: string;
   model?: string;
   created_at?: string;
+  scan_record_id?: string | null;
   result?: AnalysisResult | null;
 };
 
@@ -63,14 +64,28 @@ export default async function HistoryDetailPage({
     const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
     const { data, error } = await supabase
       .from("analyses")
-      .select("id, confidence, model, created_at, result")
+      .select("id, confidence, model, created_at, scan_record_id, result")
       .eq("id", id)
       .eq("user_email", session.user.email)
       .single();
     if (error) {
       console.error("History detail fetch failed:", error);
-    } else {
-      analysis = data ?? null;
+    } else if (data) {
+      if (data.scan_record_id == null) {
+        analysis = data;
+      } else {
+        const { data: eligibleSession, error: eligibilityError } = await supabase
+          .from("eligible_scan_records")
+          .select("id")
+          .eq("user_email", session.user.email)
+          .eq("id", data.scan_record_id)
+          .maybeSingle();
+        if (eligibilityError) {
+          console.error("History detail eligibility fetch failed:", eligibilityError);
+        } else if (eligibleSession) {
+          analysis = data;
+        }
+      }
     }
   } else {
     console.error("History detail skipped: missing Supabase configuration");
