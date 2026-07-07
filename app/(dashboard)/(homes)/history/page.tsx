@@ -8,6 +8,7 @@ type AnalysisRow = {
   confidence?: string;
   model?: string;
   created_at?: string;
+  scan_record_id?: string | null;
   result?: { intro?: string } | null;
 };
 
@@ -52,16 +53,50 @@ export default async function HistoryPage() {
   const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (supabaseUrl && supabaseServiceRoleKey) {
     const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
-    const { data, error } = await supabase
-      .from("analyses")
-      .select("id, confidence, model, created_at, result")
-      .eq("user_email", session.user.email)
-      .order("created_at", { ascending: false })
-      .limit(50);
-    if (error) {
-      console.error("History fetch failed:", error);
+    const { data: eligibleSessions, error: eligibilityError } = await supabase
+      .from("eligible_scan_records")
+      .select("id")
+      .eq("user_email", session.user.email);
+    if (eligibilityError) {
+      console.error("History eligibility fetch failed:", eligibilityError);
     } else {
-      analyses = data ?? [];
+      const eligibleScanRecordIds = (eligibleSessions ?? []).map((row) => row.id);
+      const { data: legacyAnalyses, error: legacyError } = await supabase
+        .from("analyses")
+        .select("id, confidence, model, created_at, scan_record_id, result")
+        .eq("user_email", session.user.email)
+        .is("scan_record_id", null)
+        .order("created_at", { ascending: false })
+        .limit(50);
+      if (legacyError) {
+        console.error("History fetch failed:", legacyError);
+      } else {
+        let linkedAnalyses: AnalysisRow[] = [];
+        let linkedFetchOk = true;
+        if (eligibleScanRecordIds.length > 0) {
+          const { data, error: linkedError } = await supabase
+            .from("analyses")
+            .select("id, confidence, model, created_at, scan_record_id, result")
+            .eq("user_email", session.user.email)
+            .in("scan_record_id", eligibleScanRecordIds)
+            .order("created_at", { ascending: false })
+            .limit(50);
+          if (linkedError) {
+            console.error("History fetch failed:", linkedError);
+            linkedFetchOk = false;
+          } else {
+            linkedAnalyses = data ?? [];
+          }
+        }
+        if (linkedFetchOk) {
+          analyses = [...(legacyAnalyses ?? []), ...linkedAnalyses]
+            .sort(
+              (a, b) =>
+                new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime()
+            )
+            .slice(0, 50);
+        }
+      }
     }
   } else {
     console.error("History skipped: missing Supabase configuration");
