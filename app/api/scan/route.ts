@@ -398,6 +398,31 @@ Instruction:
       confidence,
       medical_disclaimer,
     };
+    const scanModelName = "gpt-4o-mini";
+    const { error: aiAnalysisEvidenceError } = await supabase
+      .from("ai_analysis_evidence")
+      .insert([
+        {
+          id: crypto.randomUUID(),
+          scan_record_id: scanRecordId,
+          user_email: userEmail,
+          normalized_result: normalizedResponse,
+          model_provider: "openai",
+          model_name: scanModelName,
+          response_schema_version: "scan_result_v1",
+          evidence_status: "active",
+          provenance_metadata: completion.id
+            ? { completion_id: completion.id }
+            : null,
+        },
+      ]);
+    if (aiAnalysisEvidenceError) {
+      console.error(
+        "[scan] failure_stage=ai_analysis_evidence scan_record_id=",
+        scanRecordId,
+        aiAnalysisEvidenceError
+      );
+    }
     const { error: persistError } = await supabase.from("analyses").insert([
       {
         user_email: session.user.email,
@@ -405,7 +430,7 @@ Instruction:
         confidence: normalizedResponse.confidence,
         consent_medical: true,
         consent_privacy: true,
-        model: "gpt-4o-mini",
+        model: scanModelName,
         scan_record_id: scanRecordId,
       },
     ]);
