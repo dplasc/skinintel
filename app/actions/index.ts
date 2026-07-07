@@ -24,17 +24,42 @@ export async function getLatestAnalysis() {
         return { latest: null, total: 0 };
     }
     const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
-    const { data, error, count } = await supabase
-        .from("analyses")
-        .select("id, confidence, created_at", { count: "exact" })
-        .eq("user_email", session.user.email)
-        .order("created_at", { ascending: false })
-        .limit(1);
-    if (error) {
-        console.error("Latest analysis fetch failed:", error);
+    const { data: eligibleSessions, error: eligibilityError } = await supabase
+        .from("eligible_scan_records")
+        .select("id")
+        .eq("user_email", session.user.email);
+    if (eligibilityError) {
+        console.error("Latest analysis eligibility fetch failed:", eligibilityError);
         return { latest: null, total: 0 };
     }
-    return { latest: data?.[0] ?? null, total: count ?? 0 };
+    const eligibleScanRecordIds = (eligibleSessions ?? []).map((row) => row.id);
+    const { data: legacyAnalyses, error: legacyError } = await supabase
+        .from("analyses")
+        .select("id, confidence, created_at")
+        .eq("user_email", session.user.email)
+        .is("scan_record_id", null);
+    if (legacyError) {
+        console.error("Latest analysis fetch failed:", legacyError);
+        return { latest: null, total: 0 };
+    }
+    let linkedAnalyses: typeof legacyAnalyses = [];
+    if (eligibleScanRecordIds.length > 0) {
+        const { data, error: linkedError } = await supabase
+            .from("analyses")
+            .select("id, confidence, created_at")
+            .eq("user_email", session.user.email)
+            .in("scan_record_id", eligibleScanRecordIds);
+        if (linkedError) {
+            console.error("Latest analysis fetch failed:", linkedError);
+            return { latest: null, total: 0 };
+        }
+        linkedAnalyses = data ?? [];
+    }
+    const eligibleAnalyses = [...(legacyAnalyses ?? []), ...linkedAnalyses].sort(
+        (a, b) =>
+            new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime()
+    );
+    return { latest: eligibleAnalyses[0] ?? null, total: eligibleAnalyses.length };
 }
 
 const ALLOWED_REMINDER_DAYS = [7, 14, 30];
