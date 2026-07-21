@@ -133,6 +133,14 @@ actual_req_cols AS (
     pg_catalog.format_type(a.atttypid, a.atttypmod) AS typ,
     NOT a.attnotnull AS is_nullable,
     pg_catalog.pg_get_expr(ad.adbin, ad.adrelid) AS def_expr,
+    CASE
+      WHEN ad.adbin IS NULL THEN NULL
+      ELSE regexp_replace(
+             regexp_replace(
+               lower(pg_catalog.pg_get_expr(ad.adbin, ad.adrelid)),
+               '[[:space:]]+', '', 'g'),
+             'pg_catalog\.', '', 'g')
+    END AS def_expr_norm,
     a.attidentity AS identity_posture,
     a.attgenerated AS generated_posture
   FROM pg_catalog.pg_attribute a
@@ -161,6 +169,14 @@ actual_exec_cols AS (
     pg_catalog.format_type(a.atttypid, a.atttypmod) AS typ,
     NOT a.attnotnull AS is_nullable,
     pg_catalog.pg_get_expr(ad.adbin, ad.adrelid) AS def_expr,
+    CASE
+      WHEN ad.adbin IS NULL THEN NULL
+      ELSE regexp_replace(
+             regexp_replace(
+               lower(pg_catalog.pg_get_expr(ad.adbin, ad.adrelid)),
+               '[[:space:]]+', '', 'g'),
+             'pg_catalog\.', '', 'g')
+    END AS def_expr_norm,
     a.attidentity AS identity_posture,
     a.attgenerated AS generated_posture
   FROM pg_catalog.pg_attribute a
@@ -189,7 +205,12 @@ a02 AS (
          WHERE e.col IS NULL OR a.col IS NULL
             OR a.typ IS DISTINCT FROM e.typ
             OR a.is_nullable IS DISTINCT FROM e.is_nullable
-            OR coalesce(a.def_expr, '') IS DISTINCT FROM coalesce(e.def_norm, '')
+            OR coalesce(a.def_expr_norm, '') IS DISTINCT FROM coalesce(
+                 CASE WHEN e.def_norm IS NULL THEN NULL
+                      ELSE regexp_replace(
+                             regexp_replace(lower(e.def_norm), '[[:space:]]+', '', 'g'),
+                             'pg_catalog\.', '', 'g')
+                 END, '')
             OR a.identity_posture IS DISTINCT FROM ''
             OR a.generated_posture IS DISTINCT FROM ''
        )
@@ -206,11 +227,16 @@ a02 AS (
          WHERE e.col IS NULL OR a.col IS NULL
             OR a.typ IS DISTINCT FROM e.typ
             OR a.is_nullable IS DISTINCT FROM e.is_nullable
-            OR coalesce(a.def_expr, '') IS DISTINCT FROM coalesce(e.def_norm, '')
+            OR coalesce(a.def_expr_norm, '') IS DISTINCT FROM coalesce(
+                 CASE WHEN e.def_norm IS NULL THEN NULL
+                      ELSE regexp_replace(
+                             regexp_replace(lower(e.def_norm), '[[:space:]]+', '', 'g'),
+                             'pg_catalog\.', '', 'g')
+                 END, '')
             OR a.identity_posture IS DISTINCT FROM ''
             OR a.generated_posture IS DISTINCT FROM ''))
     END AS actual,
-    'Defaults expected: gen_random_uuid()/now()/''received''::text per migration'::text AS details
+    'Defaults expected: gen_random_uuid()/now()/''received''::text per migration; pg_catalog qualification and whitespace normalized'::text AS details
   UNION ALL
   SELECT
     'A-02-02',
@@ -227,7 +253,12 @@ a02 AS (
          WHERE e.col IS NULL OR a.col IS NULL
             OR a.typ IS DISTINCT FROM e.typ
             OR a.is_nullable IS DISTINCT FROM e.is_nullable
-            OR coalesce(a.def_expr, '') IS DISTINCT FROM coalesce(e.def_norm, '')
+            OR coalesce(a.def_expr_norm, '') IS DISTINCT FROM coalesce(
+                 CASE WHEN e.def_norm IS NULL THEN NULL
+                      ELSE regexp_replace(
+                             regexp_replace(lower(e.def_norm), '[[:space:]]+', '', 'g'),
+                             'pg_catalog\.', '', 'g')
+                 END, '')
             OR a.identity_posture IS DISTINCT FROM ''
             OR a.generated_posture IS DISTINCT FROM ''
        )
@@ -244,11 +275,16 @@ a02 AS (
          WHERE e.col IS NULL OR a.col IS NULL
             OR a.typ IS DISTINCT FROM e.typ
             OR a.is_nullable IS DISTINCT FROM e.is_nullable
-            OR coalesce(a.def_expr, '') IS DISTINCT FROM coalesce(e.def_norm, '')
+            OR coalesce(a.def_expr_norm, '') IS DISTINCT FROM coalesce(
+                 CASE WHEN e.def_norm IS NULL THEN NULL
+                      ELSE regexp_replace(
+                             regexp_replace(lower(e.def_norm), '[[:space:]]+', '', 'g'),
+                             'pg_catalog\.', '', 'g')
+                 END, '')
             OR a.identity_posture IS DISTINCT FROM ''
             OR a.generated_posture IS DISTINCT FROM ''))
     END,
-    'Defaults expected: gen_random_uuid()/now() per migration'
+    'Defaults expected: gen_random_uuid()/now() per migration; pg_catalog qualification and whitespace normalized'
   UNION ALL
   SELECT
     'A-02-03',
@@ -257,11 +293,11 @@ a02 AS (
     CASE WHEN to_regclass('public.deletion_requests') IS NULL THEN 'NOT_RUN'
          WHEN EXISTS (
            SELECT 1 FROM actual_req_cols
-           WHERE col = 'id' AND def_expr = 'gen_random_uuid()'
+           WHERE col = 'id' AND def_expr_norm = 'gen_random_uuid()'
          ) THEN 'PASS' ELSE 'FAIL' END,
     'deletion_requests.id DEFAULT gen_random_uuid()',
     coalesce((SELECT def_expr FROM actual_req_cols WHERE col = 'id'), 'absent'),
-    'Database-controlled UUID default'
+    'Database-controlled UUID default; accepts gen_random_uuid() or pg_catalog.gen_random_uuid()'
   UNION ALL
   SELECT
     'A-02-04',
@@ -269,12 +305,12 @@ a02 AS (
     'P1',
     CASE WHEN to_regclass('public.deletion_requests') IS NULL THEN 'NOT_RUN'
          WHEN (SELECT count(*) FROM actual_req_cols
-               WHERE col IN ('requested_at','created_at') AND def_expr = 'now()') = 2
+               WHERE col IN ('requested_at','created_at') AND def_expr_norm = 'now()') = 2
          THEN 'PASS' ELSE 'FAIL' END,
     'deletion_requests.requested_at and created_at DEFAULT now()',
     (SELECT string_agg(col || '=' || coalesce(def_expr,'<null>'), ', ' ORDER BY col)
        FROM actual_req_cols WHERE col IN ('requested_at','created_at')),
-    'Database-controlled timestamps'
+    'Database-controlled timestamps; accepts now() or pg_catalog.now()'
   UNION ALL
   SELECT
     'A-02-05',
@@ -282,18 +318,20 @@ a02 AS (
     'P1',
     CASE WHEN to_regclass('public.deletion_request_executions') IS NULL THEN 'NOT_RUN'
          WHEN (SELECT count(*) FROM actual_exec_cols
-               WHERE col IN ('id') AND def_expr = 'gen_random_uuid()') = 1
+               WHERE col IN ('id') AND def_expr_norm = 'gen_random_uuid()') = 1
           AND (SELECT count(*) FROM actual_exec_cols
-               WHERE col IN ('executed_at','created_at') AND def_expr = 'now()') = 2
+               WHERE col IN ('executed_at','created_at') AND def_expr_norm = 'now()') = 2
          THEN 'PASS' ELSE 'FAIL' END,
     'executions id/executed_at/created_at database-controlled defaults',
     (SELECT string_agg(col || '=' || coalesce(def_expr,'<null>'), ', ' ORDER BY ord)
        FROM actual_exec_cols WHERE col IN ('id','executed_at','created_at')),
-    'Database-controlled UUID and timestamps on executions'
+    'Database-controlled UUID and timestamps on executions; harmless pg_catalog qualification accepted'
 ),
 -- A-03 — Constraint inventory
 -- CHECK expression normalization: strip whitespace and ::type casts only.
 -- Accept IN (...) and = ANY (ARRAY[...]) as equivalent closed-set forms.
+-- Closed vocabularies require exact normalized literal-set equality (reject
+-- supersets and subsets); token-presence-only matching is prohibited.
 expected_req_checks AS (
   SELECT * FROM (VALUES
     ('deletion_requests_user_email_nonempty_check',
@@ -366,33 +404,97 @@ check_expr_eval AS (
         r.def_norm LIKE '%char_length(btrim(user_email))>0%'
          OR r.def_norm LIKE '%char_length(btrim((user_email)))>0%'
       WHEN 'deletion_requests_request_scope_check' THEN
-        r.def_norm LIKE '%request_scope%'
-        AND r.def_norm LIKE '%account_wide%'
-        AND r.def_norm LIKE '%scan_specific%'
-        AND r.def_norm LIKE '%evidence_specific%'
-        AND (r.def_norm LIKE '%request_scopein(%'
-             OR r.def_norm LIKE '%request_scope=any(array[%')
+        (r.def_norm LIKE '%request_scopein(%'
+          OR r.def_norm LIKE '%request_scope=any(array[%')
+          OR r.def_norm LIKE '%(request_scope)in(%'
+          OR r.def_norm LIKE '%(request_scope)=any(array[%')
+        )
+        AND (
+          SELECT coalesce(array_agg(m[1] ORDER BY m[1]), ARRAY[]::text[])
+          FROM regexp_matches(coalesce(r.def_norm, ''), '''([^'']+)''', 'g') AS m
+        ) = ARRAY['account_wide', 'evidence_specific', 'scan_specific']::text[]
       WHEN 'deletion_requests_request_state_check' THEN
-        r.def_norm LIKE '%request_state%'
-        AND r.def_norm LIKE '%received%'
-        AND r.def_norm LIKE '%executed%'
-        AND r.def_norm LIKE '%rejected%'
-        AND (r.def_norm LIKE '%request_statein(%'
-             OR r.def_norm LIKE '%request_state=any(array[%')
+        (r.def_norm LIKE '%request_statein(%'
+          OR r.def_norm LIKE '%request_state=any(array[%'
+          OR r.def_norm LIKE '%(request_state)in(%'
+          OR r.def_norm LIKE '%(request_state)=any(array[%')
+        )
+        AND (
+          SELECT coalesce(array_agg(m[1] ORDER BY m[1]), ARRAY[]::text[])
+          FROM regexp_matches(coalesce(r.def_norm, ''), '''([^'']+)''', 'g') AS m
+        ) = ARRAY['executed', 'received', 'rejected']::text[]
       WHEN 'deletion_requests_resolution_code_check' THEN
         r.def_norm LIKE '%resolution_codeisnull%'
-        AND r.def_norm LIKE '%completed%'
-        AND r.def_norm LIKE '%invalid_request%'
-        AND r.def_norm LIKE '%duplicate_request%'
-        AND r.def_norm LIKE '%unauthorized_request%'
-        AND r.def_norm LIKE '%already_completed%'
-        AND r.def_norm LIKE '%execution_failed%'
+        AND (r.def_norm LIKE '%resolution_codein(%'
+             OR r.def_norm LIKE '%resolution_code=any(array[%'
+             OR r.def_norm LIKE '%(resolution_code)in(%'
+             OR r.def_norm LIKE '%(resolution_code)=any(array[%')
+        )
+        AND (
+          SELECT coalesce(array_agg(m[1] ORDER BY m[1]), ARRAY[]::text[])
+          FROM regexp_matches(coalesce(r.def_norm, ''), '''([^'']+)''', 'g') AS m
+        ) = ARRAY[
+          'already_completed',
+          'completed',
+          'duplicate_request',
+          'execution_failed',
+          'invalid_request',
+          'unauthorized_request'
+        ]::text[]
       WHEN 'deletion_requests_state_resolution_coupling_check' THEN
-        r.def_norm LIKE '%request_state=''received''andresolution_codeisnull%'
-        AND r.def_norm LIKE '%request_state=''executed''andresolution_code=''completed''%'
+        r.def_norm ~
+          'request_state=''received''\)*and\(*resolution_codeisnull'
+        AND r.def_norm ~
+          'request_state=''executed''\)*and\(*resolution_code=''completed'''
         AND r.def_norm LIKE '%request_state=''rejected''%'
-        AND r.def_norm LIKE '%invalid_request%'
-        AND r.def_norm LIKE '%execution_failed%'
+        AND (
+          (
+            r.def_norm ~ 'request_state=''rejected''and\(*resolution_codein\('
+            AND (
+              SELECT coalesce(array_agg(m[1] ORDER BY m[1]), ARRAY[]::text[])
+              FROM regexp_matches(
+                coalesce(
+                  substring(
+                    r.def_norm
+                    from 'request_state=''rejected''and\(*resolution_codein\(([^)]*)\)'
+                  ),
+                  ''
+                ),
+                '''([^'']+)''',
+                'g'
+              ) AS m
+            ) = ARRAY[
+              'already_completed',
+              'duplicate_request',
+              'execution_failed',
+              'invalid_request',
+              'unauthorized_request'
+            ]::text[]
+          )
+          OR (
+            r.def_norm ~ 'request_state=''rejected''and\(*resolution_code=any\(array\['
+            AND (
+              SELECT coalesce(array_agg(m[1] ORDER BY m[1]), ARRAY[]::text[])
+              FROM regexp_matches(
+                coalesce(
+                  substring(
+                    r.def_norm
+                    from 'request_state=''rejected''and\(*resolution_code=any\(array\[([^\]]*)\]'
+                  ),
+                  ''
+                ),
+                '''([^'']+)''',
+                'g'
+              ) AS m
+            ) = ARRAY[
+              'already_completed',
+              'duplicate_request',
+              'execution_failed',
+              'invalid_request',
+              'unauthorized_request'
+            ]::text[]
+          )
+        )
       WHEN 'deletion_requests_scope_target_matrix_check' THEN
         r.def_norm LIKE '%request_scope=''account_wide''%'
         AND r.def_norm LIKE '%target_scan_record_idisnull%'
@@ -405,10 +507,20 @@ check_expr_eval AS (
         AND r.def_norm LIKE '%target_evidence_idisnotnull%'
       WHEN 'deletion_requests_evidence_table_whitelist_check' THEN
         r.def_norm LIKE '%target_evidence_tableisnull%'
-        AND r.def_norm LIKE '%user_description_evidence%'
-        AND r.def_norm LIKE '%image_evidence%'
-        AND r.def_norm LIKE '%product_mention_evidence%'
-        AND r.def_norm LIKE '%ai_analysis_evidence%'
+        AND (r.def_norm LIKE '%target_evidence_tablein(%'
+             OR r.def_norm LIKE '%target_evidence_table=any(array[%'
+             OR r.def_norm LIKE '%(target_evidence_table)in(%'
+             OR r.def_norm LIKE '%(target_evidence_table)=any(array[%')
+        )
+        AND (
+          SELECT coalesce(array_agg(m[1] ORDER BY m[1]), ARRAY[]::text[])
+          FROM regexp_matches(coalesce(r.def_norm, ''), '''([^'']+)''', 'g') AS m
+        ) = ARRAY[
+          'ai_analysis_evidence',
+          'image_evidence',
+          'product_mention_evidence',
+          'user_description_evidence'
+        ]::text[]
       WHEN 'deletion_requests_timestamp_ordering_check' THEN
         r.def_norm LIKE '%validated_atisnullorrequested_at<=validated_at%'
         AND r.def_norm LIKE '%resolved_atisnullorrequested_at<=resolved_at%'
@@ -478,7 +590,7 @@ a03 AS (
                 conname || '=' || CASE WHEN coalesce(expr_ok,false) THEN 'PASS' ELSE 'FAIL' END,
                 ', ' ORDER BY conname) FROM check_expr_eval), 'absent')
     END,
-    'Normalized whitespace/casts; IN and =ANY(ARRAY[]) treated as equivalent closed-set forms; not vocabulary-fragment-only'
+    'Normalized whitespace/casts; IN and =ANY(ARRAY[]) equivalent; closed vocabularies use exact normalized literal-set equality (reject supersets/subsets)'
   UNION ALL
   SELECT
     'A-03-03',
@@ -543,7 +655,7 @@ a03 AS (
     'deletion_requests_state_resolution_coupling_check expression',
     coalesce((SELECT left(def, 300) FROM check_expr_eval
                WHERE conname = 'deletion_requests_state_resolution_coupling_check'), 'absent'),
-    'State/resolution coupling'
+    'State/resolution coupling; rejected binds exact rejection set: already_completed, duplicate_request, execution_failed, invalid_request, unauthorized_request'
   UNION ALL
   SELECT
     'A-03-08',
@@ -709,10 +821,22 @@ a03 AS (
     'P1',
     CASE WHEN to_regclass('public.deletion_request_executions') IS NULL THEN 'NOT_RUN'
          WHEN (SELECT count(*) FROM exec_constraints WHERE contype = 'p') = 1
+          AND (
+            SELECT array_agg(a.attname::text ORDER BY u.ordinality)
+            FROM pg_catalog.pg_constraint con
+            JOIN pg_catalog.pg_class c ON c.oid = con.conrelid
+            JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            CROSS JOIN LATERAL unnest(con.conkey) WITH ORDINALITY AS u(attnum, ordinality)
+            JOIN pg_catalog.pg_attribute a
+              ON a.attrelid = con.conrelid AND a.attnum = u.attnum
+            WHERE n.nspname = 'public'
+              AND c.relname = 'deletion_request_executions'
+              AND con.contype = 'p'
+          ) = ARRAY['id']::text[]
          THEN 'PASS' ELSE 'FAIL' END,
-    'deletion_request_executions PRIMARY KEY present',
+    'deletion_request_executions PRIMARY KEY on id only',
     coalesce((SELECT string_agg(conname || ':' || def, ' | ') FROM exec_constraints WHERE contype = 'p'), 'absent'),
-    'Primary key on id'
+    'Exactly one primary key; catalog attribute binding requires column set {id} only'
   UNION ALL
   SELECT
     'A-03-20',
@@ -752,6 +876,33 @@ slice_indexes AS (
     i.relname AS idxname,
     t.relname AS tbl,
     ix.indisunique AS is_unique,
+    (ix.indpred IS NOT NULL) AS is_partial,
+    (
+      SELECT array_agg(a.attname::text ORDER BY u.ordinality)
+      FROM unnest(ix.indkey) WITH ORDINALITY AS u(attnum, ordinality)
+      JOIN pg_catalog.pg_attribute a
+        ON a.attrelid = ix.indrelid AND a.attnum = u.attnum
+      WHERE u.ordinality <= ix.indnkeyatts
+        AND u.attnum > 0
+    ) AS key_cols,
+    (
+      SELECT array_agg(
+               CASE WHEN (o.opt & 1) = 1 THEN 'DESC' ELSE 'ASC' END
+               ORDER BY o.ordinality
+             )
+      FROM unnest(ix.indoption) WITH ORDINALITY AS o(opt, ordinality)
+      WHERE o.ordinality <= ix.indnkeyatts
+    ) AS key_dirs,
+    CASE
+      WHEN ix.indpred IS NULL THEN NULL
+      ELSE regexp_replace(
+             regexp_replace(
+               regexp_replace(
+                 lower(pg_catalog.pg_get_expr(ix.indpred, ix.indrelid)),
+                 '::[a-z0-9 _\[\]"]+', '', 'g'),
+               '[[:space:]]+', '', 'g'),
+             '[()]', '', 'g')
+    END AS pred_norm,
     pg_catalog.pg_get_indexdef(i.oid) AS idxdef
   FROM pg_catalog.pg_index ix
   JOIN pg_catalog.pg_class i ON i.oid = ix.indexrelid
@@ -797,12 +948,13 @@ a04 AS (
          WHEN EXISTS (
            SELECT 1 FROM slice_indexes
            WHERE idxname = 'deletion_requests_user_email_requested_at_idx'
-             AND idxdef LIKE '%user_email%'
-             AND idxdef LIKE '%requested_at%DESC%'
+             AND key_cols = ARRAY['user_email', 'requested_at']::text[]
+             AND key_dirs = ARRAY['ASC', 'DESC']::text[]
+             AND NOT is_partial
          ) THEN 'PASS' ELSE 'FAIL' END,
-    'user_email, requested_at DESC',
+    'user_email ASC, requested_at DESC (non-partial)',
     coalesce((SELECT idxdef FROM slice_indexes WHERE idxname = 'deletion_requests_user_email_requested_at_idx'), 'absent'),
-    'Ownership/recency index'
+    'Ownership/recency index; exact key order and ASC/DESC via pg_index'
   UNION ALL
   SELECT
     'A-04-03',
@@ -812,12 +964,13 @@ a04 AS (
          WHEN EXISTS (
            SELECT 1 FROM slice_indexes
            WHERE idxname = 'deletion_requests_request_state_requested_at_idx'
-             AND idxdef LIKE '%request_state%'
-             AND idxdef LIKE '%requested_at%'
+             AND key_cols = ARRAY['request_state', 'requested_at']::text[]
+             AND key_dirs = ARRAY['ASC', 'ASC']::text[]
+             AND NOT is_partial
          ) THEN 'PASS' ELSE 'FAIL' END,
-    'request_state, requested_at ASC',
+    'request_state ASC, requested_at ASC (non-partial)',
     coalesce((SELECT idxdef FROM slice_indexes WHERE idxname = 'deletion_requests_request_state_requested_at_idx'), 'absent'),
-    'Workflow-state index'
+    'Workflow-state index; ASC required where migration specifies ASC'
   UNION ALL
   SELECT
     'A-04-04',
@@ -827,12 +980,14 @@ a04 AS (
          WHEN EXISTS (
            SELECT 1 FROM slice_indexes
            WHERE idxname = 'deletion_requests_target_scan_record_id_idx'
-             AND idxdef LIKE '%target_scan_record_id%'
-             AND idxdef LIKE '%WHERE%target_scan_record_id%IS NOT NULL%'
+             AND key_cols = ARRAY['target_scan_record_id']::text[]
+             AND key_dirs = ARRAY['ASC']::text[]
+             AND is_partial
+             AND pred_norm = 'target_scan_record_idisnotnull'
          ) THEN 'PASS' ELSE 'FAIL' END,
-    'partial index on target_scan_record_id IS NOT NULL',
+    'partial index on target_scan_record_id WHERE target_scan_record_id IS NOT NULL',
     coalesce((SELECT idxdef FROM slice_indexes WHERE idxname = 'deletion_requests_target_scan_record_id_idx'), 'absent'),
-    'Session target lookup'
+    'Session target lookup; exact partial predicate via pg_get_expr(indpred)'
   UNION ALL
   SELECT
     'A-04-05',
@@ -842,13 +997,20 @@ a04 AS (
          WHEN EXISTS (
            SELECT 1 FROM slice_indexes
            WHERE idxname = 'deletion_requests_target_evidence_idx'
-             AND idxdef LIKE '%target_evidence_table%'
-             AND idxdef LIKE '%target_evidence_id%'
-             AND idxdef LIKE '%WHERE%'
+             AND key_cols = ARRAY['target_evidence_table', 'target_evidence_id']::text[]
+             AND key_dirs = ARRAY['ASC', 'ASC']::text[]
+             AND is_partial
+             AND (
+               SELECT coalesce(array_agg(x ORDER BY x), ARRAY[]::text[])
+               FROM unnest(string_to_array(pred_norm, 'and')) AS x
+             ) = ARRAY[
+               'target_evidence_idisnotnull',
+               'target_evidence_tableisnotnull'
+             ]::text[]
          ) THEN 'PASS' ELSE 'FAIL' END,
-    'partial composite evidence target index',
+    'partial composite (target_evidence_table, target_evidence_id) with both IS NOT NULL predicates',
     coalesce((SELECT idxdef FROM slice_indexes WHERE idxname = 'deletion_requests_target_evidence_idx'), 'absent'),
-    'Evidence target lookup'
+    'Evidence target lookup; exact key order and exact two-clause partial predicate set'
   UNION ALL
   SELECT
     'A-04-06',
@@ -858,10 +1020,11 @@ a04 AS (
          WHEN EXISTS (
            SELECT 1 FROM slice_indexes
            WHERE idxname = 'deletion_request_executions_scan_record_id_idx'
-             AND idxdef LIKE '%scan_record_id%'
-             AND idxdef NOT LIKE '%WHERE%'
+             AND key_cols = ARRAY['scan_record_id']::text[]
+             AND key_dirs = ARRAY['ASC']::text[]
+             AND NOT is_partial
          ) THEN 'PASS' ELSE 'FAIL' END,
-    'non-partial index on deletion_request_executions(scan_record_id)',
+    'non-partial index on deletion_request_executions(scan_record_id ASC)',
     coalesce((SELECT idxdef FROM slice_indexes WHERE idxname = 'deletion_request_executions_scan_record_id_idx'), 'absent'),
     'Reverse lookup index; standalone deletion_request_id index intentionally omitted'
 ),
@@ -991,6 +1154,8 @@ a05 AS (
     'Owner is environment-dependent; reported as INFO, not a hard role equality FAIL'
 ),
 -- A-06 — Trigger inventory
+-- Inventory includes all non-internal triggers on the two Slice 2 tables.
+-- PostgreSQL internal triggers (tgisinternal) are excluded and must not fail.
 trig_meta AS (
   SELECT
     n.nspname AS schema_name,
@@ -1013,21 +1178,35 @@ trig_meta AS (
   WHERE NOT t.tgisinternal
     AND n.nspname = 'public'
     AND c.relname IN ('deletion_requests', 'deletion_request_executions')
-    AND t.tgname IN (
-      'trg_deletion_requests_transition_guard',
-      'trg_deletion_requests_execution_consistency',
-      'trg_deletion_request_executions_execution_consistency'
-    )
 ),
 a06 AS (
   SELECT
     'A-06-01'::text AS check_id,
     'trigger_inventory'::text AS verification_area,
     'P0'::text AS severity,
-    CASE WHEN (SELECT count(*) FROM trig_meta) = 3 THEN 'PASS' ELSE 'FAIL' END AS status,
-    'exactly three Slice triggers present'::text AS expected,
-    format('found=%s', (SELECT count(*) FROM trig_meta)) AS actual,
-    coalesce((SELECT string_agg(tgname, ', ' ORDER BY tgname) FROM trig_meta), '<none>') AS details
+    CASE WHEN (SELECT count(*) FROM trig_meta) = 3
+          AND NOT EXISTS (
+            SELECT 1 FROM trig_meta
+            WHERE tgname NOT IN (
+              'trg_deletion_requests_transition_guard',
+              'trg_deletion_requests_execution_consistency',
+              'trg_deletion_request_executions_execution_consistency'
+            )
+          )
+          AND NOT EXISTS (
+            SELECT unnest(ARRAY[
+              'trg_deletion_requests_transition_guard',
+              'trg_deletion_requests_execution_consistency',
+              'trg_deletion_request_executions_execution_consistency'
+            ])
+            EXCEPT SELECT tgname FROM trig_meta
+          )
+         THEN 'PASS' ELSE 'FAIL' END AS status,
+    'exactly the three migration-approved non-internal Slice 2 triggers and no unexpected extras'::text AS expected,
+    format('found=%s names=%s',
+      (SELECT count(*) FROM trig_meta),
+      coalesce((SELECT string_agg(tgname, ', ' ORDER BY tgname) FROM trig_meta), '<none>')) AS actual,
+    'Approved names from committed migration; internal triggers excluded via NOT tgisinternal'::text AS details
   UNION ALL
   SELECT
     'A-06-02',
@@ -1395,6 +1574,17 @@ col_ins_exec AS (
     AND a.attnum > 0 AND NOT a.attisdropped
     AND has_column_privilege('service_role', c.oid, a.attname, 'INSERT')
 ),
+-- has_column_privilege(UPDATE) is true for table-level or column-level UPDATE.
+col_upd_exec AS (
+  SELECT a.attname
+  FROM pg_catalog.pg_attribute a
+  JOIN pg_catalog.pg_class c ON c.oid = a.attrelid
+  JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+  WHERE n.nspname = 'public'
+    AND c.relname = 'deletion_request_executions'
+    AND a.attnum > 0 AND NOT a.attisdropped
+    AND has_column_privilege('service_role', c.oid, a.attname, 'UPDATE')
+),
 a09 AS (
   SELECT
     'A-09-01'::text AS check_id,
@@ -1523,6 +1713,17 @@ a09 AS (
     'authenticated/anon/PUBLIC have no column or table INSERT/UPDATE on either table',
     'scanned',
     'Client-facing roles and PUBLIC must not hold write grants'
+  UNION ALL
+  SELECT
+    'A-09-07',
+    'column_privileges',
+    'P0',
+    CASE WHEN to_regclass('public.deletion_request_executions') IS NULL THEN 'NOT_RUN'
+         WHEN NOT EXISTS (SELECT 1 FROM col_upd_exec)
+         THEN 'PASS' ELSE 'FAIL' END,
+    'service_role has no UPDATE privilege on any column of deletion_request_executions',
+    coalesce((SELECT string_agg(attname, ', ' ORDER BY attname) FROM col_upd_exec), '<none>'),
+    'Append-only executions: fails on table-level or column-level UPDATE; INSERT-column exact set remains A-09-04/A-09-05'
 ),
 -- A-10 — Comments and governance metadata
 a10 AS (
