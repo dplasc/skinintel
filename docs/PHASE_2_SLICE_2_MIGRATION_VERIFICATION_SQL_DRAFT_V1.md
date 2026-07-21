@@ -2955,6 +2955,9 @@ BEGIN
     SET CONSTRAINTS
       trg_deletion_requests_execution_consistency,
       trg_deletion_request_executions_execution_consistency IMMEDIATE;
+    SET CONSTRAINTS
+      trg_deletion_requests_execution_consistency,
+      trg_deletion_request_executions_execution_consistency DEFERRED;
     INSERT INTO p2s2_vfy_b_results VALUES
       ('B-04-01', 'terminal_transitions', 'P1', 'PASS',
        'valid received->executed with prior validation and matching attribution',
@@ -3011,6 +3014,9 @@ BEGIN
     SET CONSTRAINTS
       trg_deletion_requests_execution_consistency,
       trg_deletion_request_executions_execution_consistency IMMEDIATE;
+    SET CONSTRAINTS
+      trg_deletion_requests_execution_consistency,
+      trg_deletion_request_executions_execution_consistency DEFERRED;
     INSERT INTO p2s2_vfy_b_results VALUES
       ('B-04-03', 'terminal_transitions', 'P1', 'PASS',
        'valid received->rejected with validated_at null',
@@ -3167,6 +3173,9 @@ BEGIN
     SET CONSTRAINTS
       trg_deletion_requests_execution_consistency,
       trg_deletion_request_executions_execution_consistency IMMEDIATE;
+    SET CONSTRAINTS
+      trg_deletion_requests_execution_consistency,
+      trg_deletion_request_executions_execution_consistency DEFERRED;
     BEGIN
       v_ok := false;
       UPDATE public.deletion_requests
@@ -3212,24 +3221,25 @@ BEGIN
     INSERT INTO public.deletion_requests (id, user_email, request_scope)
     VALUES ('c1000000-0000-4000-8000-000000000501', c_email, 'account_wide')
     RETURNING id INTO v_r;
-    BEGIN
-      SET CONSTRAINTS
-        trg_deletion_requests_execution_consistency,
-        trg_deletion_request_executions_execution_consistency IMMEDIATE;
-      INSERT INTO p2s2_vfy_b_results VALUES
-        ('B-05-01', 'deferred_consistency', 'P1', 'PASS',
-         'received + zero executions commits deferred check',
-         'ok', 'immediate check via SET CONSTRAINTS IMMEDIATE');
-    EXCEPTION WHEN OTHERS THEN
-      GET STACKED DIAGNOSTICS v_sqlstate = RETURNED_SQLSTATE, v_msg = MESSAGE_TEXT;
-      INSERT INTO p2s2_vfy_b_results VALUES
-        ('B-05-01', 'deferred_consistency', 'P1', 'FAIL',
-         'should pass',
-         'sqlstate=' || v_sqlstate || ' msg=' || v_msg,
-         CASE WHEN v_sqlstate = '42501'
-              THEN 'Permission-denied 42501 is not an expected guard rejection'
-              ELSE 'Unexpected failure' END);
-    END;
+    SET CONSTRAINTS
+      trg_deletion_requests_execution_consistency,
+      trg_deletion_request_executions_execution_consistency IMMEDIATE;
+    SET CONSTRAINTS
+      trg_deletion_requests_execution_consistency,
+      trg_deletion_request_executions_execution_consistency DEFERRED;
+    INSERT INTO p2s2_vfy_b_results VALUES
+      ('B-05-01', 'deferred_consistency', 'P1', 'PASS',
+       'received + zero executions commits deferred check',
+       'ok', 'immediate check via SET CONSTRAINTS IMMEDIATE');
+  EXCEPTION WHEN OTHERS THEN
+    GET STACKED DIAGNOSTICS v_sqlstate = RETURNED_SQLSTATE, v_msg = MESSAGE_TEXT;
+    INSERT INTO p2s2_vfy_b_results VALUES
+      ('B-05-01', 'deferred_consistency', 'P1', 'FAIL',
+       'should pass',
+       'sqlstate=' || v_sqlstate || ' msg=' || v_msg,
+       CASE WHEN v_sqlstate = '42501'
+            THEN 'Permission-denied 42501 is not an expected guard rejection'
+            ELSE 'Unexpected failure' END);
   END;
 
   -- B-05-02 received with an execution row (expected failure; fully isolated)
@@ -3277,24 +3287,25 @@ BEGIN
            resolution_code = 'invalid_request',
            resolved_at = now()
      WHERE id = v_rj;
-    BEGIN
-      SET CONSTRAINTS
-        trg_deletion_requests_execution_consistency,
-        trg_deletion_request_executions_execution_consistency IMMEDIATE;
-      INSERT INTO p2s2_vfy_b_results VALUES
-        ('B-05-03', 'deferred_consistency', 'P1', 'PASS',
-         'rejected + zero executions passes deferred check',
-         'ok', 'deferred guard');
-    EXCEPTION WHEN OTHERS THEN
-      GET STACKED DIAGNOSTICS v_sqlstate = RETURNED_SQLSTATE, v_msg = MESSAGE_TEXT;
-      INSERT INTO p2s2_vfy_b_results VALUES
-        ('B-05-03', 'deferred_consistency', 'P1', 'FAIL',
-         'should pass',
-         'sqlstate=' || v_sqlstate || ' msg=' || v_msg,
-         CASE WHEN v_sqlstate = '42501'
-              THEN 'Permission-denied 42501 is not an expected guard rejection'
-              ELSE 'Unexpected failure' END);
-    END;
+    SET CONSTRAINTS
+      trg_deletion_requests_execution_consistency,
+      trg_deletion_request_executions_execution_consistency IMMEDIATE;
+    SET CONSTRAINTS
+      trg_deletion_requests_execution_consistency,
+      trg_deletion_request_executions_execution_consistency DEFERRED;
+    INSERT INTO p2s2_vfy_b_results VALUES
+      ('B-05-03', 'deferred_consistency', 'P1', 'PASS',
+       'rejected + zero executions passes deferred check',
+       'ok', 'deferred guard');
+  EXCEPTION WHEN OTHERS THEN
+    GET STACKED DIAGNOSTICS v_sqlstate = RETURNED_SQLSTATE, v_msg = MESSAGE_TEXT;
+    INSERT INTO p2s2_vfy_b_results VALUES
+      ('B-05-03', 'deferred_consistency', 'P1', 'FAIL',
+       'should pass',
+       'sqlstate=' || v_sqlstate || ' msg=' || v_msg,
+       CASE WHEN v_sqlstate = '42501'
+            THEN 'Permission-denied 42501 is not an expected guard rejection'
+            ELSE 'Unexpected failure' END);
   END;
 
   -- B-05-04 rejected with an execution row (expected failure; fully isolated)
@@ -3352,24 +3363,25 @@ BEGIN
     UPDATE public.deletion_requests
        SET request_state = 'executed', resolution_code = 'completed', resolved_at = now()
      WHERE id = v_ss;
-    BEGIN
-      SET CONSTRAINTS
-        trg_deletion_requests_execution_consistency,
-        trg_deletion_request_executions_execution_consistency IMMEDIATE;
-      INSERT INTO p2s2_vfy_b_results VALUES
-        ('B-06-01', 'deferred_consistency', 'P1', 'PASS',
-         'scan_specific executed with one matching attribution passes',
-         'ok', 'deferred guard');
-    EXCEPTION WHEN OTHERS THEN
-      GET STACKED DIAGNOSTICS v_sqlstate = RETURNED_SQLSTATE, v_msg = MESSAGE_TEXT;
-      INSERT INTO p2s2_vfy_b_results VALUES
-        ('B-06-01', 'deferred_consistency', 'P1', 'FAIL',
-         'should pass',
-         'sqlstate=' || v_sqlstate || ' msg=' || v_msg,
-         CASE WHEN v_sqlstate = '42501'
-              THEN 'Permission-denied 42501 is not an expected guard rejection'
-              ELSE 'Unexpected failure' END);
-    END;
+    SET CONSTRAINTS
+      trg_deletion_requests_execution_consistency,
+      trg_deletion_request_executions_execution_consistency IMMEDIATE;
+    SET CONSTRAINTS
+      trg_deletion_requests_execution_consistency,
+      trg_deletion_request_executions_execution_consistency DEFERRED;
+    INSERT INTO p2s2_vfy_b_results VALUES
+      ('B-06-01', 'deferred_consistency', 'P1', 'PASS',
+       'scan_specific executed with one matching attribution passes',
+       'ok', 'deferred guard');
+  EXCEPTION WHEN OTHERS THEN
+    GET STACKED DIAGNOSTICS v_sqlstate = RETURNED_SQLSTATE, v_msg = MESSAGE_TEXT;
+    INSERT INTO p2s2_vfy_b_results VALUES
+      ('B-06-01', 'deferred_consistency', 'P1', 'FAIL',
+       'should pass',
+       'sqlstate=' || v_sqlstate || ' msg=' || v_msg,
+       CASE WHEN v_sqlstate = '42501'
+            THEN 'Permission-denied 42501 is not an expected guard rejection'
+            ELSE 'Unexpected failure' END);
   END;
 
   -- B-06-02 zero attribution rows (expected failure; fully isolated)
@@ -3489,19 +3501,23 @@ BEGIN
   DECLARE
     v_aw uuid;
   BEGIN
-    INSERT INTO public.deletion_requests (id, user_email, request_scope)
-    VALUES ('c1000000-0000-4000-8000-000000000701', c_email, 'account_wide')
-    RETURNING id INTO v_aw;
-    UPDATE public.deletion_requests SET validated_at = now() WHERE id = v_aw;
-    INSERT INTO public.deletion_request_executions (deletion_request_id, scan_record_id)
-    VALUES (v_aw, c_scan_a);
-    UPDATE public.deletion_requests
-       SET request_state = 'executed', resolution_code = 'completed', resolved_at = now()
-     WHERE id = v_aw;
+    -- B-07-01 exactly one attribution (success; setup fully exception-isolated)
     BEGIN
+      INSERT INTO public.deletion_requests (id, user_email, request_scope)
+      VALUES ('c1000000-0000-4000-8000-000000000701', c_email, 'account_wide')
+      RETURNING id INTO v_aw;
+      UPDATE public.deletion_requests SET validated_at = now() WHERE id = v_aw;
+      INSERT INTO public.deletion_request_executions (deletion_request_id, scan_record_id)
+      VALUES (v_aw, c_scan_a);
+      UPDATE public.deletion_requests
+         SET request_state = 'executed', resolution_code = 'completed', resolved_at = now()
+       WHERE id = v_aw;
       SET CONSTRAINTS
         trg_deletion_requests_execution_consistency,
         trg_deletion_request_executions_execution_consistency IMMEDIATE;
+      SET CONSTRAINTS
+        trg_deletion_requests_execution_consistency,
+        trg_deletion_request_executions_execution_consistency DEFERRED;
       INSERT INTO p2s2_vfy_b_results VALUES
         ('B-07-01', 'deferred_consistency', 'P1', 'PASS',
          'account_wide executed with one attribution passes',
@@ -3518,12 +3534,15 @@ BEGIN
     END;
 
     -- B-07-02 more than one attribution row where allowed
-    INSERT INTO public.deletion_request_executions (deletion_request_id, scan_record_id)
-    VALUES (v_aw, c_scan_b);
     BEGIN
+      INSERT INTO public.deletion_request_executions (deletion_request_id, scan_record_id)
+      VALUES (v_aw, c_scan_b);
       SET CONSTRAINTS
         trg_deletion_requests_execution_consistency,
         trg_deletion_request_executions_execution_consistency IMMEDIATE;
+      SET CONSTRAINTS
+        trg_deletion_requests_execution_consistency,
+        trg_deletion_request_executions_execution_consistency DEFERRED;
       INSERT INTO p2s2_vfy_b_results VALUES
         ('B-07-02', 'deferred_consistency', 'P1', 'PASS',
          'account_wide executed with multiple attributions passes',
@@ -3538,12 +3557,15 @@ BEGIN
     END;
 
     -- B-07-03 F-P2-3 residual observation: post-terminal additional attribution (INFO)
-    INSERT INTO public.deletion_request_executions (deletion_request_id, scan_record_id)
-    VALUES (v_aw, c_scan_c);
     BEGIN
+      INSERT INTO public.deletion_request_executions (deletion_request_id, scan_record_id)
+      VALUES (v_aw, c_scan_c);
       SET CONSTRAINTS
         trg_deletion_requests_execution_consistency,
         trg_deletion_request_executions_execution_consistency IMMEDIATE;
+      SET CONSTRAINTS
+        trg_deletion_requests_execution_consistency,
+        trg_deletion_request_executions_execution_consistency DEFERRED;
       INSERT INTO p2s2_vfy_b_results VALUES
         ('B-07-03', 'accepted_residual_f_p2_3', 'P2', 'INFO',
          'post-terminal account_wide attribution insert remains possible while invariants hold',
@@ -3610,24 +3632,25 @@ BEGIN
     UPDATE public.deletion_requests
        SET request_state = 'executed', resolution_code = 'completed', resolved_at = now()
      WHERE id = v_es;
-    BEGIN
-      SET CONSTRAINTS
-        trg_deletion_requests_execution_consistency,
-        trg_deletion_request_executions_execution_consistency IMMEDIATE;
-      INSERT INTO p2s2_vfy_b_results VALUES
-        ('B-08-01', 'deferred_consistency', 'P1', 'PASS',
-         'evidence_specific executed with zero session executions passes',
-         'ok', 'deferred guard');
-    EXCEPTION WHEN OTHERS THEN
-      GET STACKED DIAGNOSTICS v_sqlstate = RETURNED_SQLSTATE, v_msg = MESSAGE_TEXT;
-      INSERT INTO p2s2_vfy_b_results VALUES
-        ('B-08-01', 'deferred_consistency', 'P1', 'FAIL',
-         'should pass',
-         'sqlstate=' || v_sqlstate || ' msg=' || v_msg,
-         CASE WHEN v_sqlstate = '42501'
-              THEN 'Permission-denied 42501 is not an expected guard rejection'
-              ELSE 'Unexpected failure' END);
-    END;
+    SET CONSTRAINTS
+      trg_deletion_requests_execution_consistency,
+      trg_deletion_request_executions_execution_consistency IMMEDIATE;
+    SET CONSTRAINTS
+      trg_deletion_requests_execution_consistency,
+      trg_deletion_request_executions_execution_consistency DEFERRED;
+    INSERT INTO p2s2_vfy_b_results VALUES
+      ('B-08-01', 'deferred_consistency', 'P1', 'PASS',
+       'evidence_specific executed with zero session executions passes',
+       'ok', 'deferred guard');
+  EXCEPTION WHEN OTHERS THEN
+    GET STACKED DIAGNOSTICS v_sqlstate = RETURNED_SQLSTATE, v_msg = MESSAGE_TEXT;
+    INSERT INTO p2s2_vfy_b_results VALUES
+      ('B-08-01', 'deferred_consistency', 'P1', 'FAIL',
+       'should pass',
+       'sqlstate=' || v_sqlstate || ' msg=' || v_msg,
+       CASE WHEN v_sqlstate = '42501'
+            THEN 'Permission-denied 42501 is not an expected guard rejection'
+            ELSE 'Unexpected failure' END);
   END;
 
   -- B-08-02 one session execution row (expected failure; fully isolated)
