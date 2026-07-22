@@ -126,30 +126,45 @@ This gate is hard. No apply command may be considered until every row below is r
 |----------------|-----------------------------------|
 | Exact Supabase DEV project reference | **UNRESOLVED — MUST BE SUPPLIED AND VERIFIED AT THE SEPARATE EXECUTION GATE** |
 | Exact expected DEV host / project name | **UNRESOLVED — MUST BE SUPPLIED AND VERIFIED AT THE SEPARATE EXECUTION GATE** |
-| Exact PROD project reference (denylist) | **UNRESOLVED — MUST BE SUPPLIED AND VERIFIED AT THE SEPARATE EXECUTION GATE** |
-| Exact PROD host / project name (denylist) | **UNRESOLVED — MUST BE SUPPLIED AND VERIFIED AT THE SEPARATE EXECUTION GATE** |
+| Exact PROD project reference (denylist) | `rbukikinzyhyaixjvnhf` — **confirmed PROD; hard STOP per matching semantics below** |
+| Exact PROD project name (denylist) | `skinintel` — **hard STOP only on exact project-name match per matching semantics below** |
+| Exact PROD safe host (denylist) | `rbukikinzyhyaixjvnhf.supabase.co` — **hard STOP per matching semantics below** |
+| PROD region (denylist context) | `eu-west-1 — West EU (Ireland)` — **context only; never sufficient alone to prove PROD** |
 
-Tracked repository evidence inspected for this procedure does **not** contain committed DEV or PROD project references. Values must **not** be invented. They must be supplied by Project Manager / environment owners at the separate execution gate and independently verified before any command that contacts Supabase.
+**PROD denylist matching semantics (binding):**
+
+1. **Project reference** `rbukikinzyhyaixjvnhf` — Hard STOP when the observed project ref exactly equals it, or when this complete reference string appears inside a URL, host, configuration value, project link, or command output.
+2. **Host** `rbukikinzyhyaixjvnhf.supabase.co` — Hard STOP when the observed host exactly equals it, or when this complete host string appears inside a URL, configuration value, project link, or command output.
+3. **Project name** `skinintel` — Hard STOP only when the observed project name, after trimming whitespace and case normalization, exactly equals `skinintel`. Do **not** treat names such as `skinintel-dev` as a PROD match based on project-name substring alone.
+4. **Region** `eu-west-1 — West EU (Ireland)` — Denylist context only. The region alone must never be treated as sufficient proof that a project is PROD; multiple projects may share a region.
+
+**Confirmed PROD binding (procedure-authoring correction):** Supabase project reference `rbukikinzyhyaixjvnhf` is **PROD**. Hard STOP applies per the matching semantics above (including when the complete PROD reference or complete PROD host appears in any command, URL, host, project link, configuration value, or command output). This PROD project must **never** be contacted during a DEV migration session.
+
+**DEV identity remains unresolved:** Tracked repository evidence does **not** contain a committed, verified DEV project reference. DEV values must **not** be invented. They must be supplied by Project Manager / environment owners at the separate execution gate and independently verified before any command that contacts Supabase.
+
+**Local config is not DEV proof:** The current `.env.local` project reference points at **PROD** (`rbukikinzyhyaixjvnhf`). That file must **not** be used as proof of DEV identity. **Absence of a separate confirmed DEV project keeps migration execution prohibited.**
 
 ### 3.1 Mandatory operator confirmations at execution gate
 
 Before any Supabase-contacting command:
 
 1. Record the exact approved DEV project reference and host/project name.
-2. Record the exact PROD project reference and host/project name as **denylisted targets**.
-3. Confirm in writing that DEV and PROD identities are different.
-4. Confirm the currently linked/selected project independently proves as DEV (local config alone is insufficient).
-5. Confirm that no command output includes the PROD reference or PROD host.
+2. Record the locked PROD denylist: reference `rbukikinzyhyaixjvnhf`, project name `skinintel` (exact-name match only), host `rbukikinzyhyaixjvnhf.supabase.co`, region `eu-west-1 — West EU (Ireland)` (context only).
+3. Confirm in writing that approved DEV identity is **not** PROD and does not trigger a PROD denylist hard STOP under Section 3 matching semantics (including: observed DEV project ref must not exactly equal `rbukikinzyhyaixjvnhf`; observed host must not exactly equal or embed the complete host `rbukikinzyhyaixjvnhf.supabase.co`; observed project name must not exactly equal `skinintel` after trim and case normalization — e.g. `skinintel-dev` is not a PROD project-name match by substring alone).
+4. Confirm the currently linked/selected project independently proves as DEV (local config and `.env.local` alone are insufficient; `.env.local` currently indicates PROD).
+5. Confirm that no command output triggers a PROD denylist hard STOP under Section 3 matching semantics (complete PROD reference or complete PROD host embedded in output; project name exactly `skinintel` after trim and case normalization).
 
 ### 3.2 Immediate STOP conditions for environment identity
 
 Stop immediately — do not apply — if:
 
-- DEV identity remains unresolved
-- the connected target cannot be independently proven
-- any command output includes the PROD reference or PROD host
-- DEV and PROD identities are identical or ambiguous
+- DEV identity remains unresolved (no separate confirmed DEV project supplied at the execution gate)
+- the connected target cannot be independently proven as DEV
+- any observation triggers a PROD denylist hard STOP under Section 3 matching semantics (exact or embedded complete PROD reference `rbukikinzyhyaixjvnhf`; exact or embedded complete PROD host `rbukikinzyhyaixjvnhf.supabase.co`; project name exactly `skinintel` after trim and case normalization — not names such as `skinintel-dev` matched by project-name substring alone)
+- approved DEV identity equals PROD, matches locked PROD denylist values under Section 3 matching semantics, or is ambiguous relative to `rbukikinzyhyaixjvnhf`
+- PROD region `eu-west-1 — West EU (Ireland)` is treated as sufficient proof of PROD (it is **not**; region is context only)
 - the linked/selected project does not match the approved DEV reference
+- `.env.local` or other local config is treated as sufficient proof of DEV (it is **not**; it currently points at PROD)
 
 ---
 
@@ -242,8 +257,8 @@ Future controlled sequence for proving the linked/selected project is DEV:
 1. Capture Supabase CLI version (`supabase --version` or equivalent approved command).
 2. Capture current linked / selected project configuration from the approved inspection method for this repository’s tooling.
 3. Independently compare the observed project reference and host/project name with the approved DEV values supplied at the execution gate.
-4. Explicitly compare the observed values against the PROD denylist.
-5. **STOP immediately** on any mismatch, ambiguity, or PROD detection.
+4. Explicitly compare the observed values against the locked PROD denylist using Section 3 matching semantics: reference `rbukikinzyhyaixjvnhf` (exact ref or complete ref embedded in URL/host/config/link/output); project name `skinintel` (exact name after trim and case normalization only — not `skinintel-dev` via project-name substring); host `rbukikinzyhyaixjvnhf.supabase.co` (exact host or complete host embedded in URL/config/link/output); region `eu-west-1 — West EU (Ireland)` (context only — never sufficient alone). **STOP** on any hard STOP under those semantics.
+5. **STOP immediately** on any mismatch with approved DEV, ambiguity, or any PROD denylist hard STOP under Section 3 matching semantics — including contact with PROD project `rbukikinzyhyaixjvnhf` (PROD must never be contacted during this session).
 6. Do **not** automatically relink.
 7. Do **not** change project link during the apply session unless separately authorized in writing.
 8. Do **not** treat local config alone as sufficient proof; require independent comparison with the approved DEV reference.
@@ -505,8 +520,11 @@ Stop immediately if any of the following occurs:
 - tracked or staged changes
 - untracked path other than `.cursor/`
 - locked migration or verification blob identity mismatch
-- unresolved DEV identity
-- PROD reference / host detected
+- unresolved DEV identity (migration execution remains prohibited until a separate confirmed DEV project is supplied and verified)
+- PROD denylist hard STOP under Section 3 matching semantics: exact or embedded complete PROD reference `rbukikinzyhyaixjvnhf`; exact or embedded complete PROD host `rbukikinzyhyaixjvnhf.supabase.co`; observed project name exactly `skinintel` after trim and case normalization (not `skinintel-dev` via project-name substring alone)
+- treating PROD region `eu-west-1 — West EU (Ireland)` alone as proof of PROD
+- contact with PROD project `rbukikinzyhyaixjvnhf` during a DEV migration session
+- treating `.env.local` (currently PROD) as proof of DEV identity
 - remote migration divergence
 - Slice 2 objects unexpectedly pre-existing
 - migration already applied
@@ -529,7 +547,8 @@ Stop immediately if any of the following occurs:
 
 The following are prohibited under this procedure and under any session that claims to follow it:
 
-- PROD contact or execution
+- PROD contact or execution — including any use of Supabase project `rbukikinzyhyaixjvnhf` (PROD project name `skinintel` per exact-name matching only; host `rbukikinzyhyaixjvnhf.supabase.co` per Section 3 matching semantics)
+- using `.env.local` or default local Supabase link config as proof of DEV (current `.env.local` points at PROD)
 - running verification before apply review
 - running Block B without separate authorization
 - blind retry
@@ -622,8 +641,9 @@ Use this checklist in a future separately authorized session. Every execution ch
 - [ ] Verification blob is `4151f37ee478278476664820eafbd5d1cd85827b`
 - [ ] DEV project reference supplied and verified
 - [ ] DEV host / project name supplied and verified
-- [ ] PROD project reference recorded as denylist
-- [ ] Operator confirmed DEV ≠ PROD
+- [ ] PROD denylist recorded and acknowledged: ref `rbukikinzyhyaixjvnhf`, name `skinintel` (exact-name match only), host `rbukikinzyhyaixjvnhf.supabase.co`, region `eu-west-1 — West EU (Ireland)` (context only); Section 3 matching semantics understood (PROD — never contact during this session)
+- [ ] Operator confirmed approved DEV ≠ PROD and DEV does not trigger a PROD denylist hard STOP under Section 3 matching semantics (including: not ref `rbukikinzyhyaixjvnhf`; not exact project name `skinintel`; names such as `skinintel-dev` are not PROD matches by project-name substring alone)
+- [ ] Operator confirmed `.env.local` is not used as DEV proof (it currently points at PROD)
 - [ ] Privileged migration apply role confirmed (no browser/client credentials)
 - [ ] Secret redaction method prepared
 
@@ -631,7 +651,7 @@ Use this checklist in a future separately authorized session. Every execution ch
 
 - [ ] Supabase CLI version captured
 - [ ] Linked/selected project independently proven as DEV
-- [ ] PROD denylist comparison passed
+- [ ] PROD denylist comparison passed under Section 3 matching semantics (no hard STOP: no exact or embedded complete PROD ref/host; no project name exactly `skinintel` after trim/case normalization; region alone not used as PROD proof)
 - [ ] Remote migration-history baseline captured
 - [ ] Slice 2 migration absent from remote history
 - [ ] Required prior migrations present remotely
@@ -708,3 +728,6 @@ Use this checklist in a future separately authorized session. Every execution ch
 | Migration candidate | `supabase/migrations/20260719120000_phase_2_slice_2_deletion_request_governance.sql` |
 | Verification candidate | `supabase/verification/phase_2_slice_2_deletion_request_governance_verification.sql` |
 | Execution authorized by this document | No |
+| Confirmed PROD denylist (reference) | `rbukikinzyhyaixjvnhf` — PROD; hard STOP per Section 3 matching semantics; never contact during DEV migration session |
+| Confirmed PROD denylist (name / host / region) | `skinintel` (exact project name only) / `rbukikinzyhyaixjvnhf.supabase.co` / `eu-west-1 — West EU (Ireland)` (region context only — never sufficient alone to prove PROD) |
+| Confirmed DEV project reference | **UNRESOLVED — MUST BE SUPPLIED AND VERIFIED AT THE SEPARATE EXECUTION GATE** (absence prohibits migration execution) |
