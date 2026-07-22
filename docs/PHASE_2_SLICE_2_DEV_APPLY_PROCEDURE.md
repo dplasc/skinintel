@@ -48,53 +48,73 @@ No step in this document may be treated as permission to run commands.
 
 ## 2. Locked Repository Baseline
 
-All future execution sessions must begin from this locked baseline unless a later reviewed revision is explicitly substituted by Project Manager approval.
+All future execution sessions must satisfy the locked repository and artifact requirements below. The exact execution HEAD is **not** hardcoded in this procedure. It must be supplied and approved at the separate execution gate for that session.
 
 | Dimension | Locked value |
 |-----------|--------------|
 | Branch | `main` |
-| Approved HEAD | `2c4e94d1330303282942c726ca32b54e7222d1c9` |
-| Approved `origin/main` | `2c4e94d1330303282942c726ca32b54e7222d1c9` |
+| Approved HEAD for future execution | **UNRESOLVED — MUST BE SUPPLIED AND APPROVED AT THE SEPARATE EXECUTION GATE** |
+| Approved `origin/main` for future execution | **UNRESOLVED — MUST BE SUPPLIED AND APPROVED AT THE SEPARATE EXECUTION GATE** (must equal local HEAD) |
 | Required tracked/staged state | Clean — no modified tracked files; no staged files |
 | Only permitted untracked entry | `.cursor/` |
 | Exact migration path | `supabase/migrations/20260719120000_phase_2_slice_2_deletion_request_governance.sql` |
 | Exact verification candidate path | `supabase/verification/phase_2_slice_2_deletion_request_governance_verification.sql` |
+| Locked migration blob identity | `a6bb362afe06e5e1ad80080136ab8c92090d2e70` |
+| Locked verification blob identity | `4151f37ee478278476664820eafbd5d1cd85827b` |
 
-### 2.1 Accepted commit chain (evidence only)
+### 2.1 Historical commit chain (evidence only — not the future execution HEAD)
 
-| Commit | Message |
-|--------|---------|
-| `8b22fea6379038254a2fdbb1148e8e05140dd906` | Add phase 2 slice 2 deletion request governance migration |
-| `fe21888390397bfdbc10790568a12e49b9f50f7a` | Harden phase 2 slice 2 verification block A |
-| `2c4e94d1330303282942c726ca32b54e7222d1c9` | Harden phase 2 slice 2 verification block B |
+The following commits are historical authoring / hardening evidence. They must **not** be treated as the mandatory future execution HEAD.
+
+| Commit | Message | Historical label |
+|--------|---------|------------------|
+| `8b22fea6379038254a2fdbb1148e8e05140dd906` | Add phase 2 slice 2 deletion request governance migration | Historical — migration introduction |
+| `fe21888390397bfdbc10790568a12e49b9f50f7a` | Harden phase 2 slice 2 verification block A | Historical — Block A hardening |
+| `2c4e94d1330303282942c726ca32b54e7222d1c9` | Harden phase 2 slice 2 verification block B | Historical — Block B hardening / historical authoring baseline |
 
 ### 2.2 Committed file identities (read-only Git inspection)
 
-Derived at documentation authoring time by read-only Git inspection. No files were created while calculating these identities.
+Derived at documentation authoring time by read-only Git inspection. No files were created while calculating these identities. These blob identities remain locked for future execution regardless of later documentation-only commits.
 
-| Artifact | Path | Git blob object ID at approved HEAD |
-|----------|------|-------------------------------------|
+| Artifact | Path | Locked Git blob object ID |
+|----------|------|---------------------------|
 | Migration | `supabase/migrations/20260719120000_phase_2_slice_2_deletion_request_governance.sql` | `a6bb362afe06e5e1ad80080136ab8c92090d2e70` |
 | Verification candidate | `supabase/verification/phase_2_slice_2_deletion_request_governance_verification.sql` | `4151f37ee478278476664820eafbd5d1cd85827b` |
 
 Additional identity facts:
 
-- Migration blob `a6bb362afe06e5e1ad80080136ab8c92090d2e70` is identical at introducing commit `8b22fea6` and at approved HEAD `2c4e94d1`.
-- Verification candidate blob `4151f37ee478278476664820eafbd5d1cd85827b` is the identity at approved HEAD `2c4e94d1` (Block B harden commit).
-- Working-tree `git hash-object` results for both files must match the committed blob object IDs above before any apply session proceeds.
+- Migration blob `a6bb362afe06e5e1ad80080136ab8c92090d2e70` is identical at introducing commit `8b22fea6` and at historical Block B hardening commit `2c4e94d1`.
+- Verification candidate blob `4151f37ee478278476664820eafbd5d1cd85827b` is the identity at historical Block B hardening commit `2c4e94d1`.
+- Working-tree `git hash-object` results for both files must match the locked blob object IDs above before any apply session proceeds.
+- **Baseline rule:** This procedure document must not hardcode its own commit as the permanent execution baseline. The exact execution baseline is supplied and approved at the separate execution gate. Later documentation-only commits do not invalidate the locked migration and verification artifacts when their Git blob identities remain unchanged.
 
-### 2.3 Working-file prohibition
+### 2.3 Future execution gate — repository identity requirements
+
+At the separate execution gate, Project Manager approval must supply and confirm **one exact full SHA** for that execution session. All of the following must hold before any apply session proceeds:
+
+- branch is `main`
+- local HEAD equals `origin/main`
+- local HEAD equals the one exact full SHA approved by the Project Manager for that execution session
+- no tracked or staged changes
+- `.cursor/` is the only permitted untracked path
+- locked migration and verification blob identities still match:
+  - migration: `a6bb362afe06e5e1ad80080136ab8c92090d2e70`
+  - verification: `4151f37ee478278476664820eafbd5d1cd85827b`
+
+### 2.4 Working-file prohibition
 
 **STOP** if any of the following is true:
 
-- the working-tree file bytes do not match the committed blob identity above
-- HEAD is not exactly `2c4e94d1330303282942c726ca32b54e7222d1c9` (unless a later reviewed revision is separately approved)
+- the working-tree file bytes do not match the locked blob identity above
+- no exact full SHA has been supplied and approved by the Project Manager for this execution session
+- HEAD is not exactly the Project Manager–approved full SHA for this execution session
 - `origin/main` does not equal local HEAD
 - any tracked or staged change exists
 - any untracked path other than `.cursor/` exists
 - a second competing Slice 2 migration or verification candidate path is present
+- locked migration or verification blob identities do not match
 
-Do **not** apply a working file whose committed identity does not match the approved commit.
+Do **not** apply a working file whose committed identity does not match the locked blob identities.
 
 ---
 
@@ -193,8 +213,8 @@ All of the following must hold:
 |-------|------------|
 | Current path | Repository root for `03_app` |
 | Branch | `main` |
-| HEAD | `2c4e94d1330303282942c726ca32b54e7222d1c9` |
-| `origin/main` | `2c4e94d1330303282942c726ca32b54e7222d1c9` |
+| HEAD | **UNRESOLVED — MUST BE SUPPLIED AND APPROVED AT THE SEPARATE EXECUTION GATE** (one exact full SHA approved by the Project Manager for that execution session) |
+| `origin/main` | Equals local HEAD; both equal the Project Manager–approved full SHA for that execution session |
 | Tracked changes | None |
 | Staged changes | None |
 | Untracked files | Only `.cursor/` (if present) |
@@ -363,7 +383,7 @@ Record all of the following during/after an authorized apply:
 |----------------|----------|
 | Timestamp in Europe/Zagreb | Yes |
 | Operator identity | Yes |
-| Repository HEAD | Yes — must match approved baseline |
+| Repository HEAD | Yes — must equal `origin/main` and the one exact full SHA approved by the Project Manager for that execution session |
 | Migration hash / blob | Yes — `a6bb362afe06e5e1ad80080136ab8c92090d2e70` |
 | DEV project identity | Yes — resolved execution-gate values |
 | Command used | Yes — exact command text, secrets redacted |
@@ -479,9 +499,12 @@ blob: `4151f37ee478278476664820eafbd5d1cd85827b`
 
 Stop immediately if any of the following occurs:
 
+- future execution HEAD remains unresolved / not supplied and approved at the separate execution gate
+- HEAD is not the one exact full SHA approved by the Project Manager for that execution session
 - HEAD / `origin/main` mismatch
 - tracked or staged changes
 - untracked path other than `.cursor/`
+- locked migration or verification blob identity mismatch
 - unresolved DEV identity
 - PROD reference / host detected
 - remote migration divergence
@@ -589,7 +612,9 @@ Use this checklist in a future separately authorized session. Every execution ch
 
 - [ ] Project Manager has issued separate execution authorization for the named step about to be performed
 - [ ] Operator has read this entire procedure
-- [ ] Repository is on `main` at `2c4e94d1330303282942c726ca32b54e7222d1c9`
+- [ ] Project Manager has supplied and approved one exact full SHA for this execution session (**UNRESOLVED — MUST BE SUPPLIED AND APPROVED AT THE SEPARATE EXECUTION GATE**)
+- [ ] Repository is on `main`
+- [ ] Local HEAD equals that Project Manager–approved full SHA
 - [ ] `origin/main` equals local HEAD
 - [ ] No tracked or staged changes
 - [ ] Only permitted untracked path is `.cursor/` (if any)
@@ -676,7 +701,10 @@ Use this checklist in a future separately authorized session. Every execution ch
 | Artifact type | Controlled DEV migration apply procedure |
 | Phase | 2 |
 | Slice | 2 |
-| Authoring baseline HEAD | `2c4e94d1330303282942c726ca32b54e7222d1c9` |
+| Historical authoring / Block B hardening baseline (not future execution HEAD) | `2c4e94d1330303282942c726ca32b54e7222d1c9` |
+| Future execution HEAD | **UNRESOLVED — MUST BE SUPPLIED AND APPROVED AT THE SEPARATE EXECUTION GATE** |
+| Locked migration blob | `a6bb362afe06e5e1ad80080136ab8c92090d2e70` |
+| Locked verification blob | `4151f37ee478278476664820eafbd5d1cd85827b` |
 | Migration candidate | `supabase/migrations/20260719120000_phase_2_slice_2_deletion_request_governance.sql` |
 | Verification candidate | `supabase/verification/phase_2_slice_2_deletion_request_governance_verification.sql` |
 | Execution authorized by this document | No |
