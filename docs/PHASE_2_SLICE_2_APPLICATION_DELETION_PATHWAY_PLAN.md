@@ -62,7 +62,7 @@ Execution of any application deletion pathway remains **blocked** until a separa
 - The browser/client **never** receives service-role credentials or direct write access to `deletion_request_executions`.
 - The client **cannot** directly insert execution attribution rows or set terminal `request_state`, `resolution_code`, or governance timestamps.
 - **Database governance** remains authoritative for what may persist; invalid transitions fail at the database even if application logic errs.
-- The **application layer** remains responsible for correct **orchestration**: ordering of validation milestone, primitive invocation, attribution inserts, and terminal transition within a single atomic execution transaction where required.
+- The **application layer** remains responsible for correct **orchestration**: the validation milestone is established by a prior distinct authorized validation action; the atomic execution transaction (where required) covers lifecycle actions (primitive invocation), attribution inserts, and terminal transition only.
 
 ---
 
@@ -172,7 +172,7 @@ The committed migration does **not** define a global uniqueness constraint on �
 **Ownership by layer:**
 
 - **Application validation** — proactive duplicate detection, idempotency tokens, UX guards.
-- **Transaction orchestration** — ensure validation → execution → terminal transition is atomic where required.
+- **Transaction orchestration** — keep validation and execution as separate authorized actions; ensure the execution transaction (lifecycle actions + attribution + terminalization) is atomic where required.
 - **Database constraints already accepted** — uniqueness on `(deletion_request_id, scan_record_id)` for attribution only; state/resolution coupling; no invented uniqueness on active requests.
 - **Future workflow policy** — explicit rules for whether duplicate `received` rows are allowed vs. rejected at validation.
 
@@ -220,7 +220,7 @@ Future authorized validation step (operator or automated server workflow under s
 Future execution boundary:
 
 - **Execution requires service-role / server-side control** — invokes Slice 8 exclusion primitives and writes governance progression; browsers never call primitives directly.
-- **Single atomic execution transaction (account-wide and scan-specific session paths)** — within one database transaction: (a) set validation milestone if not already set; (b) invoke required primitive(s); (c) insert all required `deletion_request_executions` rows; (d) transition request to `executed` with `resolution_code = completed` and `resolved_at`; (e) satisfy deferred cross-table consistency at commit.
+- **Single atomic execution transaction (account-wide and scan-specific session paths)** — execution may begin only after prior successful validation (`request_state = received` and `validated_at` already non-null). Within one database transaction the execution path must: (a) invoke required primitive(s); (b) insert all required `deletion_request_executions` rows; (c) transition request to `executed` with `resolution_code = completed` and `resolved_at`; (d) satisfy deferred cross-table consistency at commit. The execution transaction does **not** set, replace, clear, or reinterpret `validated_at`. Missing `validated_at` fails closed with no workflow mutation.
 - **Partial attribution followed by terminal execution is prohibited** — application must not commit terminal `executed` until all required attribution rows for the scope are present in the same transaction.
 - **Terminal state only after governed actions succeed** — primitive failures roll back; request may transition to `rejected` with `execution_failed` without lifecycle effect.
 - **Failure must not silently produce successful terminal state** — distinguish success, rejected, and indeterminate outcomes in logs and user messaging.
